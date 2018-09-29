@@ -17,20 +17,30 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+#pragma mark - TSTrigger<T>
+
 /**
  delegate the instance method in protocol
  */
 @interface TSTrigger<T> : NSObject
 
+typedef void(^TSTriggerBlock)(TSTrigger<T> *trigger, NSInvocation *invocation);
+
 @property (nonatomic, strong, readonly) Protocol *aProtocol;
 
-@property (nonatomic, strong, readonly) T trigger;
+@property (nonatomic, strong, readonly, nullable) T trigger;
 
 /**
  weak!! will not retain target
  */
 - (instancetype)initWithTarget:(id<TSTriggerProtocol>)target protocol:(Protocol *)aProtocol;
 
+- (instancetype)initWithProtocol:(Protocol *)aProtocol block:(TSTriggerBlock)block;
+
 @end
+
+#pragma mark - TSSaftyTrigger
+
+
 
 NS_ASSUME_NONNULL_END

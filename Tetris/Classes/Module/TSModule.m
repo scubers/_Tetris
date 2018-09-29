@@ -72,9 +72,7 @@ static TSModuleContext *__sharedContext;
 
 @property (nonatomic, strong) TSLinkNode<TSModule *> *root;
 
-@property (nonatomic, strong) TSTrigger<id<UIApplicationDelegate>> *applicationTrigger;
-
-@property (nonatomic, strong) TSTrigger<id<TSTetrisModulable>> *modulerTrigger;
+@property (nonatomic, strong) TSTrigger<id<TSTetrisModulable>> *applicationTrigger;
 
 @end
 
@@ -82,8 +80,7 @@ static TSModuleContext *__sharedContext;
 
 - (instancetype)init {
     if (self = [super init]) {
-        _applicationTrigger = [[TSTrigger alloc] initWithTarget:self protocol:@protocol(UIApplicationDelegate)];
-        _modulerTrigger = [[TSTrigger alloc] initWithTarget:self protocol:@protocol(TSTetrisModulable)];
+        _applicationTrigger = [[TSTrigger alloc] initWithTarget:self protocol:@protocol(TSTetrisModulable)];
     }
     return self;
 }
@@ -123,24 +120,6 @@ static TSModuleContext *__sharedContext;
 
 - (NSUInteger)count {
     return _root.count;
-}
-
-- (void)triggerCustomEvent:(NSInteger)event userInfo:(NSDictionary *)userInfo {
-    [_modulerTrigger.trigger tetrisModuleDidTriggerEvent:event userInfo:userInfo];
-}
-
-- (void)modulerInit {
-    [_modulerTrigger.trigger tetrisModuleInit:[TSModuleContext shared]];
-}
-
-- (void)modulerSetup {
-    [_modulerTrigger.trigger tetrisModuleSetup:[TSModuleContext shared]];
-}
-
-- (void)modulerSplash {
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        [_modulerTrigger.trigger tetrisModuleSplash:[TSModuleContext shared]];
-    });
 }
 
 - (void)enumerateModules:(void (^)(TSModule * _Nonnull, NSUInteger))block {

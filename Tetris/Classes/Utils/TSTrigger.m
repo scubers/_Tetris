@@ -17,6 +17,8 @@
 
 @property (nonatomic, weak  ) id<TSTriggerProtocol> target;
 
+@property (nonatomic, copy  ) TSTriggerBlock block;
+
 @end
 
 @implementation TSTrigger
@@ -25,6 +27,15 @@
     if (self = [super init]) {
         _aProtocol = aProtocol;
         _target = target;
+        _signatures = @{}.mutableCopy;
+    }
+    return self;
+}
+
+- (instancetype)initWithProtocol:(Protocol *)aProtocol block:(TSTriggerBlock)block {
+    if (self = [super init]) {
+        _aProtocol = aProtocol;
+        _block = block;
         _signatures = @{}.mutableCopy;
     }
     return self;
@@ -63,7 +74,11 @@
 }
 
 - (void)forwardInvocation:(NSInvocation *)anInvocation {
-    [_target trigger:self didTriggered:anInvocation];
+    if (_target) {
+        [_target trigger:self didTriggered:anInvocation];
+    } else if (_block) {
+        _block(self, anInvocation);
+    }
 }
 
 @end

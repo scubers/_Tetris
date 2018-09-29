@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		093F5D18215F1E68008245C9 /* TSDemoModules.m in Sources */ = {isa = PBXBuildFile; fileRef = 093F5D17215F1E68008245C9 /* TSDemoModules.m */; };
 		093F5D1A215F2361008245C9 /* TSModuleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 093F5D19215F2361008245C9 /* TSModuleTests.m */; };
+		09512CC9215F9583005BC650 /* TSTriggerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09512CC8215F9583005BC650 /* TSTriggerTests.m */; };
 		096A3426215E08C300EB3845 /* TSServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 096A3425215E08C300EB3845 /* TSServiceTests.m */; };
 		09920BA7215DD793001EA870 /* TSTreeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09920BA6215DD793001EA870 /* TSTreeTests.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -23,7 +24,6 @@
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
-		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		E2176CAAF6F1743BF9B0BB01 /* Pods_Tetris_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A1839A41C0D19EE498C2485 /* Pods_Tetris_Tests.framework */; };
@@ -45,6 +45,7 @@
 		093F5D16215F1E68008245C9 /* TSDemoModules.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSDemoModules.h; sourceTree = "<group>"; };
 		093F5D17215F1E68008245C9 /* TSDemoModules.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TSDemoModules.m; sourceTree = "<group>"; };
 		093F5D19215F2361008245C9 /* TSModuleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TSModuleTests.m; sourceTree = "<group>"; };
+		09512CC8215F9583005BC650 /* TSTriggerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TSTriggerTests.m; sourceTree = "<group>"; };
 		096A3425215E08C300EB3845 /* TSServiceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TSServiceTests.m; sourceTree = "<group>"; };
 		09920BA6215DD793001EA870 /* TSTreeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TSTreeTests.m; sourceTree = "<group>"; };
 		0A1839A41C0D19EE498C2485 /* Pods_Tetris_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tetris_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,7 +67,6 @@
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		73C7B6D9BC2D5FC32ED45164 /* Pods_Tetris_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tetris_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,11 +181,11 @@
 		6003F5B5195388D20070C39A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				6003F5BB195388D20070C39A /* Tests.m */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
 				09920BA6215DD793001EA870 /* TSTreeTests.m */,
 				096A3425215E08C300EB3845 /* TSServiceTests.m */,
 				093F5D19215F2361008245C9 /* TSModuleTests.m */,
+				09512CC8215F9583005BC650 /* TSTriggerTests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -383,7 +383,7 @@
 				096A3426215E08C300EB3845 /* TSServiceTests.m in Sources */,
 				09920BA7215DD793001EA870 /* TSTreeTests.m in Sources */,
 				093F5D1A215F2361008245C9 /* TSModuleTests.m in Sources */,
-				6003F5BC195388D20070C39A /* Tests.m in Sources */,
+				09512CC9215F9583005BC650 /* TSTriggerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

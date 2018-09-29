@@ -14,12 +14,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [TSModuleContext shared].launchOptions = launchOptions;
+    TSModuleContext *context = [TSModuleContext shared];
+    context.launchOptions = launchOptions;
     
-    [_Tetris.moduler modulerInit];
-    [_Tetris.moduler modulerSetup];
-    [_Tetris.moduler modulerSplash];
-    
+    [_Tetris.moduler.trigger tetrisModuleInit:context];
+    [_Tetris.moduler.trigger tetrisModuleSetup:context];
+    [_Tetris.moduler.trigger tetrisModuleSplash:context];
     [_Tetris.moduler.trigger application:application didFinishLaunchingWithOptions:launchOptions];
     
     return YES;

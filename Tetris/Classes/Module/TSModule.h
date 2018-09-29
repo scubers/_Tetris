@@ -62,19 +62,13 @@ static TSModulePriority const TSModulePriorityMax = NSIntegerMax;
 
 @interface TSTetrisModuler : NSObject
 
-@property (nonatomic, strong, readonly) id<UIApplicationDelegate> trigger;
+@property (nonatomic, strong, readonly) id<TSTetrisModulable> trigger;
 
 - (void)registerModuleWithClass:(Class<TSTetrisModulable>)aClass priority:(TSModulePriority)priority;
 
 - (void)registerModule:(TSModule *)module;
 
 - (NSUInteger)count;
-
-- (void)triggerCustomEvent:(NSInteger)event userInfo:(NSDictionary *)userInfo;
-
-- (void)modulerInit;
-- (void)modulerSetup;
-- (void)modulerSplash;
 
 - (void)enumerateModules:(void (^)(TSModule *module, NSUInteger index))block;
 
