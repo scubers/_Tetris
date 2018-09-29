@@ -36,13 +36,17 @@
     [stream subscribe:^(id  _Nullable obj) {
         
     }];
-    [stream subscribe:^(id  _Nullable obj) {
+    [[stream
+     onNext:^(id  _Nullable obj) {
+         
+     }]
+     subscribe:^(id  _Nullable obj) {
         
     }];
     
     [stream receive:@1];
     [stream receive:@2];
-//    [stream endReceive];
+    [stream endReceive];
     [stream receive:@3];
     
     [super application:application didFinishLaunchingWithOptions:launchOptions];

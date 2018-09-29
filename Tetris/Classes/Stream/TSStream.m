@@ -108,6 +108,14 @@
     }];
 }
 
+- (TSStream *)onNext:(void (^)(id _Nullable))next {
+    return [self bind:^(id obj, NSError *error, id<TSReceivable> receiver) {
+        if (!error) {
+            next(obj);
+        }
+        
+    }];
+}
 
 @end
 
