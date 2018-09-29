@@ -1,0 +1,16 @@
+PODS:
+  - Tetris (0.1.0)
+
+DEPENDENCIES:
+  - Tetris (from `../`)
+
+EXTERNAL SOURCES:
+  Tetris:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Tetris: e74c3e7a1912778c1b9a33df0b2c43e37dceb541
+
+PODFILE CHECKSUM: 225f75a86d5ec91064e48461308e50c5544a4e4c
+
+COCOAPODS: 1.5.3

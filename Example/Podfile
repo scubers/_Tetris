@@ -9,3 +9,44 @@ target 'Tetris_Example' do
     
   end
 end
+
+# 安装脚本后，对pod工程进行配置
+post_install do |installer|
+    
+#    print "SQLCipher: link Pods/Headers/sqlite3.h"
+#    system "mkdir -p Pods/Headers/Private && ln -s ../../SQLCipher/sqlite3.h Pods/Headers/Private"
+
+    installer.pods_project.targets.each do | target |
+        
+        # 给每个target添加 编译宏
+        target.build_configurations.each do |config|
+            
+            # 忽略文档警告
+            config.build_settings['CLANG_WARN_DOCUMENTATION_COMMENTS'] = 'NO'
+            # 解决oclint时，multiple job 问题
+            config.build_settings['COMPILER_INDEX_STORE_ENABLE'] = 'NO'
+            # 禁用strict prototypes
+            config.build_settings['CLANG_WARN_STRICT_PROTOTYPES'] = 'NO'
+            # 禁用隐式self警告
+            config.build_settings['CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF'] = 'NO'
+            
+            if config.name == 'Debug'
+                config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'DEBUG=1']
+                
+                
+                elsif config.name == 'Release'
+                config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'RELEASE=1']
+                
+                elsif config.name == 'PreRelease'
+                config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'PRE_RELEASE=1', 'RELEASE=1']
+                
+                elsif config.name == 'Test'
+                config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'TEST=1']
+            end
+        end
+    end
+    
+    
+    
+end
+

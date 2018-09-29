@@ -7,9 +7,7 @@
 //
 
 @import UIKit;
+@import Tetris;
 
-@interface TSAppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
+@interface TSAppDelegate : TSBaseApplicationDelegate
 @end

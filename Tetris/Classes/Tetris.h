@@ -1,0 +1,14 @@
+// 自动生成全部头文件
+#import <Tetris/TSTree.h>
+#import <Tetris/Tetris.h>
+#import <Tetris/TSTetrisDefine.h>
+#import <Tetris/TSTetris.h>
+#import <Tetris/TSModule.h>
+#import <Tetris/TSBaseApplicationDelegate.h>
+#import <Tetris/TSLogger.h>
+#import <Tetris/TSLinkNode.h>
+#import <Tetris/TSUtils.h>
+#import <Tetris/TSError.h>
+#import <Tetris/TSTrigger.h>
+#import <Tetris/TSService.h>
+#import <Tetris/TSServiceProtocols.h>
