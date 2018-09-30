@@ -24,30 +24,8 @@
 {
     // Override point for customization after application launch.
     
-    [[[TSStream alloc] initWithBlock:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
-//        [receiver receive:@1];
-        return nil;
-    }] subscribe:^(id  _Nullable obj) {
-        
-    }];
     
-    TSDrivenStream *stream = [TSDrivenStream stream];
 
-    [stream subscribe:^(id  _Nullable obj) {
-        
-    }];
-    [[stream
-     onNext:^(id  _Nullable obj) {
-         
-     }]
-     subscribe:^(id  _Nullable obj) {
-        
-    }];
-    
-    [stream receive:@1];
-    [stream receive:@2];
-    [stream endReceive];
-    [stream receive:@3];
     
     [super application:application didFinishLaunchingWithOptions:launchOptions];
     
