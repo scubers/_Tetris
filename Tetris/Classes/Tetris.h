@@ -5,6 +5,7 @@
 #import <Tetris/TSTetris.h>
 #import <Tetris/TSModule.h>
 #import <Tetris/TSBaseApplicationDelegate.h>
+#import <Tetris/TSStream.h>
 #import <Tetris/TSLogger.h>
 #import <Tetris/TSLinkNode.h>
 #import <Tetris/TSUtils.h>

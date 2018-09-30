@@ -1,4 +1,5 @@
 use_frameworks!
+install! 'cocoapods', :deterministic_uuids => false
 
 target 'Tetris_Example' do
   pod 'Tetris', :path => '../'
