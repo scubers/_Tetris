@@ -9,9 +9,9 @@
 import UIKit
 import Tetris
 
-class BaseVC: UIViewController, TSIntentable {
+class BaseVC: UIViewController, Intentable {
 
-    required init(intent: TSIntent<AnyObject>) {
+    required init(intent: Intent) {
         ts_sourceIntent = intent
         super.init(nibName: nil, bundle: nil)
     }
@@ -20,7 +20,7 @@ class BaseVC: UIViewController, TSIntentable {
         fatalError("init(coder:) has not been implemented")
     }
 
-    var ts_sourceIntent: TSIntent<AnyObject>
+    var ts_sourceIntent: Intent
 
 
     override func viewDidLoad() {
@@ -34,12 +34,16 @@ class BaseVC: UIViewController, TSIntentable {
         ts_finishDisplay()
     }
 
-    func alert(msg: String?) {
+    func alert(msg: String?, complete: (() -> Void)?) {
         let alert = UIAlertController.init(title: nil, message: msg, preferredStyle: .alert)
         alert.addAction(UIAlertAction.init(title: "Confirm", style: .default, handler: { (action) in
-            
+            complete?()
         }))
         present(alert, animated: true, completion: nil)
+    }
+
+    func alert(msg: String?) {
+        alert(msg: msg, complete: nil)
     }
 
 }

@@ -14,6 +14,7 @@
 /**
  ViewIntent Displayer Protocol
  */
+NS_SWIFT_NAME(IIntentDisplayer)
 @protocol TSIntentDisplayerProtocol
 
 @required

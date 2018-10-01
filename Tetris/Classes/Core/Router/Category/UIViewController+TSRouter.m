@@ -72,7 +72,11 @@
 }
 
 - (void)ts_sendStream:(id)stream {
-    [[self ts_getIntentable].ts_sourceIntent.onResult receive:stream];
+    [[self ts_getIntentable].ts_sourceIntent.onResult post:stream];
+}
+
+- (void)ts_sendResult:(id)result byCode:(id<NSCopying>)code {
+    [[self ts_getIntentable].ts_sourceIntent sendResult:result byCode:code];
 }
 
 @end

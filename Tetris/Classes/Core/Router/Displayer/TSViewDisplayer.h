@@ -13,6 +13,7 @@ typedef void(^TSViewDisplayAction)(UIViewController *source, UIViewController *t
 
 typedef void(^TSViewFinishAction)(UIViewController *vc, BOOL animated, void (^completion)(void));
 
+NS_SWIFT_NAME(ViewDisplayer)
 @interface TSViewDisplayer : TSDisplayerAdapter
 
 @property (nonatomic, copy) TSViewDisplayAction displayAction;

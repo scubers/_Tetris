@@ -25,8 +25,8 @@ TS_EXPORT_ROUTE(RIDemo8ViewController, "/demo8", 100)
 //    }];
     [_Tetris.router bindUrl:@"/action/demo8" toAction:^TSStream * _Nonnull(TSTreeUrlComponent * _Nonnull component) {
         return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
-            [receiver receive:[NSString stringWithFormat:@"action success for url: /action/demo8\nparams: %@, fragment: %@", component.params, component.fragment]];
-            [receiver endReceive];
+            [receiver post:[NSString stringWithFormat:@"action success for url: /action/demo8\nparams: %@, fragment: %@", component.params, component.fragment]];
+            [receiver close];
             return nil;
         }];
     }];

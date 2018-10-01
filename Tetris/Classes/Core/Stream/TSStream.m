@@ -78,18 +78,18 @@
     return !_completed;
 }
 
-- (void)receive:(id)obj {
+- (void)post:(id)obj {
     if (_success && self.executable) _success(obj);
 }
 
-- (void)receiveError:(NSError *)error {
+- (void)postError:(NSError *)error {
     if (_error && self.executable) {
         _completed = YES;
         _error(error);
     };
 }
 
-- (void)endReceive {
+- (void)close {
     if (_complete && self.executable) {
         _completed = YES;
         _complete();
@@ -164,7 +164,7 @@
         
         void (^completeBlock)() = ^() {
             if (OSAtomicDecrement32(&count) == 0) {
-                [receiver endReceive];
+                [receiver close];
             }
         };
         
@@ -177,7 +177,7 @@
             
             [stream subscribe:^(id  _Nullable obj) {
                 OSAtomicIncrement32Barrier(&count);
-                [receiver receive:obj];
+                [receiver post:obj];
                 if (stop) {
                     completeBlock();
                 }
@@ -185,7 +185,7 @@
             } error:^(NSError * _Nullable error) {
                 
                 [canceller cancel];
-                [receiver receiveError:error];
+                [receiver postError:error];
                 
             } complete:completeBlock];
             
@@ -236,17 +236,17 @@
     return canceller;
 }
 
-- (void)receive:(id)obj {
-    [_trigger.trigger receive:obj];
+- (void)post:(id)obj {
+    [_trigger.trigger post:obj];
 }
 
-- (void)receiveError:(NSError *)error {
-    [_trigger.trigger receiveError:error];
+- (void)postError:(NSError *)error {
+    [_trigger.trigger postError:error];
     [_receivers removeAllObjects];
 }
 
-- (void)endReceive {
-    [_trigger.trigger endReceive];
+- (void)close {
+    [_trigger.trigger close];
     [_receivers removeAllObjects];
 }
 
@@ -269,15 +269,15 @@
 
 + (TSStream *)error:(NSError *)error {
     return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
-        [receiver receiveError:error];
+        [receiver postError:error];
         return nil;
     }];
 }
 
 + (TSStream *)just:(id)object {
     return [[TSStream alloc] initWithBlock:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
-        [receiver receive:object];
-        [receiver endReceive];
+        [receiver post:object];
+        [receiver close];
         return nil;
     }];
 }
@@ -330,11 +330,11 @@
     return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
         return [self subscribe:^(id  _Nullable obj) {
             onNext(obj);
-            [receiver receive:obj];
+            [receiver post:obj];
         } error:^(NSError * _Nullable error) {
-            [receiver receiveError:error];
+            [receiver postError:error];
         } complete:^{
-            [receiver endReceive];
+            [receiver close];
         }];
     }];
 }
@@ -343,12 +343,12 @@
     TSAssertion(onError != nil, "%s: block is nil", __FUNCTION__);
     return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
         return [self subscribe:^(id  _Nullable obj) {
-            [receiver receive:obj];
+            [receiver post:obj];
         } error:^(NSError * _Nullable error) {
             onError(error);
-            [receiver receiveError:error];
+            [receiver postError:error];
         } complete:^{
-            [receiver endReceive];
+            [receiver close];
         }];
     }];
 }
@@ -357,12 +357,12 @@
     TSAssertion(onCompleted != nil, "%s: block is nil", __FUNCTION__);
     return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
         return [self subscribe:^(id  _Nullable obj) {
-            [receiver receive:obj];
+            [receiver post:obj];
         } error:^(NSError * _Nullable error) {
-            [receiver receiveError:error];
+            [receiver postError:error];
         } complete:^{
             onCompleted();
-            [receiver endReceive];
+            [receiver close];
         }];
     }];
 }
@@ -375,7 +375,7 @@
         
         TSCanceller *canceller =
         [self subscribe:^(id  _Nullable obj) {
-            [receiver receive:obj];
+            [receiver post:obj];
         } error:^(NSError * _Nullable error) {
             
             TSStream *stream = catchBlock(error);
@@ -385,7 +385,7 @@
             [outterCanceller addCanceller:catchCanceller];
             
         } complete:^{
-            [receiver endReceive];
+            [receiver close];
         }];
         
         [outterCanceller addCanceller:canceller];
@@ -407,12 +407,12 @@
     TSAssertion(last != nil, "%s: block is nil", __FUNCTION__);
     return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
         return [self subscribe:^(id  _Nullable obj) {
-            [receiver receive:obj];
+            [receiver post:obj];
         } error:^(NSError * _Nullable error) {
-            [receiver receiveError:error];
+            [receiver postError:error];
             last();
         } complete:^{
-            [receiver endReceive];
+            [receiver close];
             last();
         }];
     }];
@@ -423,8 +423,8 @@
         return ^(id obj, BOOL *stop) {
             return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(interval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [receiver receive:obj];
-                    [receiver endReceive];
+                    [receiver post:obj];
+                    [receiver close];
                 });
                 return nil;
             }];
@@ -437,8 +437,8 @@
         return ^(id obj, BOOL *stop) {
             return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
                 [queue addOperationWithBlock:^{
-                    [receiver receive:obj];
-                    [receiver endReceive];
+                    [receiver post:obj];
+                    [receiver close];
                 }];
                 return nil;
             }];
@@ -451,8 +451,8 @@
         return ^(id obj, BOOL *stop) {
             return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
                 dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    [receiver receive:obj];
-                    [receiver endReceive];
+                    [receiver post:obj];
+                    [receiver close];
                 });
                 return nil;
             }];

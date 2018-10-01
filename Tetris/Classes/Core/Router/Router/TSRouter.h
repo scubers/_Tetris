@@ -8,17 +8,29 @@
 #import <Foundation/Foundation.h>
 #import "TSIntercepterManager.h"
 #import "TSStream.h"
+#import "TSTree.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+#pragma mark - TSRouteActionProtocol
+
+NS_SWIFT_NAME(IRouteAction)
+@protocol TSRouteActionProtocol <NSObject>
+
+- (TSStream *)getStreamByComponent:(TSTreeUrlComponent *)component;
+
+@end
+
 #pragma mark - TSRouteResult
 
+NS_SWIFT_NAME(RouteResultStatus)
 typedef NS_ENUM(NSInteger, TSRouteResultStatus) {
     TSRouteResultStatusPass,
     TSRouteResultStatusRejected,
     TSRouteResultStatusLost,
 };
 
+NS_SWIFT_NAME(RouteResult)
 @interface TSRouteResult : NSObject
 @property (nonatomic, assign) TSRouteResultStatus status;
 @property (nonatomic, strong, nullable) UIViewController *destination;
@@ -29,6 +41,7 @@ typedef NS_ENUM(NSInteger, TSRouteResultStatus) {
 
 #pragma mark - TSRouter
 
+NS_SWIFT_NAME(Router)
 @interface TSRouter : NSObject
 
 @property (nonatomic, strong) TSIntercepterManager *intercepterMgr;
@@ -36,6 +49,7 @@ typedef NS_ENUM(NSInteger, TSRouteResultStatus) {
 #pragma mark - Action
 
 - (void)bindUrl:(NSString *)url toAction:(TSStream * (^)(TSTreeUrlComponent *component))action;
+- (void)bindUrl:(NSString *)url toRouteAction:(id<TSRouteActionProtocol>)action;
 
 - (nullable TSStream *)actionByUrl:(NSString *)url;
 

@@ -83,9 +83,9 @@
 
 - (void)testMultiple {
     TSStream *s = [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
-        [receiver receive:@1];
-        [receiver receive:@2];
-        [receiver endReceive];
+        [receiver post:@1];
+        [receiver post:@2];
+        [receiver close];
         return nil;
     }];
     
@@ -183,7 +183,7 @@
     [_driven subscribe:^(id  _Nullable obj) {
         [self addFlag];
     }];
-    [_driven receive:@1];
+    [_driven post:@1];
     XCTAssert(self.flags.count == 4);
 }
 

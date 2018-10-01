@@ -44,9 +44,15 @@
 }
 
 - (void)alert:(NSString *)msg {
+    [self alert:msg complete:nil];
+}
+
+- (void)alert:(NSString *)msg complete:(dispatch_block_t)complete {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:msg preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"confirm" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
+        if (complete) {
+            complete();
+        }
     }]];
     [self presentViewController:alert animated:YES completion:nil];
 }

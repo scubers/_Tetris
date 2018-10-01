@@ -25,13 +25,20 @@ TS_VC_ROUTE("/demo11")
     [btn addTarget:self action:@selector(sendWave:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
 
+    __weak typeof(self) ws = self;
+    [[self.ts_sourceIntent resultByCode:@1] subscribe:^(id  _Nullable obj) {
+        [ws alert:obj complete:^{
+            [ws ts_finishDisplay:YES complete:^{
+                [ws ts_sendStream:@{@"key" : @"result"}];
+            }];
+        }];
+    }];
+
     
 }
 
 - (void)sendWave:(id)sender {
-    [self ts_finishDisplay:YES complete:^{
-        [self ts_sendStream:@{@"key" : @"result"}];
-    }];
+    [self.ts_sourceIntent sendResult:@"by code msg" byCode:@1];
 }
 
 @end

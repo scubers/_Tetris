@@ -30,9 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol TSReceivable <NSObject>
 
-- (void)receive:(nullable id)obj;
-- (void)receiveError:(NSError *)error;
-- (void)endReceive;
+- (void)post:(nullable id)obj;
+- (void)postError:(NSError *)error;
+- (void)close;
 
 - (void)didSubscribeWithCanceller:(TSCanceller *)canceller;
 
@@ -48,11 +48,14 @@ typedef TSStream *(^TSBindStreamBlock)(T _Nullable value, BOOL *stop);
 
 - (TSStream *)initWithBlock:(nullable TSCanceller *(^)(id<TSReceivable> receiver))block;
 
-- (nullable TSCanceller *)subscribe:(void (^)(T _Nullable obj))success error:(void (^_Nullable)(NSError * _Nullable error))error complete:(dispatch_block_t _Nullable)complete;
+- (nullable TSCanceller *)subscribe:(void (^)(T _Nullable obj))next
+                              error:(void (^_Nullable)(NSError * _Nullable error))error
+                           complete:(dispatch_block_t _Nullable)complete;
 
-- (nullable TSCanceller *)subscribe:(void (^ _Nullable)(T _Nullable obj))success error:(void (^)(NSError * _Nullable error))error;
+- (nullable TSCanceller *)subscribe:(void (^ _Nullable)(T _Nullable obj))next
+                              error:(void (^)(NSError * _Nullable error))error;
 
-- (nullable TSCanceller *)subscribe:(void (^ _Nullable)(T _Nullable obj))success;
+- (nullable TSCanceller *)subscribe:(void (^ _Nullable)(T _Nullable obj))next;
 
 - (TSCanceller *)subscribeByReciever:(id<TSReceivable>)reciever;
 

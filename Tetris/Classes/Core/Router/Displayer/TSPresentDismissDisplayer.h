@@ -10,6 +10,7 @@
 #import "TSDisplayerAdapter.h"
 #import "TSIntent.h"
 
+NS_SWIFT_NAME(PresentDismissDisplayer)
 @interface TSPresentDismissDisplayer : TSDisplayerAdapter
 
 @property (nonatomic, strong) Class navigationViewControllerClass;

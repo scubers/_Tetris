@@ -31,7 +31,7 @@ extension NSString : URLPresentable {
 
 public typealias IRouterComponent = (IComponent & URLRoutable)
 
-public extension IComponent where Self : URLRoutable, Self : TSIntentable {
+public extension IComponent where Self : URLRoutable, Self : Intentable {
     public static func tetrisStart() {
         self.routeURLs.forEach { (url) in
             try! TSTetris.shared().router.bindUrl(url.toURL().absoluteString, viewController: Self.self)
@@ -42,22 +42,18 @@ public extension IComponent where Self : URLRoutable, Self : TSIntentable {
 
 public typealias IIntercepterComponent = (IComponent)
 
-public extension IComponent where Self : TSIntercepterProtocol {
+public extension IComponent where Self : IIntercepter {
     public static func tetrisStart() {
-        TSTetris.shared().router.intercepterMgr.addIntercepter(Self.init())
+        TSTetris.shared().router.intercepterMgr.add(intercepter: self.init())
     }
 }
 
 
-public protocol IAction {
-    static var streamAction: (TSTreeUrlComponent) -> TSStream<AnyObject> { get }
-}
+public typealias IActionComponent = (IComponent & IRouteAction & URLRoutable)
 
-public typealias IActionComponent = (IComponent & IAction & URLRoutable)
-
-public extension IComponent where Self : IAction, Self : URLRoutable {
+public extension IComponent where Self : IRouteAction, Self : URLRoutable {
     public static func tetrisStart() {
         TSTetris.shared().router.bindUrl(try! self.routeURLs.first!.toURL().absoluteString,
-                                         toAction: self.streamAction)
+                                         toRouteAction: self.init())
     }
 }

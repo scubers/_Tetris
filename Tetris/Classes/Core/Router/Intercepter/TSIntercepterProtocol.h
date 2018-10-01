@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-
+NS_SWIFT_NAME(IIntercepterJudger)
 @protocol TSIntercepterJudger
 
 
@@ -54,20 +54,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+NS_SWIFT_NAME(IntercepterPriority)
+typedef NSInteger TSIntercepterPriority;
 
-typedef NS_ENUM(NSInteger, TSIntercepterPriority) {
-    
-    TSIntercepterPriorityMinimum = NSIntegerMin,
-    
-    TSIntercepterPriorityLow = 1000,
-    
-    TSIntercepterPriorityNormal = 5000,
-    
-    TSIntercepterPriorityHigh = 10000,
-    
-    TSIntercepterPriorityMax = NSIntegerMax,
-};
+static TSIntercepterPriority const TSIntercepterPriorityMinimum = NSIntegerMin;
+static TSIntercepterPriority const TSIntercepterPriorityLow = 1000;
+static TSIntercepterPriority const TSIntercepterPriorityNormal = 5000;
+static TSIntercepterPriority const TSIntercepterPriorityHigh = 10000;
+static TSIntercepterPriority const TSIntercepterPriorityMax = NSIntegerMax;
 
+NS_SWIFT_NAME(IIntercepter)
 @protocol TSIntercepterProtocol <NSObject>
 
 

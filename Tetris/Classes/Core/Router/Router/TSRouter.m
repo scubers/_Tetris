@@ -12,13 +12,17 @@
 
 #pragma mark - _TSRouteAction
 
-@interface _TSRouteAction : NSObject
+@interface _TSRouteAction : NSObject <TSRouteActionProtocol>
 
 @property (nonatomic, copy) TSStream *(^action)(TSTreeUrlComponent *component);
 
 @end
 
 @implementation _TSRouteAction
+
+- (TSStream *)getStreamByComponent:(TSTreeUrlComponent *)component {
+    return _action(component);
+}
 
 @end
 
@@ -44,7 +48,9 @@
 
 @interface TSRouter ()
 
-@property (nonatomic, strong) TSSyncTree *syncTree;
+@property (nonatomic, strong) TSSyncTree *viewTree;
+@property (nonatomic, strong) TSSyncTree *actionTree;
+@property (nonatomic, strong) TSSyncTree *drivenTree;
 
 @end
 
@@ -53,52 +59,58 @@
 - (instancetype)init {
     if (self = [super init]) {
         _intercepterMgr = [TSIntercepterManager new];
-        _syncTree = [TSSyncTree new];
+        _viewTree = [TSSyncTree new];
+        _actionTree = [TSSyncTree new];
+        _drivenTree = [TSSyncTree new];
     }
     return self;
 }
 
 #pragma mark - Action
 
+- (void)bindUrl:(NSString *)url toRouteAction:(id<TSRouteActionProtocol>)action {
+    [_actionTree buildTreeWithURLString:url value:action];
+}
+
 - (void)bindUrl:(NSString *)url toAction:(TSStream * _Nonnull (^)(TSTreeUrlComponent * _Nonnull))action {
     _TSRouteAction *actionObj = [_TSRouteAction new];
     actionObj.action = action;
-    [_syncTree buildTreeWithURLString:url value:actionObj];
+    [self bindUrl:url toRouteAction:actionObj];
 }
 
 - (TSStream *)actionByUrl:(NSString *)url {
-    TSTreeUrlComponent *comp = [_syncTree findByURLString:url];
+    TSTreeUrlComponent *comp = [_actionTree findByURLString:url];
     if (!comp) {
         return nil;
     }
-    _TSRouteAction *action = (_TSRouteAction *)comp.value;
-    return action.action(comp);
+    id<TSRouteActionProtocol> action = (id<TSRouteActionProtocol>)comp.value;
+    return [action getStreamByComponent:comp];
 }
 
 #pragma mark - Listener
 
 - (void)bindUrl:(NSString *)url toDriven:(TSDrivenStream *)stream {
-    [_syncTree buildTreeWithURLString:url value:stream];
+    [_drivenTree buildTreeWithURLString:url value:stream];
 }
 
 - (TSDrivenStream *)drivenByUrl:(NSString *)url {
-    return [_syncTree findByURLString:url].value;
+    return [_drivenTree findByURLString:url].value;
 }
 
 #pragma mark - View
 
 - (void)bindUrl:(NSString *)urlString viewController:(Class<TSIntentable>)aClass {
-    [_syncTree buildTreeWithURLString:urlString value:aClass];
+    [_viewTree buildTreeWithURLString:urlString value:aClass];
 }
 
 - (TSStream<TSRouteResult *> *)prepare:(TSIntent *)intent source:(UIViewController *)source complete:(void (^)(void))complete {
     return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
-        [self _startIntent:intent source:source completion:complete finish:^(TSRouteResult *result, NSError *error) {
-            if (error) {
-                [receiver receiveError:error];
+        [self _startIntent:intent source:source completion:complete finish:^(TSRouteResult *result) {
+            if (result.error) {
+                [receiver postError:result.error];
             } else {
-                [receiver receive:result];
-                [receiver endReceive];
+                [receiver post:result];
+                [receiver close];
             }
         }];
         return nil;
@@ -110,10 +122,17 @@
 - (void)_startIntent:(TSIntent *)intent
               source:(UIViewController *)source
           completion:(void (^)(void))completion
-              finish:(void(^)(TSRouteResult *result, NSError *error))finish {
+              finish:(void(^)(TSRouteResult *result))finish {
+
+    if (intent.intentable != nil) {
+        // intent 手动设置对象属于异常情况直接跳转
+        finish([self startViewTransition:intent source:source viewController:intent.intentable complete:completion]);
+        return;
+    }
+
     // fix intent
-    if (intent.intentClass == nil && intent.intentable == nil) {
-        TSTreeUrlComponent *comp = [_syncTree findByURLString:intent.urlString];
+    if (intent.intentClass == nil) {
+        TSTreeUrlComponent *comp = [_viewTree findByURLString:intent.urlString];
         intent.urlComponent = comp;
         intent.intentClass = comp.value;
         [intent.extraParameters addEntriesFromDictionary:comp.params];
@@ -130,7 +149,7 @@
             {
                 // finih by rejected;
                 TSRouteResult *ret = [TSRouteResult resultWithStatus:TSRouteResultStatusRejected destination:nil intent:result.intent error:result.error];
-                finish(ret, result.error);
+                finish(ret);
                 break;
             }
                 
@@ -141,7 +160,7 @@
                     finish([self startViewTransition:result.intent
                                               source:source
                                       viewController:result.intent.intentable
-                                            complete:completion], nil);
+                                            complete:completion]);
 
                 } else if (result.intent.intentClass) {
                     // 找到配置
@@ -149,12 +168,12 @@
                     finish([self startViewTransition:result.intent
                                               source:source
                                       viewController:vc
-                                            complete:completion], nil);
+                                            complete:completion]);
                 } else {
                     // Lost
                     NSError *lostError = [NSError ts_errorWithCode:-18888 msg:@"Route error: Lost!!!"];
                     TSRouteResult *ret = [TSRouteResult resultWithStatus:TSRouteResultStatusLost destination:nil intent:result.intent error:lostError];
-                    finish(ret, lostError);
+                    finish(ret);
                 }
                 break;
             }
@@ -183,16 +202,16 @@
     return ret;
 }
 
-- (UIViewController<TSIntentable> *)generateInstanceForIntent:(TSIntent *)intent {
+- (UIViewController *)generateInstanceForIntent:(TSIntent *)intent {
     
     if (intent.intentable) return intent.intentable;
     
-    UIViewController<TSIntentable> *intentable;
+    UIViewController *intentable;
     
     if (!intent.intentable && intent.intentClass) {
          intentable = [[((Class)intent.intentClass) alloc] initWithIntent:intent];
+        [(id<TSIntentable>)intentable setTs_sourceIntent:intent];
     }
-    [intentable setTs_sourceIntent:intent];
 
     return intentable;
 }

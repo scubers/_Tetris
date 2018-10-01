@@ -10,7 +10,7 @@ import UIKit
 
 class MenuVC: BaseVC, IRouterComponent {
 
-    required init(intent: TSIntent<AnyObject>) {
+    required init(intent: Intent) {
         super.init(intent: intent)
     }
 
@@ -23,10 +23,13 @@ class MenuVC: BaseVC, IRouterComponent {
     }
 
     var tableView: UITableView!
-    var intents: [[String: TSIntent<AnyObject>]] = [
-        ["1. Just route" : TSIntent<AnyObject>.pushPop(byUrl: "/swift/demo1")],
-        ["2. Route with params" : TSIntent<AnyObject>.pushPop(byUrl: "/swift/demo2/demo2?name=jack#i_am_fragment")],
-        ["3. Intercepter: Reject" : TSIntent<AnyObject>.pushPop(byUrl: "/swift/demo3")],
+    var intents: [[String: Intent]] = [
+        ["1. Just route" : Intent.pushPop(byUrl: "/swift/demo1")],
+        ["2. Route with params" : Intent.pushPop(byUrl: "/swift/demo2/demo2?name=jack&number=33#i_am_fragment")],
+        ["3. Intercepter: Reject" : Intent.pushPop(byUrl: "/swift/demo3")],
+        ["4. Intercepter: Continue" : Intent.pushPop(byUrl: "/swift/demo4")],
+        ["5. Intercepter: Switch" : Intent.pushPop(byUrl: "/swift/demo5")],
+        ["6. Intercepter: Login or something need prepare" : Intent.pushPop(byUrl: "/swift/demo6")],
     ]
 
     override func viewDidLoad() {
@@ -43,7 +46,7 @@ class MenuVC: BaseVC, IRouterComponent {
     }
 
     @objc func change() {
-        TSTetris.shared().router.driven(byUrl: "/changeDemo")?.receive(nil)
+        TSTetris.shared().router.driven(byUrl: "/changeDemo")?.post(nil)
     }
 
 
@@ -64,19 +67,19 @@ extension MenuVC : UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let intent = intents[indexPath.row].values.first
+        let intent = intents[indexPath.row].values.first!.copy() as? Intent
         intent?.onResult
             .subscribe({ (obj) in
                 print(obj as Any)
             })
 
-        ts_prepare(intent!) {
+        ts_prepare(intent!, complete: {
             print("---- swift finish route ----")
-            }
-            .subscribe({ (ret) in
+            })
+            .subscribe({ (_) in
 
-            }) { (err) in
-                self.alert(msg: err.debugDescription)
-        }
+            }, error: {
+                self.alert(msg: $0.debugDescription)
+            })
     }
 }

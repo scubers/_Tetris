@@ -14,12 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 /////////////////////////////////////////////////////////////////
 
+NS_SWIFT_NAME(IntercepterResultStatus)
 typedef NS_ENUM(NSInteger, TSIntercepterResultStatus) {
     TSIntercepterResultStatusPass,
     TSIntercepterResultStatusSwitched,
     TSIntercepterResultStatusRejected
 };
 
+NS_SWIFT_NAME(IntercepterResult)
 @interface TSIntercepterResult : NSObject
 
 @property (nonatomic, assign) TSIntercepterResultStatus status;
@@ -36,11 +38,13 @@ typedef NS_ENUM(NSInteger, TSIntercepterResultStatus) {
 
 typedef void(^TSRunIntercepterFinish)(TSIntercepterResult *result);
 
+NS_SWIFT_NAME(IntercepterManager)
 @interface TSIntercepterManager : NSObject
 
 + (instancetype)manager;
 
-- (void)addIntercepter:(id<TSIntercepterProtocol>)intercepter;
+- (void)addIntercepter:(id<TSIntercepterProtocol>)intercepter
+NS_SWIFT_NAME(add(intercepter:));
 
 
 - (void)runIntent:(TSIntent *)intent

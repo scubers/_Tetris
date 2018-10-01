@@ -41,7 +41,7 @@ TS_VC_ROUTE("/menu")
 }
 
 - (void)change:(id)sender {
-    [[_Tetris.router drivenByUrl:@"/changeDemo"] receive:nil];
+    [[_Tetris.router drivenByUrl:@"/changeDemo"] post:nil];
 }
 
 - (void)reloadData {
@@ -67,6 +67,7 @@ TS_VC_ROUTE("/menu")
       @{@"13. Custom transition animation" : [TSIntent pushPopIntentByUrl:@"/demo13"]},
       @{@"14. Scheme host checking" : [TSIntent pushPopIntentByUrl:@"/demo14"]},
       @{@"15. Path parameter" : [TSIntent pushPopIntentByUrl:@"/demo15/100"]},
+      @{@"16. Test direct set vc" : [TSIntent pushPopIntentByUrl:@"/demo16"]},
       ];
 }
 
@@ -79,7 +80,7 @@ TS_VC_ROUTE("/menu")
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    TSIntent *intent = self.intents[indexPath.row].allValues.lastObject;
+    TSIntent *intent = [self.intents[indexPath.row].allValues.lastObject copy];
 
     [intent.onResult subscribe:^(id  _Nullable obj) {
         [self alert:[NSString stringWithFormat:@"%@", obj]];

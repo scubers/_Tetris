@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)ts_sendStream:(nullable id)stream;
 
+- (void)ts_sendResult:(nullable id)result byCode:(id<NSCopying>)code;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -15,10 +15,12 @@ class Demo2VC: BaseVC, IRouterComponent {
     }
 
     var name: String?
+    var number: NSNumber?
 
-    override var ts_sourceIntent: TSIntent<AnyObject> {
+    override var ts_sourceIntent: Intent {
         didSet {
-            name = ts_sourceIntent["name"] as? String
+            name = ts_sourceIntent.getString("name")
+            number = ts_sourceIntent.getNumber("number")
         }
     }
 
@@ -33,6 +35,7 @@ class Demo2VC: BaseVC, IRouterComponent {
             fragment: \(String(describing: ts_sourceIntent.urlComponent?.fragment))
             params: \(String(describing: ts_sourceIntent.urlComponent?.params))
             name: \(String(describing: name))
+            number: \(String(describing: number))
             """)
     }
 

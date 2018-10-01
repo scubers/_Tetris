@@ -8,6 +8,7 @@
 #ifndef TSServiceProtocols_h
 #define TSServiceProtocols_h
 
+NS_SWIFT_NAME(ServiceExportable)
 @protocol TSServiceExportable
 
 + (instancetype)ts_serviceInstance;

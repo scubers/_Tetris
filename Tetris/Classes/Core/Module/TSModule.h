@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - TSTetrisModulable
 
+NS_SWIFT_NAME(IModulable)
 @protocol TSTetrisModulable <UIApplicationDelegate>
 
 @optional
@@ -33,12 +34,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tetrisModuleSetup:(TSModuleContext *)context;
 - (void)tetrisModuleSplash:(TSModuleContext *)context;
 
-- (void)tetrisModuleDidTriggerEvent:(NSInteger)event userInfo:(nullable NSDictionary *)userInfo;
+- (void)tetrisModuleDidTriggerEvent:(NSInteger)event userInfo:(nullable NSDictionary *)userInfo NS_SWIFT_NAME(tetrisModuleDidTrigger(event:userInfo:));
 
 @end
 
 
-typedef NSInteger TSModulePriority;
+typedef NSInteger TSModulePriority NS_SWIFT_NAME(ModulePriority);
 
 static TSModulePriority const TSModulePriorityMin = NSIntegerMin;
 static TSModulePriority const TSModulePriorityLow = 1000;
@@ -48,6 +49,7 @@ static TSModulePriority const TSModulePriorityMax = NSIntegerMax;
 
 #pragma mark - TSModule
 
+NS_SWIFT_NAME(Module)
 @interface TSModule : NSObject
 
 @property (nonatomic, assign, readonly) TSModulePriority priority;
@@ -60,6 +62,7 @@ static TSModulePriority const TSModulePriorityMax = NSIntegerMax;
 
 #pragma mark - TSTetrisModuler
 
+NS_SWIFT_NAME(TetrisModuler)
 @interface TSTetrisModuler : NSObject
 
 @property (nonatomic, strong, readonly) id<TSTetrisModulable> trigger;

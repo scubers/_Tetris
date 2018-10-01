@@ -11,6 +11,10 @@ target 'Tetris_Example' do
   end
 end
 
+pre_install do |_|
+    Pod::PodTarget.send(:define_method, :static_framework?) { true }
+end
+
 # 安装脚本后，对pod工程进行配置
 post_install do |installer|
     

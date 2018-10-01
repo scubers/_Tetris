@@ -10,7 +10,7 @@
 #import "TSViewDisplayer.h"
 #import "TSIntent.h"
 
-
+NS_SWIFT_NAME(PushPopDisplayer)
 @interface TSPushPopDisplayer : TSViewDisplayer
 
 + (instancetype)pushDisplayerWithFinish:(TSViewFinishAction)finish;

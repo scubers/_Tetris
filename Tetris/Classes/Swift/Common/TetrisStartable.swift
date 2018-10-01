@@ -34,6 +34,7 @@ class TetrisAwaker {
         let end = Date().timeIntervalSince1970
         print("\(begin)")
         print("\(end)")
+        print("class count: \(typeCount)")
         types.deallocate()
     }
 }

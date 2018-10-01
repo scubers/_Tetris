@@ -23,6 +23,13 @@
     return self;
 }
 
+- (instancetype)init {
+    if (self = [super init]) {
+        _priority = TSIntercepterPriorityNormal;
+    }
+    return self;
+}
+
 - (NSArray<NSString *> *)matchUrlPatterns {
     return nil;
 }

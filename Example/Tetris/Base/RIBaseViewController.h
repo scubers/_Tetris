@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) TSIntent *ts_sourceIntent;
 
+- (void)alert:(NSString *)msg complete:(dispatch_block_t)complete;
 - (void)alert:(NSString *)msg;
 
 @end

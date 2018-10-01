@@ -33,11 +33,12 @@
     [_Tetris.router bindUrl:@"/changeDemo" toDriven:stream];
 
     [[[stream
-       onNext:^(id  _Nullable obj) {
+       map:^id _Nullable(id  _Nullable obj) {
            _isSwiftDemo = !_isSwiftDemo;
+           return @(_isSwiftDemo);
        }]
       transform:^TSStream * _Nonnull(id  _Nullable object) {
-          if (_isSwiftDemo) {
+          if ([object boolValue]) {
               return [_Tetris.router prepare:[TSIntent pushPopIntentByUrl:@"/swift/menu"] source:nil complete:nil];
           }
           return [_Tetris.router prepare:[TSIntent pushPopIntentByUrl:@"/menu"] source:nil complete:nil];
@@ -47,13 +48,11 @@
      }];
 
 
-
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    
-    TSIntent *intent = [TSIntent pushPopIntentByUrl:@"/menu"];
-    [[_Tetris.router prepare:intent source:nil complete:nil] subscribe:^(TSRouteResult * _Nullable obj) {
-        self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:obj.destination];
-    }];
+
+    // 触发
+    _isSwiftDemo = YES;
+    [stream post:nil];
 
     [self.window makeKeyAndVisible];
     

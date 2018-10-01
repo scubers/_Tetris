@@ -93,6 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Tree Url support component
  */
+NS_SWIFT_NAME(TreeUrlComponent)
 @interface TSTreeUrlComponent : NSObject
 
 @property (nonatomic, strong, nullable) id value;

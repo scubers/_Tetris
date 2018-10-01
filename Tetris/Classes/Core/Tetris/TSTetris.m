@@ -20,7 +20,7 @@ static TSTetris *__sharedInstance;
 
 - (instancetype)init {
     if (self = [super init]) {
-        _serviceMgr = [TSTetrisServer new];
+        _server = [TSTetrisServer new];
         _moduler = [TSTetrisModuler new];
         _router = [TSRouter new];
     }
@@ -34,7 +34,7 @@ static TSTetris *__sharedInstance;
 #pragma mark - server methods
 
 - (void)registerServiceByProtocol:(Protocol *)aProtocol class:(Class<TSServiceExportable>)aClass singleton:(BOOL)singleton {
-    [_serviceMgr bindServiceByProtocol:aProtocol class:aClass singleton:singleton];
+    [_server bindServiceByProtocol:aProtocol class:aClass singleton:singleton];
     
 }
 

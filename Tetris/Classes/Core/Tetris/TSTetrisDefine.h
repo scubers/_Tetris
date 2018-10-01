@@ -22,7 +22,7 @@
  */
 #define TS_SERVICE_PROTOCOL(_protocol, _singleton) \
         + (void)load {\
-            [_Tetris.serviceMgr bindServiceByProtocol:@protocol(_protocol) class:self singleton:_singleton];\
+            [_Tetris.server bindServiceByProtocol:@protocol(_protocol) class:self singleton:_singleton];\
         }
 
 /**
@@ -40,7 +40,7 @@
  @param _protocol 接口
  */
 #define TS_GET_SERVICE(_protocol) \
-        ((id<_protocol>)([_Tetris.serviceMgr serviceByProtoocl:@protocol(_protocol)]))
+        ((id<_protocol>)([_Tetris.server serviceByProtoocl:@protocol(_protocol)]))
 
 
 #pragma mark - module

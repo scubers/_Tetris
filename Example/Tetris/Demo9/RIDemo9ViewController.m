@@ -57,7 +57,7 @@ TS_EXPORT_ROUTE(RIDemo9ViewController, "/demo9", 100)
 }
 
 - (void)sendWave:(id)sender {
-    [_driven receive:self.textfield.text];
+    [_driven post:self.textfield.text];
 //    [_pod postWave:self.textfield.text];
 }
 

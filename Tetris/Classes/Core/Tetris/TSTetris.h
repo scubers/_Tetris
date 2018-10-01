@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TSTetris : NSObject
 
-@property (nonatomic, strong, readonly) TSTetrisServer *serviceMgr;
+@property (nonatomic, strong, readonly) TSTetrisServer *server;
 @property (nonatomic, strong, readonly) TSTetrisModuler *moduler;
 @property (nonatomic, strong, readonly) TSRouter *router;
 
@@ -38,3 +38,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+

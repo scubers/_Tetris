@@ -7,7 +7,7 @@
 //
 
 #import "TSViewController.h"
-#import <Tetris/Tetris-umbrella.h>
+@import Tetris;
 
 @protocol AAA <NSObject> @end
 @protocol BBB <AAA> @end

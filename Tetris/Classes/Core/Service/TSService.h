@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - TSServiceManager
 
+NS_SWIFT_NAME(TetrisServer)
 @interface TSTetrisServer : NSObject
 
 - (void)bindServiceByName:(NSString *)service class:(Class<TSServiceExportable>)aClass singleton:(BOOL)singleton;

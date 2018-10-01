@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "TSIntentDisplayerProtocol.h"
 
+NS_SWIFT_NAME(DisplayerAdapter)
 @interface TSDisplayerAdapter : NSObject <TSIntentDisplayerProtocol>
 
 @end

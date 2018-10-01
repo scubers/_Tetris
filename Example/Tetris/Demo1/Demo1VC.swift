@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Tetris
 
 
 class Demo1VC: BaseVC, IRouterComponent {

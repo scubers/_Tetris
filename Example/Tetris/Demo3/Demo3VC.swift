@@ -11,13 +11,14 @@ import UIKit
 class Demo3Inter: TSIntercepterAdapter, IIntercepterComponent {
     required override init() {
         super.init()
+        priority = TSIntercepterPriorityNormal
     }
 
     override func matchUrlPatterns() -> [String]? {
         return ["^((\\w+)://)?(\\w+)?/swift/demo3\\??.*$"]
     }
 
-    override func doAdjudgement(_ judger: TSIntercepterJudger) {
+    override func doAdjudgement(_ judger: IIntercepterJudger) {
         let msg = "Reject by Class: \(type(of: self))"
         print(msg)
         judger.doReject(NSError.init(domain: msg, code: 10, userInfo: nil))
