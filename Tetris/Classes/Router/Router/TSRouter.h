@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TSIntercepterManager.h"
+#import "TSStream.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,8 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, TSRouteResultStatus) {
     TSRouteResultStatusPass,
-    TSRouteResultStatusSwitched,
-    TSRouteResultStatusinterrupted,
+    TSRouteResultStatusRejected,
     TSRouteResultStatusLost,
 };
 
@@ -32,11 +32,24 @@ typedef NS_ENUM(NSInteger, TSRouteResultStatus) {
 @interface TSRouter : NSObject
 
 @property (nonatomic, strong) TSIntercepterManager *intercepterMgr;
+
 #pragma mark - Action
+
+- (void)bindUrl:(NSString *)url toAction:(TSStream * (^)(TSTreeUrlComponent *component))action;
+
+- (nullable TSStream *)actionByUrl:(NSString *)url;
+
 #pragma mark - Listener
+
+- (void)bindUrl:(NSString *)url toDriven:(TSDrivenStream *)stream;
+
+- (nullable TSDrivenStream *)drivenByUrl:(NSString *)url;
+
 #pragma mark - View
 
 - (void)bindUrl:(NSString *)urlString viewController:(Class<TSIntentable>)aClass;
+
+- (TSStream<TSRouteResult *> *)prepare:(TSIntent *)intent source:(nullable UIViewController *)source complete:(void (^ _Nullable)(void))complete;
 
 @end
 

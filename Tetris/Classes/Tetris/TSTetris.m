@@ -22,6 +22,7 @@ static TSTetris *__sharedInstance;
     if (self = [super init]) {
         _serviceMgr = [TSTetrisServer new];
         _moduler = [TSTetrisModuler new];
+        _router = [TSRouter new];
     }
     return self;
 }
@@ -41,6 +42,12 @@ static TSTetris *__sharedInstance;
 
 - (void)registerModuleByClass:(Class<TSTetrisModulable>)aClass priority:(TSModulePriority)priority {
     [_moduler registerModuleWithClass:aClass priority:priority];
+}
+
+#pragma mark - router methods
+
+- (void)bindUrl:(NSString *)url viewController:(Class<TSIntentable>)aClass {
+    [_router bindUrl:url viewController:aClass];
 }
 
 @end

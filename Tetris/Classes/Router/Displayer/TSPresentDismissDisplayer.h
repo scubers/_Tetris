@@ -1,0 +1,24 @@
+//
+//  TSPresentDismissDisplayer.h
+//  RouteIntent
+//
+//  Created by 王俊仁 on 2017/6/22.
+//  CopyTSght © 2017年 jrwong. All TSghts reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "TSDisplayerAdapter.h"
+#import "TSIntent.h"
+
+@interface TSPresentDismissDisplayer : TSDisplayerAdapter
+
+@property (nonatomic, strong) Class navigationViewControllerClass;
+
+@end
+
+
+@interface TSIntent (PresentDismissInit)
+
++ (instancetype)presentDismissByUrl:(NSString *)url;
+
+@end

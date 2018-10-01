@@ -95,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface TSTreeUrlComponent : NSObject
 
-@property (nonatomic, strong) id value;
+@property (nonatomic, strong, nullable) id value;
 
 @property (nonatomic, strong, readonly) NSURL *url;
 
@@ -111,17 +111,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-+ (TSTreeUrlComponent *)componentWithURL:(NSURL *)url value:(id)value;
++ (TSTreeUrlComponent *)componentWithURL:(NSURL *)url value:(nullable id)value;
 
 @end
 
 @interface TSTree (URLSupport)
 
 - (void)buildTreeWithURL:(NSURL *)url value:(id)value;
-- (nullable TSTreeUrlComponent *)findByURL:(NSURL *)url;
+- (TSTreeUrlComponent *)findByURL:(NSURL *)url;
 
 - (void)buildTreeWithURLString:(NSString *)urlString value:(id)value;
-- (nullable TSTreeUrlComponent *)findByURLString:(NSString *)urlString;
+- (TSTreeUrlComponent *)findByURLString:(NSString *)urlString;
 
 @end
 

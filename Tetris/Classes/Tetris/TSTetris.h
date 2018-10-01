@@ -6,8 +6,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TSTetrisDefine.h"
 #import "TSService.h"
 #import "TSModule.h"
+#import "TSRouter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) TSTetrisServer *serviceMgr;
 @property (nonatomic, strong, readonly) TSTetrisModuler *moduler;
+@property (nonatomic, strong, readonly) TSRouter *router;
 
 + (instancetype)shared;
 
@@ -27,6 +30,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - moduler methods
 
 - (void)registerModuleByClass:(Class<TSTetrisModulable>)aClass priority:(TSModulePriority)priority;
+
+#pragma mark - router methods
+
+- (void)bindUrl:(NSString *)url viewController:(Class<TSIntentable>)aClass;
 
 @end
 

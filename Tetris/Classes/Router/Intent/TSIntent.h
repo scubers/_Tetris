@@ -8,10 +8,12 @@
 #import <Foundation/Foundation.h>
 #import "TSTree.h"
 #import "TSRouterProtocols.h"
+#import "TSIntentDisplayerProtocol.h"
+#import "TSStream.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TSIntent : NSObject
+@interface TSIntent<T> : NSObject
 
 @property (nonatomic, strong, nullable) Class<TSIntentable> intentClass;
 
@@ -23,11 +25,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) NSMutableDictionary<NSString *, id> *extraParameters;
 
+@property (nonatomic, strong) id<TSIntentDisplayerProtocol> displayer;
+
+@property (nonatomic, strong, readonly) TSDrivenStream<T> *resultStream;
 
 - (id)objectForKeyedSubscript:(id)key;
 
 - (void)setObject:(id)obj forKeyedSubscript:(id<NSCopying>)key;
 
+- (instancetype)initWithUrl:(nullable NSString *)urlString
+                intentClass:(nullable Class<TSIntentable>)intentClass
+                  displayer:(nullable id<TSIntentDisplayerProtocol>)displayer;
+
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
 
 @end
 

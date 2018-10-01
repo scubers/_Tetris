@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithIntent:(TSIntent *)intent;
 
-- (void)ts_setIntent:(TSIntent *)intent;
+@property (nonatomic, strong) TSIntent *ts_sourceIntent;
 
 @optional
 

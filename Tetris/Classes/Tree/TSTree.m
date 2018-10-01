@@ -274,12 +274,14 @@
 
 + (TSTreeUrlComponent *)componentWithURL:(NSURL *)url value:(id)value {
     NSURLComponents *com = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+
     TSAssertion(com, "URL: %@; invalid", url);
-    TSAssertion(value, "Value is nil");
     
     TSTreeUrlComponent *treeComp = [[TSTreeUrlComponent alloc] init];
-    
+
+    treeComp->_url = url;
     treeComp.value = value;
+    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [com.queryItems enumerateObjectsUsingBlock:^(NSURLQueryItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         params[obj.name] = obj.value;
@@ -287,7 +289,8 @@
     treeComp->_params = params;
     treeComp->_pathComponents = [self getFullPathFromPath:com.path] ?: @[];
     treeComp->_path = com.path;
-    
+
+    treeComp->_fragment = com.fragment;
     treeComp->_scheme = com.scheme;
     treeComp->_host = com.host;
     treeComp->_port = com.port;
@@ -318,13 +321,12 @@
 }
 
 - (TSTreeUrlComponent *)findByURL:(NSURL *)url {
-    TSTreeUrlComponent *comp = [TSTreeUrlComponent componentWithURL:url value:@"temp obj"];
+    TSTreeUrlComponent *comp = [TSTreeUrlComponent componentWithURL:url value:nil];
     TSTreeResult *result = [self findNodeWithPath:comp.pathComponents];
-    if (!result) {
-        return nil;
+    if (result) {
+        comp.value = result.node.getValue;
+        [comp addParameters:result.params];
     }
-    comp.value = result.node.getValue;
-    [comp addParameters:result.params];
     return comp;
 }
 

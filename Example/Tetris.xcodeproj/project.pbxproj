@@ -27,6 +27,25 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		A84C730B2160F85F00457D69 /* RIBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C73092160F85F00457D69 /* RIBaseViewController.m */; };
+		A84C730F2160F8E100457D69 /* RIDemoMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C730E2160F8E100457D69 /* RIDemoMenuViewController.m */; };
+		A84C7324216105EC00457D69 /* RIDemo1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C7322216105EC00457D69 /* RIDemo1ViewController.m */; };
+		A84C7328216106FB00457D69 /* RIDemo2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C7327216106FA00457D69 /* RIDemo2ViewController.m */; };
+		A84C733021610B8200457D69 /* RIDemo3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C732F21610B8200457D69 /* RIDemo3ViewController.m */; };
+		A84C733421610C0800457D69 /* RIDemo4ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C733321610C0800457D69 /* RIDemo4ViewController.m */; };
+		A84C733821610C3600457D69 /* RIDemo5ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C733721610C3600457D69 /* RIDemo5ViewController.m */; };
+		A84C733C2161143000457D69 /* RIDemo6ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C733A2161143000457D69 /* RIDemo6ViewController.m */; };
+		A84C73402161217F00457D69 /* RIDemo7ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C733E2161217F00457D69 /* RIDemo7ViewController.m */; };
+		A84C73442161243C00457D69 /* RIDemo8ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C73422161243C00457D69 /* RIDemo8ViewController.m */; };
+		A84C734C2161AF4C00457D69 /* RIDemo9ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C734A2161AF4C00457D69 /* RIDemo9ViewController.m */; };
+		A84C73502161B20A00457D69 /* RIDemo10ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C734E2161B20900457D69 /* RIDemo10ViewController.m */; };
+		A84C73542161B42800457D69 /* RIDemo11ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C73522161B42800457D69 /* RIDemo11ViewController.m */; };
+		A84C73582161B55D00457D69 /* RIDemo12ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C73572161B55D00457D69 /* RIDemo12ViewController.m */; };
+		A84C73602161B5A300457D69 /* RIDemo13ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C735D2161B5A200457D69 /* RIDemo13ViewController.m */; };
+		A84C73612161B5A300457D69 /* MyPushPop.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C735E2161B5A200457D69 /* MyPushPop.m */; };
+		A84C73622161B5A300457D69 /* MyPresentDismiss.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C735F2161B5A200457D69 /* MyPresentDismiss.m */; };
+		A84C73662161B67900457D69 /* RIDemo14ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C73652161B67900457D69 /* RIDemo14ViewController.m */; };
+		A84C736A2161B71900457D69 /* RIDemo15ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C73692161B71900457D69 /* RIDemo15ViewController.m */; };
 		E2176CAAF6F1743BF9B0BB01 /* Pods_Tetris_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A1839A41C0D19EE498C2485 /* Pods_Tetris_Tests.framework */; };
 		E7C4FBA3C5326C7CA1690022 /* Pods_Tetris_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C7B6D9BC2D5FC32ED45164 /* Pods_Tetris_Example.framework */; };
 /* End PBXBuildFile section */
@@ -75,6 +94,44 @@
 		8439D5B6D7D9A83944F93D6A /* Tetris.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Tetris.podspec; path = ../Tetris.podspec; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		895F8E6333EC1BBC4E486319 /* Pods-Tetris_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tetris_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tetris_Example/Pods-Tetris_Example.release.xcconfig"; sourceTree = "<group>"; };
+		A84C73092160F85F00457D69 /* RIBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIBaseViewController.m; sourceTree = "<group>"; };
+		A84C730A2160F85F00457D69 /* RIBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIBaseViewController.h; sourceTree = "<group>"; };
+		A84C730D2160F8E100457D69 /* RIDemoMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemoMenuViewController.h; sourceTree = "<group>"; };
+		A84C730E2160F8E100457D69 /* RIDemoMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemoMenuViewController.m; sourceTree = "<group>"; };
+		A84C7322216105EC00457D69 /* RIDemo1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo1ViewController.m; sourceTree = "<group>"; };
+		A84C7323216105EC00457D69 /* RIDemo1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo1ViewController.h; sourceTree = "<group>"; };
+		A84C7326216106FA00457D69 /* RIDemo2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo2ViewController.h; sourceTree = "<group>"; };
+		A84C7327216106FA00457D69 /* RIDemo2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo2ViewController.m; sourceTree = "<group>"; };
+		A84C732E21610B8200457D69 /* RIDemo3ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo3ViewController.h; sourceTree = "<group>"; };
+		A84C732F21610B8200457D69 /* RIDemo3ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo3ViewController.m; sourceTree = "<group>"; };
+		A84C733221610C0800457D69 /* RIDemo4ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo4ViewController.h; sourceTree = "<group>"; };
+		A84C733321610C0800457D69 /* RIDemo4ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo4ViewController.m; sourceTree = "<group>"; };
+		A84C733621610C3600457D69 /* RIDemo5ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo5ViewController.h; sourceTree = "<group>"; };
+		A84C733721610C3600457D69 /* RIDemo5ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo5ViewController.m; sourceTree = "<group>"; };
+		A84C733A2161143000457D69 /* RIDemo6ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo6ViewController.m; sourceTree = "<group>"; };
+		A84C733B2161143000457D69 /* RIDemo6ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo6ViewController.h; sourceTree = "<group>"; };
+		A84C733E2161217F00457D69 /* RIDemo7ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo7ViewController.m; sourceTree = "<group>"; };
+		A84C733F2161217F00457D69 /* RIDemo7ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo7ViewController.h; sourceTree = "<group>"; };
+		A84C73422161243C00457D69 /* RIDemo8ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo8ViewController.m; sourceTree = "<group>"; };
+		A84C73432161243C00457D69 /* RIDemo8ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo8ViewController.h; sourceTree = "<group>"; };
+		A84C734A2161AF4C00457D69 /* RIDemo9ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo9ViewController.m; sourceTree = "<group>"; };
+		A84C734B2161AF4C00457D69 /* RIDemo9ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo9ViewController.h; sourceTree = "<group>"; };
+		A84C734E2161B20900457D69 /* RIDemo10ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo10ViewController.m; sourceTree = "<group>"; };
+		A84C734F2161B20900457D69 /* RIDemo10ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo10ViewController.h; sourceTree = "<group>"; };
+		A84C73522161B42800457D69 /* RIDemo11ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo11ViewController.m; sourceTree = "<group>"; };
+		A84C73532161B42800457D69 /* RIDemo11ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo11ViewController.h; sourceTree = "<group>"; };
+		A84C73562161B55D00457D69 /* RIDemo12ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo12ViewController.h; sourceTree = "<group>"; };
+		A84C73572161B55D00457D69 /* RIDemo12ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo12ViewController.m; sourceTree = "<group>"; };
+		A84C735A2161B5A200457D69 /* MyPushPop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPushPop.h; sourceTree = "<group>"; };
+		A84C735B2161B5A200457D69 /* RIDemo13ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo13ViewController.h; sourceTree = "<group>"; };
+		A84C735C2161B5A200457D69 /* MyPresentDismiss.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPresentDismiss.h; sourceTree = "<group>"; };
+		A84C735D2161B5A200457D69 /* RIDemo13ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo13ViewController.m; sourceTree = "<group>"; };
+		A84C735E2161B5A200457D69 /* MyPushPop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPushPop.m; sourceTree = "<group>"; };
+		A84C735F2161B5A200457D69 /* MyPresentDismiss.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPresentDismiss.m; sourceTree = "<group>"; };
+		A84C73642161B67900457D69 /* RIDemo14ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo14ViewController.h; sourceTree = "<group>"; };
+		A84C73652161B67900457D69 /* RIDemo14ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo14ViewController.m; sourceTree = "<group>"; };
+		A84C73682161B71900457D69 /* RIDemo15ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo15ViewController.h; sourceTree = "<group>"; };
+		A84C73692161B71900457D69 /* RIDemo15ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo15ViewController.m; sourceTree = "<group>"; };
 		AA6481AD3053FDD3B1A0EC22 /* Pods-Tetris_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tetris_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tetris_Example/Pods-Tetris_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		B76960F99E00198E1065DD5F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		F24EDF8B28CE9088BC8FE25B /* Pods-Tetris_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tetris_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tetris_Tests/Pods-Tetris_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -154,6 +211,23 @@
 		6003F593195388D20070C39A /* Example for Tetris */ = {
 			isa = PBXGroup;
 			children = (
+				A84C73672161B71900457D69 /* Demo15 */,
+				A84C73632161B67900457D69 /* Demo14 */,
+				A84C73592161B5A200457D69 /* Demo13 */,
+				A84C73552161B55D00457D69 /* Demo12 */,
+				A84C73512161B42800457D69 /* Demo11 */,
+				A84C734D2161B20900457D69 /* Demo10 */,
+				A84C73492161AF4C00457D69 /* Demo9 */,
+				A84C73412161243C00457D69 /* Demo8 */,
+				A84C733D2161217F00457D69 /* Demo7 */,
+				A84C73392161143000457D69 /* Demo6 */,
+				A84C733521610C3600457D69 /* Demo5 */,
+				A84C733121610C0800457D69 /* Demo4 */,
+				A84C732D21610B8200457D69 /* Demo3 */,
+				A84C7325216106FA00457D69 /* Demo2 */,
+				A84C7321216105EC00457D69 /* Demo1 */,
+				A84C730C2160F8E100457D69 /* Menu */,
+				A84C73082160F85F00457D69 /* Base */,
 				6003F59C195388D20070C39A /* TSAppDelegate.h */,
 				6003F59D195388D20070C39A /* TSAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
@@ -211,6 +285,166 @@
 				42FD8BF3BB03BA4F821F885F /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		A84C73082160F85F00457D69 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				A84C730A2160F85F00457D69 /* RIBaseViewController.h */,
+				A84C73092160F85F00457D69 /* RIBaseViewController.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		A84C730C2160F8E100457D69 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				A84C730D2160F8E100457D69 /* RIDemoMenuViewController.h */,
+				A84C730E2160F8E100457D69 /* RIDemoMenuViewController.m */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		A84C7321216105EC00457D69 /* Demo1 */ = {
+			isa = PBXGroup;
+			children = (
+				A84C7322216105EC00457D69 /* RIDemo1ViewController.m */,
+				A84C7323216105EC00457D69 /* RIDemo1ViewController.h */,
+			);
+			path = Demo1;
+			sourceTree = "<group>";
+		};
+		A84C7325216106FA00457D69 /* Demo2 */ = {
+			isa = PBXGroup;
+			children = (
+				A84C7326216106FA00457D69 /* RIDemo2ViewController.h */,
+				A84C7327216106FA00457D69 /* RIDemo2ViewController.m */,
+			);
+			path = Demo2;
+			sourceTree = "<group>";
+		};
+		A84C732D21610B8200457D69 /* Demo3 */ = {
+			isa = PBXGroup;
+			children = (
+				A84C732E21610B8200457D69 /* RIDemo3ViewController.h */,
+				A84C732F21610B8200457D69 /* RIDemo3ViewController.m */,
+			);
+			path = Demo3;
+			sourceTree = "<group>";
+		};
+		A84C733121610C0800457D69 /* Demo4 */ = {
+			isa = PBXGroup;
+			children = (
+				A84C733221610C0800457D69 /* RIDemo4ViewController.h */,
+				A84C733321610C0800457D69 /* RIDemo4ViewController.m */,
+			);
+			path = Demo4;
+			sourceTree = "<group>";
+		};
+		A84C733521610C3600457D69 /* Demo5 */ = {
+			isa = PBXGroup;
+			children = (
+				A84C733621610C3600457D69 /* RIDemo5ViewController.h */,
+				A84C733721610C3600457D69 /* RIDemo5ViewController.m */,
+			);
+			path = Demo5;
+			sourceTree = "<group>";
+		};
+		A84C73392161143000457D69 /* Demo6 */ = {
+			isa = PBXGroup;
+			children = (
+				A84C733A2161143000457D69 /* RIDemo6ViewController.m */,
+				A84C733B2161143000457D69 /* RIDemo6ViewController.h */,
+			);
+			name = Demo6;
+			path = ../../../../../Desktop/new_ip/RouteIntent/Example/RouteIntent/Demo6;
+			sourceTree = "<group>";
+		};
+		A84C733D2161217F00457D69 /* Demo7 */ = {
+			isa = PBXGroup;
+			children = (
+				A84C733E2161217F00457D69 /* RIDemo7ViewController.m */,
+				A84C733F2161217F00457D69 /* RIDemo7ViewController.h */,
+			);
+			path = Demo7;
+			sourceTree = "<group>";
+		};
+		A84C73412161243C00457D69 /* Demo8 */ = {
+			isa = PBXGroup;
+			children = (
+				A84C73422161243C00457D69 /* RIDemo8ViewController.m */,
+				A84C73432161243C00457D69 /* RIDemo8ViewController.h */,
+			);
+			path = Demo8;
+			sourceTree = "<group>";
+		};
+		A84C73492161AF4C00457D69 /* Demo9 */ = {
+			isa = PBXGroup;
+			children = (
+				A84C734A2161AF4C00457D69 /* RIDemo9ViewController.m */,
+				A84C734B2161AF4C00457D69 /* RIDemo9ViewController.h */,
+			);
+			path = Demo9;
+			sourceTree = "<group>";
+		};
+		A84C734D2161B20900457D69 /* Demo10 */ = {
+			isa = PBXGroup;
+			children = (
+				A84C734E2161B20900457D69 /* RIDemo10ViewController.m */,
+				A84C734F2161B20900457D69 /* RIDemo10ViewController.h */,
+			);
+			path = Demo10;
+			sourceTree = "<group>";
+		};
+		A84C73512161B42800457D69 /* Demo11 */ = {
+			isa = PBXGroup;
+			children = (
+				A84C73522161B42800457D69 /* RIDemo11ViewController.m */,
+				A84C73532161B42800457D69 /* RIDemo11ViewController.h */,
+			);
+			path = Demo11;
+			sourceTree = "<group>";
+		};
+		A84C73552161B55D00457D69 /* Demo12 */ = {
+			isa = PBXGroup;
+			children = (
+				A84C73562161B55D00457D69 /* RIDemo12ViewController.h */,
+				A84C73572161B55D00457D69 /* RIDemo12ViewController.m */,
+			);
+			path = Demo12;
+			sourceTree = "<group>";
+		};
+		A84C73592161B5A200457D69 /* Demo13 */ = {
+			isa = PBXGroup;
+			children = (
+				A84C735A2161B5A200457D69 /* MyPushPop.h */,
+				A84C735E2161B5A200457D69 /* MyPushPop.m */,
+				A84C735B2161B5A200457D69 /* RIDemo13ViewController.h */,
+				A84C735D2161B5A200457D69 /* RIDemo13ViewController.m */,
+				A84C735C2161B5A200457D69 /* MyPresentDismiss.h */,
+				A84C735F2161B5A200457D69 /* MyPresentDismiss.m */,
+			);
+			path = Demo13;
+			sourceTree = "<group>";
+		};
+		A84C73632161B67900457D69 /* Demo14 */ = {
+			isa = PBXGroup;
+			children = (
+				A84C73642161B67900457D69 /* RIDemo14ViewController.h */,
+				A84C73652161B67900457D69 /* RIDemo14ViewController.m */,
+			);
+			name = Demo14;
+			path = ../../../../../Desktop/new_ip/RouteIntent/Example/RouteIntent/Demo14;
+			sourceTree = "<group>";
+		};
+		A84C73672161B71900457D69 /* Demo15 */ = {
+			isa = PBXGroup;
+			children = (
+				A84C73682161B71900457D69 /* RIDemo15ViewController.h */,
+				A84C73692161B71900457D69 /* RIDemo15ViewController.m */,
+			);
+			name = Demo15;
+			path = ../../../../../Desktop/new_ip/RouteIntent/Example/RouteIntent/Demo15;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -373,9 +607,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* TSAppDelegate.m in Sources */,
+				A84C733821610C3600457D69 /* RIDemo5ViewController.m in Sources */,
+				A84C73542161B42800457D69 /* RIDemo11ViewController.m in Sources */,
+				A84C733021610B8200457D69 /* RIDemo3ViewController.m in Sources */,
+				A84C73502161B20A00457D69 /* RIDemo10ViewController.m in Sources */,
+				A84C73582161B55D00457D69 /* RIDemo12ViewController.m in Sources */,
+				A84C736A2161B71900457D69 /* RIDemo15ViewController.m in Sources */,
+				A84C730B2160F85F00457D69 /* RIBaseViewController.m in Sources */,
+				A84C733421610C0800457D69 /* RIDemo4ViewController.m in Sources */,
 				6003F5A7195388D20070C39A /* TSViewController.m in Sources */,
+				A84C73622161B5A300457D69 /* MyPresentDismiss.m in Sources */,
+				A84C7328216106FB00457D69 /* RIDemo2ViewController.m in Sources */,
+				A84C730F2160F8E100457D69 /* RIDemoMenuViewController.m in Sources */,
+				A84C73402161217F00457D69 /* RIDemo7ViewController.m in Sources */,
+				A84C7324216105EC00457D69 /* RIDemo1ViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				A84C73662161B67900457D69 /* RIDemo14ViewController.m in Sources */,
 				093F5D18215F1E68008245C9 /* TSDemoModules.m in Sources */,
+				A84C73602161B5A300457D69 /* RIDemo13ViewController.m in Sources */,
+				A84C733C2161143000457D69 /* RIDemo6ViewController.m in Sources */,
+				A84C73442161243C00457D69 /* RIDemo8ViewController.m in Sources */,
+				A84C734C2161AF4C00457D69 /* RIDemo9ViewController.m in Sources */,
+				A84C73612161B5A300457D69 /* MyPushPop.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

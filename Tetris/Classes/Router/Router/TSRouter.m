@@ -8,6 +8,19 @@
 #import "TSRouter.h"
 #import "TSTree.h"
 #import "TSError.h"
+#import "TSLogger.h"
+
+#pragma mark - _TSRouteAction
+
+@interface _TSRouteAction : NSObject
+
+@property (nonatomic, copy) TSStream *(^action)(TSTreeUrlComponent *component);
+
+@end
+
+@implementation _TSRouteAction
+
+@end
 
 #pragma mark - TSRouteResult
 
@@ -46,18 +59,56 @@
 }
 
 #pragma mark - Action
+
+- (void)bindUrl:(NSString *)url toAction:(TSStream * _Nonnull (^)(TSTreeUrlComponent * _Nonnull))action {
+    _TSRouteAction *actionObj = [_TSRouteAction new];
+    actionObj.action = action;
+    [_syncTree buildTreeWithURLString:url value:actionObj];
+}
+
+- (TSStream *)actionByUrl:(NSString *)url {
+    TSTreeUrlComponent *comp = [_syncTree findByURLString:url];
+    if (!comp) {
+        return nil;
+    }
+    _TSRouteAction *action = (_TSRouteAction *)comp.value;
+    return action.action(comp);
+}
+
 #pragma mark - Listener
+
+- (void)bindUrl:(NSString *)url toDriven:(TSDrivenStream *)stream {
+    [_syncTree buildTreeWithURLString:url value:stream];
+}
+
+- (TSDrivenStream *)drivenByUrl:(NSString *)url {
+    return [_syncTree findByURLString:url].value;
+}
+
 #pragma mark - View
 
 - (void)bindUrl:(NSString *)urlString viewController:(Class<TSIntentable>)aClass {
     [_syncTree buildTreeWithURLString:urlString value:aClass];
 }
 
+- (TSStream<TSRouteResult *> *)prepare:(TSIntent *)intent source:(UIViewController *)source complete:(void (^)(void))complete {
+    return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
+        [self _startIntent:intent source:source completion:complete finish:^(TSRouteResult *result, NSError *error) {
+            if (error) {
+                [receiver receiveError:error];
+            } else {
+                [receiver receive:result];
+                [receiver endReceive];
+            }
+        }];
+        return nil;
+    }];
+}
+
 #pragma mark - private
 
 - (void)_startIntent:(TSIntent *)intent
               source:(UIViewController *)source
-            switched:(BOOL)switched
           completion:(void (^)(void))completion
               finish:(void(^)(TSRouteResult *result, NSError *error))finish {
     // fix intent
@@ -72,13 +123,13 @@
         switch (result.status) {
             case TSIntercepterResultStatusSwitched:
             {
-                [self _startIntent:result.intent source:source switched:YES completion:completion finish:finish];
+                [self _startIntent:result.intent source:source completion:completion finish:finish];
                 break;
             }
             case TSIntercepterResultStatusRejected:
             {
                 // finih by rejected;
-                TSRouteResult *ret = [TSRouteResult resultWithStatus:TSRouteResultStatusinterrupted destination:nil intent:result.intent error:result.error];
+                TSRouteResult *ret = [TSRouteResult resultWithStatus:TSRouteResultStatusRejected destination:nil intent:result.intent error:result.error];
                 finish(ret, result.error);
                 break;
             }
@@ -87,11 +138,18 @@
             {
                 if (result.intent.intentable) {
                     // 如果有主动设置对象，最高优先级
-                    finish([self startViewTransition:result.intent viewController:result.intent.intentable], nil);
+                    finish([self startViewTransition:result.intent
+                                              source:source
+                                      viewController:result.intent.intentable
+                                            complete:completion], nil);
+
                 } else if (result.intent.intentClass) {
                     // 找到配置
                     UIViewController *vc = [self generateInstanceForIntent:result.intent];
-                    finish([self startViewTransition:result.intent viewController:vc], nil);
+                    finish([self startViewTransition:result.intent
+                                              source:source
+                                      viewController:vc
+                                            complete:completion], nil);
                 } else {
                     // Lost
                     NSError *lostError = [NSError ts_errorWithCode:-18888 msg:@"Route error: Lost!!!"];
@@ -107,47 +165,36 @@
     }];
 }
 
-- (TSRouteResult *)startViewTransition:(TSIntent *)intent viewController:(UIViewController *)vc {
-    // TODO: lskdjf
-    return nil;
+- (TSRouteResult *)startViewTransition:(TSIntent *)intent
+                                source:(UIViewController *)source
+                        viewController:(UIViewController *)vc
+                              complete:(void (^)(void))complete {
+
+    TSRouteResult *ret = [TSRouteResult resultWithStatus:TSRouteResultStatusPass destination:vc intent:intent error:nil];
+
+    if (!source) return ret;
+
+    if (!intent.displayer) {
+        TSLog(@"Displayer is nil.");
+    } else {
+        [intent.displayer ts_displayFromViewController:source toViewController:vc animated:YES completion:complete];
+    }
+
+    return ret;
 }
 
 - (UIViewController<TSIntentable> *)generateInstanceForIntent:(TSIntent *)intent {
     
-    if (!intent.intentable) return intent.intentable;
+    if (intent.intentable) return intent.intentable;
     
     UIViewController<TSIntentable> *intentable;
     
     if (!intent.intentable && intent.intentClass) {
          intentable = [[((Class)intent.intentClass) alloc] initWithIntent:intent];
     }
-    [intentable ts_setIntent:intent];
-    
+    [intentable setTs_sourceIntent:intent];
+
     return intentable;
 }
-
-//- (TSRouteResult *)viewTransitionAction:(TSIntent *)finalIntent source:(UIViewController *)source switched:(BOOL)switched completion:(void (^)(void))completion {
-//
-//    id<TSIntentable> vc = [[finalIntent.intentClass alloc] initWithIntent:finalIntent];
-//    // creation listening
-////    [self.creationListeners enumerateObjectsUsingBlock:^(id<RIViewIntentableCreationListener>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-////        [obj ri_didCreateViewIntentable:vc];
-////    }];
-//    // set intent
-//    vc.ri_sourceIntent = finalIntent;
-//    // auto wire parameters
-//    [((NSObject *)vc) ri_autowireRITypesWithDict:finalIntent.params];
-//
-//    // start transioning
-//    if (source) {
-//        if (finalIntent.displayer) {
-//            [finalIntent.displayer ri_displayFromViewController:source toViewController:(UIViewController *)vc animated:YES completion:completion];
-//        } else {
-//            NSLog(@"RouteIntent warning: displayer doesn't exists!!!");
-//        }
-//    }
-//
-//    return [RIRouteResult resultWithStatus:switched ? RIRouteResultStatusSwitched : RIRouteResultStatusPass destination:(UIViewController *)vc intent:finalIntent error:nil];
-//}
 
 @end

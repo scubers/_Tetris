@@ -227,7 +227,11 @@
 
 - (TSCanceller *)subscribeByReciever:(id<TSReceivable>)reciever {
     [_receivers addObject:reciever];
-    return [super subscribeByReciever:reciever];
+    TSCanceller *canceller = [super subscribeByReciever:reciever];
+    [canceller addCanceller:[TSCanceller cancellerWithBlock:^{
+        [_receivers removeObject:reciever];
+    }]];
+    return canceller;
 }
 
 - (void)receive:(id)obj {

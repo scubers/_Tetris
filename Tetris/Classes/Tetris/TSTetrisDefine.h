@@ -42,10 +42,30 @@
 #define TS_GET_SERVICE(_protocol) \
         ((id<_protocol>)([_Tetris.serviceMgr serviceByProtoocl:@protocol(_protocol)]))
 
+
+#pragma mark - module
+
 #define TS_MODULE(TSModulePriority) \
         + (void)load {\
             [_Tetris registerModuleByClass:self priority:(TSModulePriority)];\
         }
 
+#pragma mark - router
+
+
+#define TS_EXPORT_ROUTE(className, url, anyDifferentSuffix) \
+        @implementation className (IntentExport_##className##_##anyDifferentSuffix)\
+        + (void)load { [_Tetris.router bindUrl:@url viewController:self];} \
+        @end
+
+#define TS_VC_ROUTE(_url) \
+        + (void)load { [_Tetris.router bindUrl:@_url viewController:self];}
+
+#define TS_INTERCEPTER(TSIntercepterPriority) \
+        + (void)load { \
+            id<TSIntercepterProtocol> inter = [[self alloc] init];\
+            inter.priority = TSIntercepterPriority;\
+            [_Tetris.router.intercepterMgr addIntercepter:inter];\
+        }
 
 #endif /* TSTetrisDefine_h */

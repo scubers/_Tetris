@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "TSError.h"
 
-#define TSLog(msg, ...) [TSLogger log:msg, __VA_ARGS__]
+#define TSLog(msg, ...) [TSLogger log:msg, ##__VA_ARGS__]
 #define TSLogErr(error) [TSLogger logError:error]
 
 NS_ASSUME_NONNULL_BEGIN

@@ -9,11 +9,21 @@
 
 @implementation TSIntent
 
+- (instancetype)initWithUrl:(NSString *)urlString intentClass:(Class<TSIntentable>)intentClass displayer:(nullable id<TSIntentDisplayerProtocol>)displayer {
+    if (self = [self init]) {
+        _urlString = urlString;
+        _intentClass = intentClass;
+        _displayer = displayer;
+    }
+    return self;
+}
+
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         _extraParameters = [NSMutableDictionary dictionaryWithCapacity:1];
+        _resultStream = [TSDrivenStream stream];
     }
     return self;
 }

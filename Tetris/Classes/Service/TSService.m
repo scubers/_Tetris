@@ -78,7 +78,7 @@
     id<TSServiceExportable> service;
     NSString *path = [NSString stringWithFormat:@"/%@", name];
     TSTreeUrlComponent *comp = [self.tree findByURLString:path];
-    if (comp && [comp.value isKindOfClass:[TSService class]]) {
+    if (comp.value && [comp.value isKindOfClass:[TSService class]]) {
         service = ((TSService *)comp.value).getService;
     }
     return service;
