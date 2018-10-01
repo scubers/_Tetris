@@ -9,6 +9,10 @@
 
 @implementation TSIntent
 
++ (instancetype)intentWithUrl:(NSString *)urlString intentClass:(Class<TSIntentable>)intentClass displayer:(id<TSIntentDisplayerProtocol>)displayer {
+    return [[self alloc] initWithUrl:urlString intentClass:intentClass displayer:displayer];
+}
+
 - (instancetype)initWithUrl:(NSString *)urlString intentClass:(Class<TSIntentable>)intentClass displayer:(nullable id<TSIntentDisplayerProtocol>)displayer {
     if (self = [self init]) {
         _urlString = urlString;
@@ -23,7 +27,7 @@
     self = [super init];
     if (self) {
         _extraParameters = [NSMutableDictionary dictionaryWithCapacity:1];
-        _resultStream = [TSDrivenStream stream];
+        _onResult = [TSDrivenStream stream];
     }
     return self;
 }

@@ -72,7 +72,7 @@
 }
 
 - (void)ts_sendStream:(id)stream {
-    [[self ts_getIntentable].ts_sourceIntent.resultStream receive:stream];
+    [[self ts_getIntentable].ts_sourceIntent.onResult receive:stream];
 }
 
 @end

@@ -1,0 +1,39 @@
+//
+//  Demo3VC.swift
+//  Tetris_Example
+//
+//  Created by 王俊仁 on 2018/10/1.
+//  Copyright © 2018 wangjunren. All rights reserved.
+//
+
+import UIKit
+
+class Demo3Inter: TSIntercepterAdapter, IIntercepterComponent {
+    required override init() {
+        super.init()
+    }
+
+    override func matchUrlPatterns() -> [String]? {
+        return ["^((\\w+)://)?(\\w+)?/swift/demo3\\??.*$"]
+    }
+
+    override func doAdjudgement(_ judger: TSIntercepterJudger) {
+        let msg = "Reject by Class: \(type(of: self))"
+        print(msg)
+        judger.doReject(NSError.init(domain: msg, code: 10, userInfo: nil))
+    }
+}
+
+class Demo3VC: BaseVC, IRouterComponent {
+    class var routeURLs: [URLPresentable] {
+        return ["/swift/demo3"]
+    }
+
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        assert(false, "can not enter this VC")
+    }
+
+
+}

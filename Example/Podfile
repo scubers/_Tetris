@@ -2,7 +2,7 @@ use_frameworks!
 install! 'cocoapods', :deterministic_uuids => false
 
 target 'Tetris_Example' do
-  pod 'Tetris', :path => '../'
+  pod 'Tetris/Swift', :path => '../'
 
   target 'Tetris_Tests' do
     inherit! :search_paths

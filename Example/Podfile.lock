@@ -1,16 +1,18 @@
 PODS:
-  - Tetris (0.1.0)
+  - Tetris/Core (0.1.0)
+  - Tetris/Swift (0.1.0):
+    - Tetris/Core
 
 DEPENDENCIES:
-  - Tetris (from `../`)
+  - Tetris/Swift (from `../`)
 
 EXTERNAL SOURCES:
   Tetris:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Tetris: e74c3e7a1912778c1b9a33df0b2c43e37dceb541
+  Tetris: a796d96fb15b4c59c7e8bb5a20877a4ba993e7d0
 
-PODFILE CHECKSUM: 61bd35fe249ae92a55ceb31af4baea0eb3267e03
+PODFILE CHECKSUM: da11ac83d87abaf0a302ae7f87c8e705bd1b30b5
 
 COCOAPODS: 1.5.3

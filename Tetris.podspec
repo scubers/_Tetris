@@ -30,13 +30,15 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'Tetris/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'Tetris' => ['Tetris/Assets/*.png']
-  # }
+  s.subspec 'Core' do |core|
+    core.source_files = 'Tetris/Classes/Core/**/*'
+  end
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.subspec 'Swift' do |swift|
+    swift.source_files = 'Tetris/Classes/Swift/**/*'
+    swift.dependency 'Tetris/Core'
+  end
+
+  s.default_subspec = 'Core'
+
 end

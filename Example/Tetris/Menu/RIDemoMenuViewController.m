@@ -15,6 +15,8 @@
 
 @property (nonatomic, strong) NSArray<NSDictionary<NSString *, TSIntent *> *> *intents;
 
+@property (nonatomic, assign) BOOL isSwiftDemo;
+
 @end
 
 @implementation RIDemoMenuViewController
@@ -24,21 +26,32 @@ TS_VC_ROUTE("/menu")
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.title = @"Menu";
+    [self setupNavigationItem];
 
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"1"];
 
-    _intents = self.getIntents;
+    [self reloadData];
 
+}
+
+- (void)setupNavigationItem {
+    self.navigationItem.title = @"OC Demo";
+    NSString *itemTitle = @"Switch";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:itemTitle style:UIBarButtonItemStylePlain target:self action:@selector(change:)];
+}
+
+- (void)change:(id)sender {
+    [[_Tetris.router drivenByUrl:@"/changeDemo"] receive:nil];
+}
+
+- (void)reloadData {
+    _intents = [self getIntents];
     [self.tableView reloadData];
-
-
 }
 
 - (NSArray<NSDictionary<NSString *,TSIntent *> *> *)getIntents {
     return
     @[
-
       @{@"1. Just Route" : [TSIntent pushPopIntentByUrl:@"/demo1"]},
       @{@"2. Route with params" : [TSIntent pushPopIntentByUrl:@"/demo2/demo2?p=pp&b=bb&c=cc&name=my_name&number=98#i_am_fragment"]},
       @{@"3. Intercepter: Reject" : [TSIntent pushPopIntentByUrl:@"/demo3"]},
@@ -68,7 +81,7 @@ TS_VC_ROUTE("/menu")
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     TSIntent *intent = self.intents[indexPath.row].allValues.lastObject;
 
-    [intent.resultStream subscribe:^(id  _Nullable obj) {
+    [intent.onResult subscribe:^(id  _Nullable obj) {
         [self alert:[NSString stringWithFormat:@"%@", obj]];
     }];
 

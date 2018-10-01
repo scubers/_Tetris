@@ -46,6 +46,11 @@
 		A84C73622161B5A300457D69 /* MyPresentDismiss.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C735F2161B5A200457D69 /* MyPresentDismiss.m */; };
 		A84C73662161B67900457D69 /* RIDemo14ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C73652161B67900457D69 /* RIDemo14ViewController.m */; };
 		A84C736A2161B71900457D69 /* RIDemo15ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C73692161B71900457D69 /* RIDemo15ViewController.m */; };
+		A84C736F2161C51000457D69 /* Demo1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84C736E2161C51000457D69 /* Demo1VC.swift */; };
+		A84C73752161D28200457D69 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84C73742161D28200457D69 /* BaseVC.swift */; };
+		A84C73772161E66D00457D69 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84C73762161E66D00457D69 /* MenuVC.swift */; };
+		A84C73792161EAA400457D69 /* Demo2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84C73782161EAA400457D69 /* Demo2VC.swift */; };
+		A84C737B2161EC6100457D69 /* Demo3VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84C737A2161EC6100457D69 /* Demo3VC.swift */; };
 		E2176CAAF6F1743BF9B0BB01 /* Pods_Tetris_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A1839A41C0D19EE498C2485 /* Pods_Tetris_Tests.framework */; };
 		E7C4FBA3C5326C7CA1690022 /* Pods_Tetris_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C7B6D9BC2D5FC32ED45164 /* Pods_Tetris_Example.framework */; };
 /* End PBXBuildFile section */
@@ -132,6 +137,12 @@
 		A84C73652161B67900457D69 /* RIDemo14ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo14ViewController.m; sourceTree = "<group>"; };
 		A84C73682161B71900457D69 /* RIDemo15ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo15ViewController.h; sourceTree = "<group>"; };
 		A84C73692161B71900457D69 /* RIDemo15ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo15ViewController.m; sourceTree = "<group>"; };
+		A84C736B2161C4F900457D69 /* Tetris_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tetris_Example-Bridging-Header.h"; sourceTree = "<group>"; };
+		A84C736E2161C51000457D69 /* Demo1VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo1VC.swift; sourceTree = "<group>"; };
+		A84C73742161D28200457D69 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
+		A84C73762161E66D00457D69 /* MenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
+		A84C73782161EAA400457D69 /* Demo2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo2VC.swift; sourceTree = "<group>"; };
+		A84C737A2161EC6100457D69 /* Demo3VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo3VC.swift; sourceTree = "<group>"; };
 		AA6481AD3053FDD3B1A0EC22 /* Pods-Tetris_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tetris_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tetris_Example/Pods-Tetris_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		B76960F99E00198E1065DD5F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		F24EDF8B28CE9088BC8FE25B /* Pods-Tetris_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tetris_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tetris_Tests/Pods-Tetris_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -238,6 +249,7 @@
 				6003F594195388D20070C39A /* Supporting Files */,
 				093F5D16215F1E68008245C9 /* TSDemoModules.h */,
 				093F5D17215F1E68008245C9 /* TSDemoModules.m */,
+				A84C736B2161C4F900457D69 /* Tetris_Example-Bridging-Header.h */,
 			);
 			name = "Example for Tetris";
 			path = Tetris;
@@ -292,6 +304,7 @@
 			children = (
 				A84C730A2160F85F00457D69 /* RIBaseViewController.h */,
 				A84C73092160F85F00457D69 /* RIBaseViewController.m */,
+				A84C73742161D28200457D69 /* BaseVC.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -301,6 +314,7 @@
 			children = (
 				A84C730D2160F8E100457D69 /* RIDemoMenuViewController.h */,
 				A84C730E2160F8E100457D69 /* RIDemoMenuViewController.m */,
+				A84C73762161E66D00457D69 /* MenuVC.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -310,6 +324,7 @@
 			children = (
 				A84C7322216105EC00457D69 /* RIDemo1ViewController.m */,
 				A84C7323216105EC00457D69 /* RIDemo1ViewController.h */,
+				A84C736E2161C51000457D69 /* Demo1VC.swift */,
 			);
 			path = Demo1;
 			sourceTree = "<group>";
@@ -319,6 +334,7 @@
 			children = (
 				A84C7326216106FA00457D69 /* RIDemo2ViewController.h */,
 				A84C7327216106FA00457D69 /* RIDemo2ViewController.m */,
+				A84C73782161EAA400457D69 /* Demo2VC.swift */,
 			);
 			path = Demo2;
 			sourceTree = "<group>";
@@ -328,6 +344,7 @@
 			children = (
 				A84C732E21610B8200457D69 /* RIDemo3ViewController.h */,
 				A84C732F21610B8200457D69 /* RIDemo3ViewController.m */,
+				A84C737A2161EC6100457D69 /* Demo3VC.swift */,
 			);
 			path = Demo3;
 			sourceTree = "<group>";
@@ -498,6 +515,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = wangjunren;
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						LastSwiftMigration = 1000;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -611,10 +631,13 @@
 				A84C73542161B42800457D69 /* RIDemo11ViewController.m in Sources */,
 				A84C733021610B8200457D69 /* RIDemo3ViewController.m in Sources */,
 				A84C73502161B20A00457D69 /* RIDemo10ViewController.m in Sources */,
+				A84C737B2161EC6100457D69 /* Demo3VC.swift in Sources */,
 				A84C73582161B55D00457D69 /* RIDemo12ViewController.m in Sources */,
 				A84C736A2161B71900457D69 /* RIDemo15ViewController.m in Sources */,
 				A84C730B2160F85F00457D69 /* RIBaseViewController.m in Sources */,
 				A84C733421610C0800457D69 /* RIDemo4ViewController.m in Sources */,
+				A84C73792161EAA400457D69 /* Demo2VC.swift in Sources */,
+				A84C73752161D28200457D69 /* BaseVC.swift in Sources */,
 				6003F5A7195388D20070C39A /* TSViewController.m in Sources */,
 				A84C73622161B5A300457D69 /* MyPresentDismiss.m in Sources */,
 				A84C7328216106FB00457D69 /* RIDemo2ViewController.m in Sources */,
@@ -624,11 +647,13 @@
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				A84C73662161B67900457D69 /* RIDemo14ViewController.m in Sources */,
 				093F5D18215F1E68008245C9 /* TSDemoModules.m in Sources */,
+				A84C73772161E66D00457D69 /* MenuVC.swift in Sources */,
 				A84C73602161B5A300457D69 /* RIDemo13ViewController.m in Sources */,
 				A84C733C2161143000457D69 /* RIDemo6ViewController.m in Sources */,
 				A84C73442161243C00457D69 /* RIDemo8ViewController.m in Sources */,
 				A84C734C2161AF4C00457D69 /* RIDemo9ViewController.m in Sources */,
 				A84C73612161B5A300457D69 /* MyPushPop.m in Sources */,
+				A84C736F2161C51000457D69 /* Demo1VC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -760,12 +785,17 @@
 			baseConfigurationReference = AA6481AD3053FDD3B1A0EC22 /* Pods-Tetris_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tetris/Tetris-Prefix.pch";
 				INFOPLIST_FILE = "Tetris/Tetris-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tetris/Tetris_Example-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -775,12 +805,16 @@
 			baseConfigurationReference = 895F8E6333EC1BBC4E486319 /* Pods-Tetris_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tetris/Tetris-Prefix.pch";
 				INFOPLIST_FILE = "Tetris/Tetris-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tetris/Tetris_Example-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -789,6 +823,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F24EDF8B28CE9088BC8FE25B /* Pods-Tetris_Tests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -813,6 +848,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 010242AB6224A33963B53CA1 /* Pods-Tetris_Tests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

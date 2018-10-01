@@ -132,9 +132,11 @@
 
 - (TSCanceller *)subscribeByReciever:(id<TSReceivable>)reciever {
     TSCanceller *canceller = _creationBlock(reciever);
-    return [TSCanceller cancellerWithBlock:^{
+    TSCanceller *outerCanceller = [TSCanceller cancellerWithBlock:^{
         [canceller cancel];
     }];
+    [reciever didSubscribeWithCanceller:outerCanceller];
+    return outerCanceller;
 }
 
 - (TSCanceller *)subscribe:(void (^)(id _Nullable))block error:(void (^)(NSError *error))error complete:(dispatch_block_t)complete {
