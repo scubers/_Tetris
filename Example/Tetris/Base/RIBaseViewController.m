@@ -14,6 +14,10 @@
 
 @implementation RIBaseViewController
 
++ (instancetype)ts_createByIntent:(TSIntent *)intent {
+    return [[self alloc] initWithIntent:intent];
+}
+
 - (instancetype)initWithIntent:(TSIntent *)sourceIntent {
     if (self = [super init]) {
         _ts_sourceIntent = sourceIntent;

@@ -27,6 +27,8 @@ class Demo5Inter: TSIntercepterAdapter, IIntercepterComponent {
 }
 
 class Demo5VC: BaseVC, IRouterComponent {
+
+
     class var routeURLs: [URLPresentable] {
         return ["/swift/demo5", "/swift/interceptered/demo5"]
     }

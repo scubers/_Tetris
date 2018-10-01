@@ -11,6 +11,10 @@ import Tetris
 
 class BaseVC: UIViewController, Intentable {
 
+    class func ts_create(by intent: Intent) -> Self {
+        return self.init(intent: intent)
+    }
+
     required init(intent: Intent) {
         ts_sourceIntent = intent
         super.init(nibName: nil, bundle: nil)

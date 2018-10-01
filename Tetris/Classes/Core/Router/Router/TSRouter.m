@@ -209,7 +209,7 @@
     UIViewController *intentable;
     
     if (!intent.intentable && intent.intentClass) {
-         intentable = [[((Class)intent.intentClass) alloc] initWithIntent:intent];
+        intentable = [((Class)intent.intentClass) ts_createByIntent:intent];
         [(id<TSIntentable>)intentable setTs_sourceIntent:intent];
     }
 

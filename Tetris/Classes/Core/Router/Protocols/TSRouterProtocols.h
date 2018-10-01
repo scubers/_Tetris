@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(Intentable)
 @protocol TSIntentable <NSObject>
 
-- (instancetype)initWithIntent:(TSIntent *)intent;
++ (instancetype)ts_createByIntent:(TSIntent *)intent;
 
 @property (nonatomic, strong) TSIntent *ts_sourceIntent;
 
