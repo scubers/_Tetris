@@ -22,7 +22,7 @@ TS_INTERCEPTER(TSIntercepterPriorityNormal)
 - (void)doAdjudgement:(id<TSIntercepterJudger>)adjudger {
     NSLog(@"Demo10 intercepter!!");
     TSIntent *intent = [TSIntent pushPopIntentByUrl:@please_take_me_as_an_webview];
-    intent.displayer = adjudger.sourceIntent.displayer;
+    intent.displayer = adjudger.intent.displayer;
     [adjudger doSwitch:intent];
 }
 @end

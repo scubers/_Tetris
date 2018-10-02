@@ -23,7 +23,7 @@ TS_INTERCEPTER(TSIntercepterPriorityNormal)
 - (void)doAdjudgement:(id<TSIntercepterJudger>)adjudger {
     NSLog(@"Demo5 switch intercepter!!");
     TSIntent *intent = [TSIntent pushPopIntentByUrl:@"/interceptered/demo5#intercepted"];
-    intent.displayer = adjudger.sourceIntent.displayer;
+    intent.displayer = adjudger.intent.displayer;
     [adjudger doSwitch:intent];
 }
 

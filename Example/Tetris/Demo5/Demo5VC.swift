@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Demo5Inter: TSIntercepterAdapter, IIntercepterComponent {
+class Demo5Inter: IntercepterAdapter, IIntercepterComponent {
     required override init() {
         super.init()
     }
@@ -20,7 +20,7 @@ class Demo5Inter: TSIntercepterAdapter, IIntercepterComponent {
     override func doAdjudgement(_ judger: IIntercepterJudger) {
         print("swift Demo5 switch intercepter!!")
         let intent = Intent.pushPop(byUrl: "/swift/interceptered/demo5#intercepted")!
-        intent.displayer = judger.sourceIntent().displayer
+        intent.displayer = judger.intent().displayer
         judger.doSwitch(intent)
     }
 

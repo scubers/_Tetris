@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Demo4Inter: TSIntercepterAdapter, IIntercepterComponent {
+class Demo4Inter: IntercepterAdapter, IIntercepterComponent {
     required override init() {
         super.init()
     }

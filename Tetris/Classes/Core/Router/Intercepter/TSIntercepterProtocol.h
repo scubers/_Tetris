@@ -23,7 +23,7 @@ NS_SWIFT_NAME(IIntercepterJudger)
  
  @return Return the input Intent
  */
-- (TSIntent *)sourceIntent;
+- (TSIntent *)intent;
 
 /**
  Return the source that given by the user
@@ -51,6 +51,13 @@ NS_SWIFT_NAME(IIntercepterJudger)
  Pass this intercepter
  */
 - (void)doContinue;
+
+
+/**
+ execute
+ [self.source ts_start:self.sourceIntent]
+ */
+- (void)restart;
 
 @end
 

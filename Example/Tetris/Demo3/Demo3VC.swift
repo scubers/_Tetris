@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Demo3Inter: TSIntercepterAdapter, IIntercepterComponent {
+class Demo3Inter: IntercepterAdapter, IIntercepterComponent {
     required override init() {
         super.init()
         priority = TSIntercepterPriorityNormal

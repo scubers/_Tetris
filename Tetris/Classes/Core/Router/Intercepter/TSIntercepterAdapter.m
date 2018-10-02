@@ -43,7 +43,7 @@
 }
 
 - (void)ts_judgeIntent:(id<TSIntercepterJudger>)adjudgement {
-    TSIntent *intent = adjudgement.sourceIntent;
+    TSIntent *intent = adjudgement.intent;
 
     for (NSPredicate *predicate in self.urlPredicates) {
         if ([predicate evaluateWithObject:intent.urlComponent.path]) {

@@ -9,6 +9,7 @@
 #import "TSIntercepterManager.h"
 #import "TSIntent.h"
 #import "TSError.h"
+#import "UIViewController+TSRouter.h"
 
 @interface _TSIntercepterJudger : NSObject <TSIntercepterJudger>
 
@@ -63,6 +64,10 @@
 
 - (void)dealloc {
     TSAssertion(_rejectFlag || _continueFlag || _switchFlag, "you should call reject or continue or switch in Intercepter");
+}
+
+- (void)restart {
+    [self.source ts_start:self.sourceIntent];
 }
 
 
