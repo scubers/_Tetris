@@ -17,60 +17,60 @@
     TSModuleContext *context = [TSModuleContext shared];
     context.launchOptions = launchOptions;
     
-    [_Tetris.moduler.trigger tetrisModuleInit:context];
-    [_Tetris.moduler.trigger tetrisModuleSetup:context];
-    [_Tetris.moduler.trigger tetrisModuleSplash:context];
-    [_Tetris.moduler.trigger application:application didFinishLaunchingWithOptions:launchOptions];
+    [_Tetris.modular.trigger tetrisModuleInit:context];
+    [_Tetris.modular.trigger tetrisModuleSetup:context];
+    [_Tetris.modular.trigger tetrisModuleSplash:context];
+    [_Tetris.modular.trigger application:application didFinishLaunchingWithOptions:launchOptions];
     
     return YES;
 }
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    [_Tetris.moduler.trigger applicationWillResignActive:application];
+    [_Tetris.modular.trigger applicationWillResignActive:application];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    [_Tetris.moduler.trigger applicationDidEnterBackground:application];
+    [_Tetris.modular.trigger applicationDidEnterBackground:application];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    [_Tetris.moduler.trigger applicationWillEnterForeground:application];
+    [_Tetris.modular.trigger applicationWillEnterForeground:application];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [_Tetris.moduler.trigger applicationDidBecomeActive:application];
+    [_Tetris.modular.trigger applicationDidBecomeActive:application];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    [_Tetris.moduler.trigger applicationWillTerminate:application];
+    [_Tetris.modular.trigger applicationWillTerminate:application];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    [_Tetris.moduler.trigger application:application didReceiveRemoteNotification:userInfo];
+    [_Tetris.modular.trigger application:application didReceiveRemoteNotification:userInfo];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    [_Tetris.moduler.trigger application:application didFailToRegisterForRemoteNotificationsWithError:error];
+    [_Tetris.modular.trigger application:application didFailToRegisterForRemoteNotificationsWithError:error];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    [_Tetris.moduler.trigger application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+    [_Tetris.modular.trigger application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    [_Tetris.moduler.trigger application:application handleOpenURL:url];
+    [_Tetris.modular.trigger application:application handleOpenURL:url];
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    [_Tetris.moduler.trigger application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
+    [_Tetris.modular.trigger application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     if (@available(iOS 9.0, *)) {
-        [_Tetris.moduler.trigger application:app openURL:url options:options];
+        [_Tetris.modular.trigger application:app openURL:url options:options];
     } else {
     }
     return YES;

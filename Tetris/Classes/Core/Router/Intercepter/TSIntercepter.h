@@ -1,12 +1,12 @@
 //
-//  TSIntercepterProtocol.h
+//  TSIntercepter.h
 //  Tetris
 //
 //  Created by Junren Wong on 2018/9/30.
 //
 
-#ifndef TSIntercepterProtocol_h
-#define TSIntercepterProtocol_h
+#ifndef TSIntercepter_h
+#define TSIntercepter_h
 
 
 @class TSIntent;
@@ -71,8 +71,8 @@ static TSIntercepterPriority const TSIntercepterPriorityNormal = 5000;
 static TSIntercepterPriority const TSIntercepterPriorityHigh = 10000;
 static TSIntercepterPriority const TSIntercepterPriorityMax = NSIntegerMax;
 
-NS_SWIFT_NAME(IIntercepter)
-@protocol TSIntercepterProtocol <TSCreatable>
+NS_SWIFT_NAME(Intercepter)
+@protocol TSIntercepter <TSCreatable>
 
 
 @property (nonatomic, assign) TSIntercepterPriority priority;
@@ -89,4 +89,4 @@ NS_SWIFT_NAME(IIntercepter)
 @end
 NS_ASSUME_NONNULL_END
 
-#endif /* TSIntercepterProtocol_h */
+#endif /* TSIntercepter_h */

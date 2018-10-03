@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Tree节点路径描述对象
  */
+NS_SWIFT_NAME(TreePath)
 @interface TSNodePath : NSObject
 
 @property (nonatomic, copy, readonly) NSArray<NSString *> *path;
@@ -30,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Tree 节点对象
  */
+NS_SWIFT_NAME(TreeNode)
 @interface TSTreeNode : NSObject
 
 + (TSTreeNode *)nodeWithKey:(NSString *)key value:(nullable id)value depth:(NSInteger)depth;
@@ -58,6 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Tree查找结果对象
  */
+NS_SWIFT_NAME(TreeResult)
 @interface TSTreeResult : NSObject
 
 @property (nonatomic, copy, readonly) NSDictionary<NSString *, NSString *> *params;
@@ -74,6 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Tree
  */
+NS_SWIFT_NAME(Tree)
 @interface TSTree : NSObject
 
 @property (nonatomic, strong) TSTreeNode *root;

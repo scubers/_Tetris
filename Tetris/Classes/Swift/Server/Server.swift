@@ -17,3 +17,10 @@ public extension IComponent where Self : IServiceable {
     }
 }
 
+public func getService<T>(_ aProtocol: Protocol) -> T? {
+    return TSTetris.shared().server.service(byProtoocl: aProtocol) as? T
+}
+
+public func getService<T>(by name: String) -> T? {
+    return TSTetris.shared().server.service(byName: name) as? T
+}

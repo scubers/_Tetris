@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TSIntercepterProtocol.h"
+#import "TSIntercepter.h"
 #import "TSIntent.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -43,7 +43,7 @@ NS_SWIFT_NAME(IntercepterManager)
 
 + (instancetype)manager;
 
-- (void)addIntercepter:(id<TSIntercepterProtocol>)intercepter
+- (void)addIntercepter:(id<TSIntercepter>)intercepter
 NS_SWIFT_NAME(add(intercepter:));
 
 

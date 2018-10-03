@@ -17,7 +17,6 @@ class BaseVC: UIViewController, Intentable {
     
     var ts_sourceIntent: Intent?
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Swift-\(NSStringFromClass(type(of: self)))"

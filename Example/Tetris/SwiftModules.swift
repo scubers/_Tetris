@@ -26,7 +26,7 @@ class SwiftBaseModule: AbstractModule {
     func applicationDidBecomeActive(_ application: UIApplication) {
         print("\(#function)")
         
-        TSTetris.shared().moduler.trigger.tetrisModuleDidTrigger!(event: 100, userInfo: nil)
+        TSTetris.shared().modular.trigger.tetrisModuleDidTrigger!(event: 100, userInfo: nil)
     }
     
     func tetrisModuleDidTrigger(event: Int, userInfo: [AnyHashable : Any]? = nil) {

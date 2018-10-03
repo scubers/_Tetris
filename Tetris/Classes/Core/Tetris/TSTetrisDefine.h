@@ -47,7 +47,7 @@
 
 #define TS_MODULE(TSModulePriority) \
         + (void)load {\
-            [_Tetris registerModuleByClass:self priority:(TSModulePriority)];\
+            [_Tetris.modular registerModuleWithClass:self priority:(TSModulePriority)];\
         }
 
 #pragma mark - router
@@ -63,7 +63,7 @@
 
 #define TS_INTERCEPTER(TSIntercepterPriority) \
         + (void)load { \
-            id<TSIntercepterProtocol> inter = [self ts_create];\
+            id<TSIntercepter> inter = [self ts_create];\
             inter.priority = TSIntercepterPriority;\
             [_Tetris.router.intercepterMgr addIntercepter:inter];\
         }

@@ -92,7 +92,7 @@
 
 @interface TSIntercepterManager ()
 
-@property (nonatomic, strong) NSMutableArray<id<TSIntercepterProtocol>> *intercepters;
+@property (nonatomic, strong) NSMutableArray<id<TSIntercepter>> *intercepters;
 
 @end
 
@@ -111,8 +111,8 @@
     return self;
 }
 
-- (void)addIntercepter:(id<TSIntercepterProtocol>)intercepter {
-    NSUInteger index = [_intercepters indexOfObjectPassingTest:^BOOL(id<TSIntercepterProtocol>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+- (void)addIntercepter:(id<TSIntercepter>)intercepter {
+    NSUInteger index = [_intercepters indexOfObjectPassingTest:^BOOL(id<TSIntercepter>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (obj.priority < intercepter.priority) {
             return YES;
         }
@@ -129,7 +129,7 @@
 - (void)_runIntent:(TSIntent *)intent
             source:(UIViewController *)source
   intercepterIndex:(NSUInteger)index
-      intercepters:(NSArray<id<TSIntercepterProtocol>> *)intercepters
+      intercepters:(NSArray<id<TSIntercepter>> *)intercepters
             finish:(TSRunIntercepterFinish)finish {
 
 
@@ -166,7 +166,7 @@
     }
 
     // exec the intercepter
-    id<TSIntercepterProtocol> intercepter = intercepters[index];
+    id<TSIntercepter> intercepter = intercepters[index];
     [intercepter ts_judgeIntent:getAdjudger()];
 }
 

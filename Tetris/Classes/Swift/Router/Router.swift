@@ -40,7 +40,7 @@ public extension IComponent where Self : URLRoutable, Self : Intentable {
 }
 
 
-public extension IComponent where Self : IIntercepter {
+public extension IComponent where Self : Intercepter {
     public static func tetrisStart() {
         TSTetris.shared().router.intercepterMgr.add(intercepter: self.ts_create())
     }
@@ -52,4 +52,21 @@ public extension IComponent where Self : RouteActionable, Self : URLRoutable {
         TSTetris.shared().router.bindUrl(try! self.routeURLs.first!.toURL().absoluteString,
                                          toRouteAction: self.ts_create())
     }
+}
+
+
+public func start(intent: Intent, source: UIViewController) {
+    TSTetris.shared().router.prepare(intent, source: source, complete: nil)
+}
+
+public func prepare(intent: Intent, source: UIViewController? = nil, complete: (()->Void)?) -> TSStream<RouteResult> {
+    return TSTetris.shared().router.prepare(intent, source: source, complete: complete)
+}
+
+public func bind(url: String, to action: @escaping (TreeUrlComponent) -> TSStream<AnyObject>) {
+    TSTetris.shared().router.bindUrl(url, toAction: action)
+}
+
+public func action(url: String) -> TSStream<AnyObject>? {
+    return TSTetris.shared().router.action(byUrl: url)
 }

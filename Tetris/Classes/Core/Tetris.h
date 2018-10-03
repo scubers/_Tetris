@@ -24,6 +24,6 @@
 #import <Tetris/TSIntent.h>
 #import <Tetris/TSIntercepterAdapter.h>
 #import <Tetris/TSIntercepterManager.h>
-#import <Tetris/TSIntercepterProtocol.h>
+#import <Tetris/TSIntercepter.h>
 #import <Tetris/TSRouterProtocols.h>
 #import <Tetris/TSRouter.h>

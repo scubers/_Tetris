@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TSIntercepterProtocol.h"
+#import "TSIntercepter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
  urlpatterns > classNamePattern > classes
  */
 NS_SWIFT_NAME(IntercepterAdapter)
-@interface TSIntercepterAdapter : NSObject <TSIntercepterProtocol>
+@interface TSIntercepterAdapter : NSObject <TSIntercepter>
 
 @property (nonatomic, assign) TSIntercepterPriority priority;
 

@@ -21,37 +21,16 @@ static TSTetris *__sharedInstance;
 - (instancetype)init {
     if (self = [super init]) {
         _server = [TSTetrisServer new];
-        _moduler = [TSTetrisModular new];
+        _modular = [TSTetrisModular new];
         _router = [TSRouter new];
     }
     return self;
 }
 
-- (void)tetrisStart {
-    
-}
-
 #pragma mark - server methods
-
-- (void)registerServiceByProtocol:(Protocol *)aProtocol class:(Class<TSServiceable>)aClass singleton:(BOOL)singleton {
-    [_server bindServiceByProtocol:aProtocol class:aClass singleton:singleton];
-    
-}
 
 #pragma mark - moduler methods
 
-- (void)registerModuleByClass:(Class<TSModularComposable>)aClass priority:(TSModulePriority)priority {
-    [_moduler registerModuleWithClass:aClass priority:priority];
-}
-
-- (void)registerModuleByClass:(Class<TSModularComposable>)aClass {
-    [_moduler registerModuleWithClass:aClass];
-}
-
 #pragma mark - router methods
-
-- (void)bindUrl:(NSString *)url viewController:(Class<TSIntentable>)aClass {
-    [_router bindUrl:url viewController:aClass];
-}
 
 @end
