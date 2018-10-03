@@ -14,7 +14,7 @@ TS_EXPORT_ROUTE(RIDemo9ViewController, "/demo9", 100)
 //@property (nonatomic, strong) RIUnListener *unlistener;
 @property (nonatomic, strong) TSCanceller *canceller;
 
-@property (nonatomic, strong) TSDrivenStream *driven;
+@property (nonatomic, strong) TSDrivenStream<TSTreeUrlComponent *> *driven;
 
 @property (nonatomic, strong) UITextField *textfield;
 
@@ -23,22 +23,16 @@ TS_EXPORT_ROUTE(RIDemo9ViewController, "/demo9", 100)
 @implementation RIDemo9ViewController
 
 + (void)load {
-    [_Tetris.router bindUrl:@"/listen/demo9" toDriven:[TSDrivenStream stream]];
+//    [_Tetris.router bindUrl:@"/listen/demo9" toDriven:[TSDrivenStream stream]];
+    [_Tetris.router registerDrivenByUrl:@"/list/demo9"];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"Listening";
-
-//    _pod = [_RIRouter podCastWithUrl:@"/listen/demo9"];
-    _driven = [_Tetris.router drivenByUrl:@"/listen/demo9"];
-
-    __weak typeof(self) ws = self;
-//    _unlistener = [_pod listening:^(id wave) {
-//        [ws alert:wave];
-//    }];
-    _canceller = [_driven subscribe:^(id  _Nullable obj) {
-        [ws alert:obj];
+    
+    [_Tetris.router subscribeDrivenByUrl:@"/list/demo9" callback:^(TSTreeUrlComponent * _Nonnull component) {
+        [self alert:[component description]];
     }];
 
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -57,13 +51,11 @@ TS_EXPORT_ROUTE(RIDemo9ViewController, "/demo9", 100)
 }
 
 - (void)sendWave:(id)sender {
-    [_driven post:self.textfield.text];
-//    [_pod postWave:self.textfield.text];
+    [_Tetris.router postDrivenByUrl:[NSString stringWithFormat:@"/list/demo9?text=%@", self.textfield.text] params:nil];
 }
 
 - (void)dealloc {
     [_canceller cancel];
-//    [_unlistener unlisten];
 }
 
 

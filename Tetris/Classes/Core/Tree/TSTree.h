@@ -100,7 +100,7 @@ NS_SWIFT_NAME(TreeUrlComponent)
 
 @property (nonatomic, strong, readonly) NSURL *url;
 
-@property (nonatomic, strong, readonly) NSDictionary<NSString *, NSString *> *params;
+@property (nonatomic, strong, readonly) NSMutableDictionary<NSString *, NSString *> *params;
 @property (nonatomic, strong, readonly) NSArray<NSString *> *pathComponents;
 
 @property (nonatomic, copy, readonly, nullable) NSString *fragment;

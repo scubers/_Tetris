@@ -272,6 +272,13 @@
     return self;
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<TSTreeUrlComponent: %p>: [url: %@]"
+            , self
+            , self.url.absoluteString
+            ];
+}
+
 + (TSTreeUrlComponent *)componentWithURL:(NSURL *)url value:(id)value {
     NSURLComponents *com = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
 

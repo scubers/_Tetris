@@ -41,7 +41,7 @@ TS_VC_ROUTE("/menu")
 }
 
 - (void)change:(id)sender {
-    [[_Tetris.router drivenByUrl:@"/changeDemo"] post:nil];
+    [_Tetris.router postDrivenByUrl:@"/changeDemo" params:nil];
 }
 
 - (void)reloadData {

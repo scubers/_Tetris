@@ -31,8 +31,13 @@
 
 
     TSDrivenStream *stream = [TSDrivenStream stream];
-    [_Tetris.router bindUrl:@"/changeDemo" toDriven:stream];
-
+    
+    [_Tetris.router registerDrivenByUrl:@"/changeDemo"];
+    
+    [_Tetris.router subscribeDrivenByUrl:@"/changeDemo" callback:^(TSTreeUrlComponent * _Nonnull component) {
+        [stream post:nil];
+    }];
+    
     [[[stream
        map:^id _Nullable(id  _Nullable obj) {
            _isSwiftDemo = !_isSwiftDemo;

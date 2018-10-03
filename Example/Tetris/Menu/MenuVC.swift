@@ -38,7 +38,9 @@ class MenuVC: BaseVC, Routable {
     }
 
     @objc func change() {
-        TSTetris.shared().router.driven(byUrl: "/changeDemo")?.post(nil)
+//        TSTetris.shared().router.driven(byUrl: "/changeDemo")?.post(nil)
+//        TSTetris.shared().router.postStream("/changeDemo", params: nil)
+        TSTetris.shared().router.postDriven(byUrl: "/changeDemo", params: nil)
     }
 
 

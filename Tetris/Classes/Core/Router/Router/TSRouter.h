@@ -55,9 +55,9 @@ NS_SWIFT_NAME(Router)
 
 #pragma mark - Listener
 
-- (void)bindUrl:(NSString *)url toDriven:(TSDrivenStream *)stream;
-
-- (nullable TSDrivenStream *)drivenByUrl:(NSString *)url;
+- (void)registerDrivenByUrl:(NSString *)urlString;
+- (nullable TSCanceller *)subscribeDrivenByUrl:(NSString *)urlString callback:(void (^)(TSTreeUrlComponent *component))callback;
+- (void)postDrivenByUrl:(NSString *)url params:(nullable NSDictionary *)params;
 
 #pragma mark - View
 

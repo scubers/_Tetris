@@ -93,8 +93,35 @@
 
 #pragma mark - Listener
 
-- (void)bindUrl:(NSString *)url toDriven:(TSDrivenStream *)stream {
-    [_drivenTree buildTreeWithURLString:url value:stream];
+- (void)registerDrivenByUrl:(NSString *)urlString {
+    [_drivenTree buildTreeWithURLString:urlString value:[TSDrivenStream stream]];
+}
+
+- (TSCanceller *)subscribeDrivenByUrl:(NSString *)urlString callback:(void (^)(TSTreeUrlComponent * _Nonnull))callback {
+    TSTreeUrlComponent *comp = [_drivenTree findByURLString:urlString];
+    if (!comp.value || ![comp.value isKindOfClass:[TSDrivenStream class]]) {
+        return nil;
+    }
+    return [((TSDrivenStream<TSTreeUrlComponent *> *)comp.value) subscribe:^(TSTreeUrlComponent * _Nullable obj) {
+        callback(obj);
+    }];
+}
+
+- (void)postDrivenByUrl:(NSString *)url params:(NSDictionary *)params {
+    TSTreeUrlComponent *comp = [_drivenTree findByURLString:url];
+    if (!comp.value || ![comp.value isKindOfClass:[TSDrivenStream class]]) {
+        return;
+    }
+    [comp.params addEntriesFromDictionary:params];
+    [((TSDrivenStream<TSTreeUrlComponent *> *)comp.value) post:comp];
+}
+
+- (void)postStream:(NSString *)urlString params:(NSDictionary *)params {
+    TSTreeUrlComponent *comp = [_drivenTree findByURLString:urlString];
+    [comp.params addEntriesFromDictionary:params];
+    if ([comp.value isKindOfClass:[TSDrivenStream class]]) {
+        [((TSDrivenStream *)comp.value) post:comp];
+    }
 }
 
 - (TSDrivenStream *)drivenByUrl:(NSString *)url {
