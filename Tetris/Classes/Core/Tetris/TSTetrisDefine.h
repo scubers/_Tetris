@@ -68,4 +68,11 @@
             [_Tetris.router.intercepterMgr addIntercepter:inter];\
         }
 
+#pragma mark - Action
+
+#define TS_ACTION(_url) \
+        + (void)load {\
+            [_Tetris.router bindUrl:_url toRouteAction:[self ts_create]];\
+        }
+
 #endif /* TSTetrisDefine_h */

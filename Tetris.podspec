@@ -37,6 +37,7 @@ TODO: Add long description of the pod here.
   s.subspec 'Swift' do |swift|
     swift.source_files = 'Tetris/Classes/Swift/**/*'
     swift.dependency 'Tetris/Core'
+    swift.dependency 'RxCocoa', '~> 4.3.1'
   end
 
   s.default_subspec = 'Core'

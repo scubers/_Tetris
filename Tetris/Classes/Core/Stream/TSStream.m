@@ -135,7 +135,7 @@
 }
 
 + (TSStream *)create:(TSCanceller * _Nonnull (^)(id<TSReceivable> _Nonnull))block {
-    return [[TSStream alloc] initWithBlock:block];
+    return [[self alloc] initWithBlock:block];
 }
 
 - (TSCanceller *)subscribeByReciever:(id<TSReceivable>)reciever {

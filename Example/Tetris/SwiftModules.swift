@@ -74,7 +74,10 @@ class Services : NSObject, IServiceable, Component, TestProtocolA {
     
     func methodA() {
         print("--swift servcie---")
+        
+            
     }
+    
     
     
 }

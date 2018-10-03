@@ -7,7 +7,7 @@
 //
 
 #import "TSDemoModules.h"
-#import <Tetris/Tetris-umbrella.h>
+@import Tetris;
 
 @interface TSDemoModules () <TSModularComposable>
 
@@ -55,4 +55,23 @@ TS_MODULE(TSModulePriorityLow)
 @end
 @implementation Module4
 TS_MODULE(TSModulePriorityNormal + 1)
+@end
+
+
+@interface TestAction : NSObject <TSRouteActioner>
+
+@end
+
+@implementation TestAction
+
+TS_ACTION(@"/oc/action")
+
+- (nonnull TSStream *)getStreamByComponent:(nonnull TSTreeUrlComponent *)component {
+    return [TSStream create:^TSCanceller * _Nullable(id<TSReceivable>  _Nonnull receiver) {
+        [receiver post:@200];
+        [receiver close];
+        return nil;
+    }];
+}
+
 @end

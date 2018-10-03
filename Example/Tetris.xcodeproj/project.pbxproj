@@ -13,6 +13,7 @@
 		09512CC9215F9583005BC650 /* TSTriggerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09512CC8215F9583005BC650 /* TSTriggerTests.m */; };
 		096A3426215E08C300EB3845 /* TSServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 096A3425215E08C300EB3845 /* TSServiceTests.m */; };
 		09920BA7215DD793001EA870 /* TSTreeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09920BA6215DD793001EA870 /* TSTreeTests.m */; };
+		099A7D2B2164E20B0030D863 /* MyAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099A7D2A2164E20B0030D863 /* MyAppDelegate.swift */; };
 		09BE3F502163B41400127372 /* RIDemo6ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BE3F4E2163B41400127372 /* RIDemo6ViewController.m */; };
 		09BE3F522163B4E200127372 /* Demo6VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BE3F512163B4E200127372 /* Demo6VC.swift */; };
 		0D7B659C966019CC902AA22F /* Pods_Tetris_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E67BEEDC3A7CB48A93D2A6F /* Pods_Tetris_Tests.framework */; };
@@ -77,6 +78,7 @@
 		09512CC8215F9583005BC650 /* TSTriggerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TSTriggerTests.m; sourceTree = "<group>"; };
 		096A3425215E08C300EB3845 /* TSServiceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TSServiceTests.m; sourceTree = "<group>"; };
 		09920BA6215DD793001EA870 /* TSTreeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TSTreeTests.m; sourceTree = "<group>"; };
+		099A7D2A2164E20B0030D863 /* MyAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAppDelegate.swift; sourceTree = "<group>"; };
 		09BE3F4E2163B41400127372 /* RIDemo6ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo6ViewController.m; sourceTree = "<group>"; };
 		09BE3F4F2163B41400127372 /* RIDemo6ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo6ViewController.h; sourceTree = "<group>"; };
 		09BE3F512163B4E200127372 /* Demo6VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo6VC.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				A84C73082160F85F00457D69 /* Base */,
 				6003F59C195388D20070C39A /* TSAppDelegate.h */,
 				6003F59D195388D20070C39A /* TSAppDelegate.m */,
+				099A7D2A2164E20B0030D863 /* MyAppDelegate.swift */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* TSViewController.h */,
 				6003F5A6195388D20070C39A /* TSViewController.m */,
@@ -617,6 +620,7 @@
 				6003F5A7195388D20070C39A /* TSViewController.m in Sources */,
 				A84C73622161B5A300457D69 /* MyPresentDismiss.m in Sources */,
 				A84C7328216106FB00457D69 /* RIDemo2ViewController.m in Sources */,
+				099A7D2B2164E20B0030D863 /* MyAppDelegate.swift in Sources */,
 				A81A1FA121622251008E6A57 /* Demo16VC.swift in Sources */,
 				A84C730F2160F8E100457D69 /* RIDemoMenuViewController.m in Sources */,
 				A84C73402161217F00457D69 /* RIDemo7ViewController.m in Sources */,

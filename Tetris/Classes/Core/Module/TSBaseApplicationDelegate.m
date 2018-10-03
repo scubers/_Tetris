@@ -12,8 +12,7 @@
 
 @implementation TSBaseApplicationDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     TSModuleContext *context = [TSModuleContext shared];
     context.launchOptions = launchOptions;
     
@@ -22,6 +21,11 @@
     [_Tetris.modular.trigger tetrisModuleSplash:context];
     [_Tetris.modular.trigger application:application didFinishLaunchingWithOptions:launchOptions];
     
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [_Tetris.modular.trigger application:application didFinishLaunchingWithOptions:launchOptions];
     return YES;
 }
 

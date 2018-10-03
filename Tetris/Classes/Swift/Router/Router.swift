@@ -1,4 +1,5 @@
 
+import RxSwift
 
 /// Define a protocol that instance can present as a url
 public protocol URLPresentable {
@@ -79,8 +80,13 @@ public func start(intent: Intent, source: UIViewController) {
 ///   - source: source
 ///   - complete: callback
 /// - Returns: TSStream<RouteResult>
-public func prepare(intent: Intent, source: UIViewController? = nil, complete: (()->Void)?) -> TSStream<RouteResult> {
+public func prepare(intent: Intent, source: UIViewController? = nil, complete: (()->Void)? = nil) -> TSStream<RouteResult> {
     return TSTetris.shared().router.prepare(intent, source: source, complete: complete)
+}
+
+public func prepare(intent: Intent, source: UIViewController? = nil, complete: (()->Void)? = nil) -> Observable<RouteResult> {
+    return Observable<RouteResult>.by(stream: TSTetris.shared().router.prepare(intent, source: source, complete: complete))
+//    return
 }
 
 

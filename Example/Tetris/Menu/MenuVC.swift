@@ -66,14 +66,13 @@ extension MenuVC : UITableViewDelegate, UITableViewDataSource {
             .subscribe({ (obj) in
                 print(obj as Any)
             })
-
+        
         ts_prepare(intent!, complete: {
             print("---- swift finish route ----")
-            })
-            .subscribe({ (_) in
-
-            }, error: {
-                self.alert(msg: $0.debugDescription)
-            })
+        }).subscribe({ (ret) in
+            
+        }) { (err) in
+            self.alert(msg: "\(err)")
+        }
     }
 }

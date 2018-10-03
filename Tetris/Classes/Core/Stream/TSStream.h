@@ -44,22 +44,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - TSStream
 
-@interface TSStream<T> : NSObject
+@interface TSStream<__covariant T> : NSObject
 
 typedef TSStream *(^TSBindStreamBlock)(T _Nullable value, BOOL *stop);
 
-+ (TSStream *)create:(TSCanceller * _Nullable (^)(id<TSReceivable> receiver))block;
++ (instancetype)create:(TSCanceller * _Nullable (^)(id<TSReceivable> receiver))block;
 
-- (TSStream *)initWithBlock:(TSCanceller * _Nullable (^)(id<TSReceivable> receiver))block;
+- (instancetype)initWithBlock:(TSCanceller * _Nullable (^)(id<TSReceivable> receiver))block;
 
-- (nullable TSCanceller *)subscribe:(void (^)(T _Nullable obj))next
-                              error:(void (^_Nullable)(NSError * _Nullable error))error
+- (TSCanceller *)subscribe:(void (^)(T _Nullable obj))next
+                              error:(void (^_Nullable)(NSError * error))error
                            complete:(dispatch_block_t _Nullable)complete;
 
-- (nullable TSCanceller *)subscribe:(void (^ _Nullable)(T _Nullable obj))next
-                              error:(void (^)(NSError * _Nullable error))error;
+- (TSCanceller *)subscribe:(void (^ _Nullable)(T _Nullable obj))next
+                              error:(void (^)(NSError * error))error;
 
-- (nullable TSCanceller *)subscribe:(void (^ _Nullable)(T _Nullable obj))next;
+- (TSCanceller *)subscribe:(void (^ _Nullable)(T _Nullable obj))next;
 
 - (TSCanceller *)subscribeByReciever:(id<TSReceivable>)reciever;
 
@@ -69,17 +69,17 @@ typedef TSStream *(^TSBindStreamBlock)(T _Nullable value, BOOL *stop);
 
 #pragma mark - TSDrivenStream
 
-@interface TSDrivenStream<T> : TSStream <TSReceivable>
+@interface TSDrivenStream<__covariant T> : TSStream<T> <TSReceivable>
 
 - (instancetype)initWithBlock:(nullable TSCanceller *(^)(id<TSReceivable> receiver))block NS_UNAVAILABLE;
 
-+ (TSDrivenStream *)stream;
++ (TSDrivenStream<T> *)stream;
 
 @end
 
 #pragma mark - TSStream Category
 
-@interface TSStream<T> (Methods)
+@interface TSStream<__covariant T> (Methods)
 
 #pragma mark - creations
 

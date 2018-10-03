@@ -63,6 +63,10 @@
         
     }];
     
+    [[_Tetris.router actionByUrl:@"/oc/action"] subscribe:^(id  _Nullable obj) {
+        
+    }];
+    
     [TS_GET_SERVICE(TestProtocolA) methodA];
 
     [self.window makeKeyAndVisible];
