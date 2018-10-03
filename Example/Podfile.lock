@@ -1,25 +1,18 @@
 PODS:
-  - ReactiveObjC (3.1.0)
   - Tetris/Core (0.1.0)
   - Tetris/Swift (0.1.0):
     - Tetris/Core
 
 DEPENDENCIES:
-  - ReactiveObjC
   - Tetris/Swift (from `../`)
-
-SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - ReactiveObjC
 
 EXTERNAL SOURCES:
   Tetris:
     :path: "../"
 
 SPEC CHECKSUMS:
-  ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
   Tetris: a796d96fb15b4c59c7e8bb5a20877a4ba993e7d0
 
-PODFILE CHECKSUM: 486408dad431accaed321ecb37f8b3394a889182
+PODFILE CHECKSUM: 7b3b1b201158854fa27012cf9d3e98a38229b2f1
 
 COCOAPODS: 1.5.3

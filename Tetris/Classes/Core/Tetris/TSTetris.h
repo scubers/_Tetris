@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TSTetris : NSObject
 
 @property (nonatomic, strong, readonly) TSTetrisServer *server;
-@property (nonatomic, strong, readonly) TSTetrisModuler *moduler;
+@property (nonatomic, strong, readonly) TSTetrisModular *moduler;
 @property (nonatomic, strong, readonly) TSRouter *router;
 
 + (instancetype)shared;
@@ -29,9 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - moduler methods
 
-- (void)registerModuleByClass:(Class<TSTetrisModulable>)aClass priority:(TSModulePriority)priority;
+- (void)registerModuleByClass:(Class<TSModularComposable>)aClass priority:(TSModulePriority)priority;
 
-- (void)registerModuleByClass:(Class<TSTetrisModulable>)aClass;
+- (void)registerModuleByClass:(Class<TSModularComposable>)aClass;
 
 #pragma mark - router methods
 

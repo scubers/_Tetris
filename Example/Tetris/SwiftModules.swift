@@ -13,6 +13,8 @@ class SwiftBaseModule: AbstractModule {
         print("\(type(of: self)) \(#function)")
     }
     
+    lazy var service: TestProtocolA? = Tetris.getService(TestProtocolA.self)
+    
     func tetrisModuleSetup(_ context: TSModuleContext) {
         print("\(type(of: self)) \(#function)")
     }
@@ -91,6 +93,7 @@ class MyAction: NSObject, RouteActionable, URLRoutable, IComponent {
             return nil
         })
     }
+    
     
     
 }

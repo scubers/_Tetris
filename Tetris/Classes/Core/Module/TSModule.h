@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#pragma mark - TSTetrisModulable
+#pragma mark - TSModularComposable
 
 typedef NSInteger TSModulePriority NS_SWIFT_NAME(ModulePriority);
 
@@ -35,8 +35,8 @@ static TSModulePriority const TSModulePriorityHigh = 10000;
 static TSModulePriority const TSModulePriorityMax = NSIntegerMax;
 
 
-NS_SWIFT_NAME(IModulable)
-@protocol TSTetrisModulable <UIApplicationDelegate, TSCreatable>
+NS_SWIFT_NAME(ModularComposable)
+@protocol TSModularComposable <UIApplicationDelegate, TSCreatable>
 
 @property (nonatomic, assign) TSModulePriority priority;
 
@@ -53,17 +53,17 @@ NS_SWIFT_NAME(IModulable)
 
 #pragma mark - TSTetrisModuler
 
-NS_SWIFT_NAME(TetrisModuler)
-@interface TSTetrisModuler : NSObject
+NS_SWIFT_NAME(TetrisModular)
+@interface TSTetrisModular : NSObject
 
-@property (nonatomic, strong, readonly) id<TSTetrisModulable> trigger;
+@property (nonatomic, strong, readonly) id<TSModularComposable> trigger;
 
-- (void)registerModuleWithClass:(Class<TSTetrisModulable>)aClass priority:(TSModulePriority)priority;
-- (void)registerModuleWithClass:(Class<TSTetrisModulable>)aClass;
+- (void)registerModuleWithClass:(Class<TSModularComposable>)aClass priority:(TSModulePriority)priority;
+- (void)registerModuleWithClass:(Class<TSModularComposable>)aClass;
 
 - (NSUInteger)count;
 
-- (void)enumerateModules:(void (^)(id<TSTetrisModulable> module, NSUInteger index))block;
+- (void)enumerateModules:(void (^)(id<TSModularComposable> module, NSUInteger index))block;
 
 @end
 

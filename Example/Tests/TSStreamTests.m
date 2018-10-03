@@ -7,7 +7,6 @@
 //
 
 #import <XCTest/XCTest.h>
-@import ReactiveObjC;
 
 @interface TSStreamTests : XCTestCase
 
@@ -213,29 +212,6 @@
     }];
     [_driven post:@1];
     XCTAssert(self.flags.count == 4);
-}
-
-- (void)testRAC {
-    RACSignal *s = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
-        [subscriber sendNext:@1];
-        [subscriber sendNext:@2];
-        [subscriber sendCompleted];
-        return nil;
-    }];
-    
-    [[[[s
-       map:^id _Nullable(id  _Nullable value) {
-           return value;
-       }]
-       doNext:^(id  _Nullable x) {
-           
-       }]
-      doCompleted:^{
-          
-      }]
-     subscribeNext:^(id  _Nullable x) {
-         
-     }];
 }
 
 - (void)addFlag {

@@ -9,7 +9,6 @@
 #import "TSAppDelegate.h"
 #import <Tetris/Tetris-umbrella.h>
 #import "Tetris_Example-Swift.h"
-@import ReactiveObjC;
 
 
 @interface TSAppDelegate ()
@@ -33,8 +32,6 @@
 
 
     TSDrivenStream *stream = [TSDrivenStream stream];
-    
-    [_Tetris.router registerDrivenByUrl:@"/changeDemo"];
     
     [_Tetris.router subscribeDrivenByUrl:@"/changeDemo" callback:^(TSTreeUrlComponent * _Nonnull component) {
         [stream post:nil];

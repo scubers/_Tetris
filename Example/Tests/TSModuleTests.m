@@ -8,9 +8,9 @@
 
 #import <XCTest/XCTest.h>
 
-@interface TSModuleTests : XCTestCase <TSTetrisModulable>
+@interface TSModuleTests : XCTestCase <TSModularComposable>
 
-@property (nonatomic, strong) TSTetrisModuler *moduler;
+@property (nonatomic, strong) TSTetrisModular *moduler;
 
 @property (nonatomic, assign) TSModulePriority priority;
 
@@ -20,7 +20,7 @@
 
 - (void)setUp {
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    _moduler = [TSTetrisModuler new];
+    _moduler = [TSTetrisModular new];
     
     [_moduler registerModuleWithClass:[TSModuleTests class] priority:2];
     [_moduler registerModuleWithClass:[TSModuleTests class] priority:3];
@@ -40,7 +40,7 @@
 
 - (void)testModulePriority {
     __block TSModulePriority last = TSModulePriorityMax;
-    [_moduler enumerateModules:^(id<TSTetrisModulable>  _Nonnull module, NSUInteger index) {
+    [_moduler enumerateModules:^(id<TSModularComposable>  _Nonnull module, NSUInteger index) {
         NSLog(@"Priority test: current: %zd, last: %zd", module.priority, last);
         XCTAssert(module.priority <= last);
         last = module.priority;

@@ -22,10 +22,6 @@ TS_EXPORT_ROUTE(RIDemo9ViewController, "/demo9", 100)
 
 @implementation RIDemo9ViewController
 
-+ (void)load {
-//    [_Tetris.router bindUrl:@"/listen/demo9" toDriven:[TSDrivenStream stream]];
-    [_Tetris.router registerDrivenByUrl:@"/list/demo9"];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

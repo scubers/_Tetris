@@ -21,7 +21,7 @@ static TSTetris *__sharedInstance;
 - (instancetype)init {
     if (self = [super init]) {
         _server = [TSTetrisServer new];
-        _moduler = [TSTetrisModuler new];
+        _moduler = [TSTetrisModular new];
         _router = [TSRouter new];
     }
     return self;
@@ -40,11 +40,11 @@ static TSTetris *__sharedInstance;
 
 #pragma mark - moduler methods
 
-- (void)registerModuleByClass:(Class<TSTetrisModulable>)aClass priority:(TSModulePriority)priority {
+- (void)registerModuleByClass:(Class<TSModularComposable>)aClass priority:(TSModulePriority)priority {
     [_moduler registerModuleWithClass:aClass priority:priority];
 }
 
-- (void)registerModuleByClass:(Class<TSTetrisModulable>)aClass {
+- (void)registerModuleByClass:(Class<TSModularComposable>)aClass {
     [_moduler registerModuleWithClass:aClass];
 }
 

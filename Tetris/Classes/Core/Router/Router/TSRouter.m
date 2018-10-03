@@ -98,13 +98,19 @@
 }
 
 - (TSCanceller *)subscribeDrivenByUrl:(NSString *)urlString callback:(void (^)(TSTreeUrlComponent * _Nonnull))callback {
-    TSTreeUrlComponent *comp = [_drivenTree findByURLString:urlString];
-    if (!comp.value || ![comp.value isKindOfClass:[TSDrivenStream class]]) {
-        return nil;
+    
+    TSTreeUrlComponent *comp;
+    @synchronized (_drivenTree) {
+        comp = [_drivenTree findByURLString:urlString];
+        if (!comp.value) {
+            [self registerDrivenByUrl:urlString];
+            comp = [_drivenTree findByURLString:urlString];
+        }
     }
     return [((TSDrivenStream<TSTreeUrlComponent *> *)comp.value) subscribe:^(TSTreeUrlComponent * _Nullable obj) {
         callback(obj);
     }];
+    
 }
 
 - (void)postDrivenByUrl:(NSString *)url params:(NSDictionary *)params {
