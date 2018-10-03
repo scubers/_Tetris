@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Demo5Inter: IntercepterAdapter, IComponent {
+class Demo5Inter: IntercepterAdapter, Component {
     required override init() {
         super.init()
     }
@@ -17,7 +17,7 @@ class Demo5Inter: IntercepterAdapter, IComponent {
         return ["/swift/demo5\\??.*"]
     }
 
-    override func doAdjudgement(_ judger: IIntercepterJudger) {
+    override func doAdjudgement(_ judger: IntercepterJudger) {
         print("swift Demo5 switch intercepter!!")
         let intent = Intent.pushPop(byUrl: "/swift/interceptered/demo5#intercepted")!
         intent.displayer = judger.intent().displayer

@@ -48,6 +48,14 @@
     }
 }
 
+- (void)removeCanceller:(TSCanceller *)canceller {
+    [_cancellers removeObject:canceller];
+}
+
++ (instancetype)canceller {
+    return [[self alloc] init];
+}
+
 @end
 
 #pragma mark - TSReceiver
@@ -161,52 +169,75 @@
 
 - (TSStream *)bind:(TSBindStreamBlock (^)(void))block {
     
+    // can not understand RAC implementation, just copy the code
+    
     return [[TSStream alloc] initWithBlock:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
+        TSBindStreamBlock bindingBlock = block();
         
-        // 用来记录当前叠加的流数量
-        __block volatile int32_t count = 1;
+        __block volatile int32_t signalCount = 1;   // indicates self
         
-        OSAtomicIncrement32Barrier(&count);
-
-        TSCanceller *canceller = [TSCanceller new];
+        TSCanceller *compoundDisposable = [TSCanceller canceller];
         
-        void (^completeBlock)() = ^() {
-            if (OSAtomicDecrement32Barrier(&count) == 0) {
+        void (^completeSignal)(TSCanceller *) = ^(TSCanceller *finishedDisposable) {
+            if (OSAtomicDecrement32Barrier(&signalCount) == 0) {
                 [receiver close];
+                [compoundDisposable cancel];
+            } else {
+                [compoundDisposable removeCanceller:finishedDisposable];
             }
         };
         
-        TSCanceller *innerCanceller =
-        [self subscribe:^(id  _Nullable obj) {
-           TSBindStreamBlock bindBlock = block();
+        void (^addStream)(TSStream *) = ^(TSStream *signal) {
+            OSAtomicIncrement32Barrier(&signalCount);
             
-            BOOL stop = NO;
-            TSStream *stream = bindBlock(obj, &stop);
+            TSCanceller *selfDisposable = [[TSCanceller alloc] init];
+            [compoundDisposable addCanceller:selfDisposable];
             
-            [stream subscribe:^(id  _Nullable obj) {
+            TSCanceller *disposable = [signal subscribe:^(id  _Nullable obj) {
                 [receiver post:obj];
-                if (stop) {
-                    completeBlock();
+            } error:^(NSError * _Nullable error) {
+                [receiver postError:error];
+                [compoundDisposable cancel];
+            } complete:^{
+                @autoreleasepool {
+                    completeSignal(selfDisposable);
+                }
+            }];
+            
+            [selfDisposable addCanceller:disposable];
+        };
+        
+        @autoreleasepool {
+            TSCanceller *selfDisposable = [[TSCanceller alloc] init];
+            [compoundDisposable addCanceller:selfDisposable];
+            
+            TSCanceller *bindingCanceller =
+            [self subscribe:^(id  _Nullable obj) {
+                
+                BOOL stop = NO;
+                id signal = bindingBlock(obj, &stop);
+                
+                @autoreleasepool {
+                    if (signal != nil) addStream(signal);
+                    if (signal == nil || stop) {
+                        [selfDisposable cancel];
+                        completeSignal(selfDisposable);
+                    }
                 }
                 
             } error:^(NSError * _Nullable error) {
-                
-                [canceller cancel];
+                [compoundDisposable cancel];
                 [receiver postError:error];
-                
-            } complete:completeBlock];
+            } complete:^{
+                @autoreleasepool {
+                    completeSignal(selfDisposable);
+                }
+            }];
             
-            
-        } error:^(NSError * _Nullable error) {
-            
-            [canceller cancel];
-            [receiver postError:error];
-            
-        } complete:completeBlock];
+            [selfDisposable addCanceller:bindingCanceller];
+        }
         
-        [canceller addCanceller:innerCanceller];
-        
-        return canceller;
+        return compoundDisposable;
     }];
 }
 

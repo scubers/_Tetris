@@ -27,6 +27,10 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }
 
+- (void)addFlag {
+    [_flags addObject:@""];
+}
+
 - (void)testSubscribe {
     [[TSStream just:@1]
      subscribe:^(id  _Nullable obj) {
@@ -214,8 +218,26 @@
     XCTAssert(self.flags.count == 4);
 }
 
-- (void)addFlag {
-    [_flags addObject:@""];
+- (void)testSample {
+    TSStream *s = [TSStream create:^TSCanceller * _Nullable(id<TSReceivable>  _Nonnull receiver) {
+        [receiver post:@1];
+        [receiver post:@2];
+        [receiver close];
+        [receiver post:@3];
+        return nil;
+    }];
+    
+    [[[s
+      map:^id _Nullable(id  _Nullable obj) {
+          return @([obj integerValue] + 100);
+      }]
+     onCompleted:^{
+         
+     }]
+     subscribe:^(id  _Nullable obj) {
+         
+     }];
 }
+
 
 @end

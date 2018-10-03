@@ -12,10 +12,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#pragma mark - TSRouteActionProtocol
+#pragma mark - TSRouteActioner
 
-NS_SWIFT_NAME(RouteActionable)
-@protocol TSRouteActionProtocol <TSCreatable>
+NS_SWIFT_NAME(RouteActioner)
+@protocol TSRouteActioner <TSCreatable>
 
 - (TSStream *)getStreamByComponent:(TSTreeUrlComponent *)component;
 
@@ -49,9 +49,10 @@ NS_SWIFT_NAME(Router)
 #pragma mark - Action
 
 - (void)bindUrl:(NSString *)url toAction:(TSStream * (^)(TSTreeUrlComponent *component))action;
-- (void)bindUrl:(NSString *)url toRouteAction:(id<TSRouteActionProtocol>)action;
+- (void)bindUrl:(NSString *)url toRouteAction:(id<TSRouteActioner>)action;
 
 - (nullable TSStream *)actionByUrl:(NSString *)url;
+- (nullable TSStream *)actionByUrl:(NSString *)url params:(nullable NSDictionary *)params;
 
 #pragma mark - Listener
 

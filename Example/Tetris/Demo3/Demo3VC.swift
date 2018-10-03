@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Demo3Inter: IntercepterAdapter, IComponent {
+class Demo3Inter: IntercepterAdapter, Component {
     required override init() {
         super.init()
         priority = TSIntercepterPriorityNormal
@@ -18,7 +18,7 @@ class Demo3Inter: IntercepterAdapter, IComponent {
         return ["^((\\w+)://)?(\\w+)?/swift/demo3\\??.*$"]
     }
 
-    override func doAdjudgement(_ judger: IIntercepterJudger) {
+    override func doAdjudgement(_ judger: IntercepterJudger) {
         let msg = "Reject by Class: \(type(of: self))"
         print(msg)
         judger.doReject(NSError.init(domain: msg, code: 10, userInfo: nil))

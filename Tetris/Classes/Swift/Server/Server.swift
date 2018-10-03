@@ -1,13 +1,17 @@
 
 
 
+/// Extent Serviceable in swift that provide some
+/// meta info to bind a service
 public protocol IServiceable : Serviceable {
     static var interface : Protocol? {get}
     static var name : String? {get}
     static var singleton: Bool {get}
 }
 
-public extension IComponent where Self : IServiceable {
+
+// MARK: - Extent Component for Iserviceable
+public extension Component where Self : IServiceable {
     public static func tetrisStart() {
         if let pr = self.interface {
             TSTetris.shared().server.bindService(by: pr, class: Self.self, singleton: self.singleton)
@@ -17,10 +21,19 @@ public extension IComponent where Self : IServiceable {
     }
 }
 
+
+/// Global get service method
+///
+/// - Parameter aProtocol: protocol
+/// - Returns: instance
 public func getService<T>(_ aProtocol: Protocol) -> T? {
     return TSTetris.shared().server.service(byProtoocl: aProtocol) as? T
 }
 
+/// Global get service method
+///
+/// - Parameter name: name
+/// - Returns: instance
 public func getService<T>(by name: String) -> T? {
     return TSTetris.shared().server.service(byName: name) as? T
 }

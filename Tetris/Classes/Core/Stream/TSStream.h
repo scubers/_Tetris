@@ -23,6 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addCanceller:(TSCanceller *)canceller;
 
+- (void)removeCanceller:(TSCanceller *)canceller;
+
++ (instancetype)canceller;
+
 @end
 
 

@@ -15,7 +15,7 @@ class Demo1VC: BaseVC, Routable {
         return ["/swift/demo1"]
     }
 
-    class func ts_finalAdjudgement(_ judger: IIntercepterJudger) {
+    class func ts_finalAdjudgement(_ judger: IntercepterJudger) {
         judger.doContinue()
     }
 

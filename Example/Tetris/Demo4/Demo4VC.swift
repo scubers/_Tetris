@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Demo4Inter: IntercepterAdapter, IComponent {
+class Demo4Inter: IntercepterAdapter, Component {
     required override init() {
         super.init()
     }
@@ -17,7 +17,7 @@ class Demo4Inter: IntercepterAdapter, IComponent {
         return ["^((\\w+)://)?(\\w+)?/swift/demo4\\??.*$"]
     }
 
-    override func doAdjudgement(_ judger: IIntercepterJudger) {
+    override func doAdjudgement(_ judger: IntercepterJudger) {
         print("swift Demo4: intercepter continued~~")
         judger.doContinue()
     }

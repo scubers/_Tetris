@@ -15,7 +15,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_SWIFT_NAME(IIntercepterJudger)
+NS_SWIFT_NAME(IntercepterJudger)
 @protocol TSIntercepterJudger
 
 

@@ -12,7 +12,7 @@
 
 #pragma mark - _TSRouteAction
 
-@interface _TSRouteAction : NSObject <TSRouteActionProtocol>
+@interface _TSRouteAction : NSObject <TSRouteActioner>
 
 @property (nonatomic, copy) TSStream *(^action)(TSTreeUrlComponent *component);
 
@@ -72,7 +72,7 @@
 
 #pragma mark - Action
 
-- (void)bindUrl:(NSString *)url toRouteAction:(id<TSRouteActionProtocol>)action {
+- (void)bindUrl:(NSString *)url toRouteAction:(id<TSRouteActioner>)action {
     [_actionTree buildTreeWithURLString:url value:action];
 }
 
@@ -82,13 +82,18 @@
     [self bindUrl:url toRouteAction:actionObj];
 }
 
-- (TSStream *)actionByUrl:(NSString *)url {
+- (TSStream *)actionByUrl:(NSString *)url params:(NSDictionary *)params {
     TSTreeUrlComponent *comp = [_actionTree findByURLString:url];
     if (!comp) {
         return nil;
     }
-    id<TSRouteActionProtocol> action = (id<TSRouteActionProtocol>)comp.value;
+    [comp.params addEntriesFromDictionary:params];
+    id<TSRouteActioner> action = (id<TSRouteActioner>)comp.value;
     return [action getStreamByComponent:comp];
+}
+
+- (TSStream *)actionByUrl:(NSString *)url {
+    return [self actionByUrl:url params:nil];
 }
 
 #pragma mark - Listener

@@ -8,14 +8,14 @@
 import UIKit
 
 
-class Demo6Inter : IntercepterAdapter, IComponent {
+class Demo6Inter : IntercepterAdapter, Component {
     
     override func matchUrlPatterns() -> [String]? {
         return ["^/swift/demo6\\??.*"]
     }
     
     
-    override func doAdjudgement(_ judger: IIntercepterJudger) {
+    override func doAdjudgement(_ judger: IntercepterJudger) {
         if let userId = judger.intent().getString("userId"), userId.count > 0 {
             judger.doContinue()
             return

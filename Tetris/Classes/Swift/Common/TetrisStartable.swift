@@ -5,13 +5,18 @@
 //  Created by 王俊仁 on 2018/10/1.
 //
 
+
+/// Define a method that make class initializable
 public protocol TetrisStartable {
     static func tetrisStart()
 }
 
-public protocol IComponent : TetrisStartable {}
+
+/// Define a protocol that use for auto export
+public protocol Component : TetrisStartable {}
 
 
+/// Tetris awaker
 class TetrisAwaker {
 
     static let action: Void = {

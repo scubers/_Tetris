@@ -34,22 +34,22 @@ class SwiftBaseModule: AbstractModule {
     }
 }
 
-class SwiftModules1: SwiftBaseModule, IComponent {
+class SwiftModules1: SwiftBaseModule, Component {
     open override func ts_didCreate() {
         priority = TSModulePriorityNormal + 20000
     }
 }
-class SwiftModules2: SwiftBaseModule, IComponent {
+class SwiftModules2: SwiftBaseModule, Component {
     open override func ts_didCreate() {
         priority = TSModulePriorityHigh  + 20000
     }
 }
-class SwiftModules3: SwiftBaseModule, IComponent {
+class SwiftModules3: SwiftBaseModule, Component {
     open override func ts_didCreate() {
         priority = TSModulePriorityLow + 20000
     }
 }
-class SwiftModules4: SwiftBaseModule, IComponent {
+class SwiftModules4: SwiftBaseModule, Component {
     open override func ts_didCreate() {
         priority = TSModulePriorityNormal  + 20000
     }
@@ -63,7 +63,7 @@ public protocol TestProtocolA {
 
 
 
-class Services : NSObject, IServiceable, IComponent, TestProtocolA {
+class Services : NSObject, IServiceable, Component, TestProtocolA {
     
     static var interface: Protocol? = TestProtocolA.self
     
@@ -80,7 +80,7 @@ class Services : NSObject, IServiceable, IComponent, TestProtocolA {
 }
 
 
-class MyAction: NSObject, RouteActionable, URLRoutable, IComponent {
+class MyAction: NSObject, RouteActionable {
     
     class var routeURLs: [URLPresentable] {
         return ["/swift/actionDemo?"]
