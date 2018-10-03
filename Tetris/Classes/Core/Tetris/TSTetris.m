@@ -41,7 +41,11 @@ static TSTetris *__sharedInstance;
 #pragma mark - moduler methods
 
 - (void)registerModuleByClass:(Class<TSTetrisModulable>)aClass priority:(TSModulePriority)priority {
-    [_moduler registerModuleWithClass:aClass priority:priority];
+    [_moduler registerModuleWithClass:aClass priority:TSModulePriorityNormal];
+}
+
+- (void)registerModuleByClass:(Class<TSTetrisModulable>)aClass {
+    [_moduler registerModuleWithClass:aClass];
 }
 
 #pragma mark - router methods

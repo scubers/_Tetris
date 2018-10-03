@@ -9,7 +9,7 @@
 import UIKit
 
 
-class Demo1VC: BaseVC, IRouterComponent {
+class Demo1VC: BaseVC, Routable {
     
     class var routeURLs: [URLPresentable] {
         return ["/swift/demo1"]

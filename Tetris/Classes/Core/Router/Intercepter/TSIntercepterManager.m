@@ -13,7 +13,7 @@
 
 @interface _TSIntercepterJudger : NSObject <TSIntercepterJudger>
 
-@property (nonatomic, strong) TSIntent *sourceIntent;
+@property (nonatomic, strong) TSIntent *intent;
 
 @property (nonatomic, strong) UIViewController *source;
 
@@ -36,7 +36,7 @@
                                   switch:(void (^)(TSIntent *intent))doSwtich
                                   reject:(void (^)(NSError *error))doReject {
     _TSIntercepterJudger *adjudger = [[self alloc] init];
-    adjudger.sourceIntent = sourceIntent;
+    adjudger.intent = sourceIntent;
     adjudger.doSwitchAction = doSwtich;
     adjudger.doRejectAction = doReject;
     adjudger.doContinueAction = doContinue;
@@ -67,7 +67,7 @@
 }
 
 - (void)restart {
-    [self.source ts_start:self.sourceIntent];
+    [self.source ts_start:self.intent];
 }
 
 

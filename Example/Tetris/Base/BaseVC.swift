@@ -10,21 +10,12 @@ import UIKit
 import Tetris
 
 class BaseVC: UIViewController, Intentable {
-
-    class func ts_create(by intent: Intent) -> Self {
-        return self.init(intent: intent)
+    
+    override class func ts_create() -> Self? {
+        return self.init()
     }
-
-    required init(intent: Intent) {
-        ts_sourceIntent = intent
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    var ts_sourceIntent: Intent
+    
+    var ts_sourceIntent: Intent?
 
 
     override func viewDidLoad() {

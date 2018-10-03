@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TSDemoModules : NSObject
 
+@property (nonatomic, assign) TSModulePriority priority;
+
 @end
 
 NS_ASSUME_NONNULL_END

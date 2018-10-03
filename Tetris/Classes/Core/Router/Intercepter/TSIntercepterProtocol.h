@@ -11,6 +11,7 @@
 
 @class TSIntent;
 @class UIViewController;
+#import "TSCreatable.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -55,7 +56,7 @@ NS_SWIFT_NAME(IIntercepterJudger)
 
 /**
  execute
- [self.source ts_start:self.sourceIntent]
+ [self.source ts_start:self.intent]
  */
 - (void)restart;
 
@@ -71,7 +72,7 @@ static TSIntercepterPriority const TSIntercepterPriorityHigh = 10000;
 static TSIntercepterPriority const TSIntercepterPriorityMax = NSIntegerMax;
 
 NS_SWIFT_NAME(IIntercepter)
-@protocol TSIntercepterProtocol <NSObject>
+@protocol TSIntercepterProtocol <TSCreatable>
 
 
 @property (nonatomic, assign) TSIntercepterPriority priority;

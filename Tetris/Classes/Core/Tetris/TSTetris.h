@@ -31,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)registerModuleByClass:(Class<TSTetrisModulable>)aClass priority:(TSModulePriority)priority;
 
+- (void)registerModuleByClass:(Class<TSTetrisModulable>)aClass;
+
 #pragma mark - router methods
 
 - (void)bindUrl:(NSString *)url viewController:(Class<TSIntentable>)aClass;

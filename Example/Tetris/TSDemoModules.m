@@ -10,8 +10,17 @@
 #import <Tetris/Tetris-umbrella.h>
 
 @interface TSDemoModules () <TSTetrisModulable>
+
 @end
 @implementation TSDemoModules
+
++ (instancetype)ts_create {
+    return [[self alloc] init];
+}
+
+- (void)ts_didCreate {
+    
+}
 
 - (void)tetrisModuleInit:(TSModuleContext *)context {
     NSLog(@"%@, %s", self, __FUNCTION__);

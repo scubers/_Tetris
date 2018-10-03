@@ -8,14 +8,16 @@
 
 import UIKit
 
-class SwiftModules: NSObject, IModuleComponent, IModulable {
-    static var modulePriority: ModulePriority {
-        return TSModulePriorityNormal;
-    }
-    required override init() {
-        super.init()
+class SwiftModules: AbstractModule, IComponent {
+    
+    override class func ts_create() -> Self? {
+        return self.init()
     }
 
+    open override func ts_didCreate() {
+        priority = TSModulePriorityNormal
+    }
+    
     func tetrisModuleInit(_ context: TSModuleContext) {
         print("\(type(of: self)) \(#function)")
     }
@@ -39,4 +41,24 @@ class SwiftModules: NSObject, IModuleComponent, IModulable {
     }
 
 
+}
+
+@objc
+protocol TestProtocolA {
+    func methodA()
+}
+
+class Services : NSObject, IServiceComponent {
+    
+    override func ts_didCreate() {
+        
+    }
+    static var servicePrtocol: Protocol? = TestProtocolA.self
+    
+    static var serviceName: String?
+    
+    static var singleton: Bool = false
+    
+    
+    
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Demo4Inter: IntercepterAdapter, IIntercepterComponent {
+class Demo4Inter: IntercepterAdapter, IComponent {
     required override init() {
         super.init()
     }
@@ -23,7 +23,7 @@ class Demo4Inter: IntercepterAdapter, IIntercepterComponent {
     }
 }
 
-class Demo4VC: BaseVC, IRouterComponent {
+class Demo4VC: BaseVC, Routable {
     static var routeURLs: [URLPresentable] {
         return ["/swift/demo4"]
     }

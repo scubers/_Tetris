@@ -32,7 +32,7 @@
  */
 #define TS_DEFAULT_SERVICE(_protocol, _singleton) \
         TS_SERVICE_PROTOCOL(_protocol, _singleton) \
-        + (instancetype)ts_serviceInstance { return [[self alloc] init];}
+        + (instancetype)ts_create { return [[self alloc] init];}
 
 
 /**
@@ -63,7 +63,7 @@
 
 #define TS_INTERCEPTER(TSIntercepterPriority) \
         + (void)load { \
-            id<TSIntercepterProtocol> inter = [[self alloc] init];\
+            id<TSIntercepterProtocol> inter = [self ts_create];\
             inter.priority = TSIntercepterPriority;\
             [_Tetris.router.intercepterMgr addIntercepter:inter];\
         }

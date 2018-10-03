@@ -39,7 +39,7 @@
 }
 
 - (id<TSServiceExportable>)generateService {
-    id service = [_serviceClass ts_serviceInstance];
+    id service = [_serviceClass ts_create];
     return service;
 }
 

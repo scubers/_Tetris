@@ -8,12 +8,8 @@
 import UIKit
 
 
-class Demo6Inter : IntercepterAdapter, IIntercepterComponent {
+class Demo6Inter : IntercepterAdapter, IComponent {
     
-    required override init() {
-        super.init()
-    }
-
     override func matchUrlPatterns() -> [String]? {
         return ["^/swift/demo6\\??.*"]
     }
@@ -42,7 +38,7 @@ class Demo6Inter : IntercepterAdapter, IIntercepterComponent {
 }
 
 
-class Demo6VC: BaseVC, IRouterComponent {
+class Demo6VC: BaseVC, Routable {
 
     class var routeURLs: [URLPresentable] {
         return ["/swift/demo6"]
@@ -54,7 +50,7 @@ class Demo6VC: BaseVC, IRouterComponent {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        if let f = self.ts_sourceIntent.urlComponent?.fragment {
+        if let f = self.ts_sourceIntent?.urlComponent?.fragment {
             alert(msg: f)
         }
     }

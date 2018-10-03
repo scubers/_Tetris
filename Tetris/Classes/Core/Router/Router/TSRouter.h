@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - TSRouteActionProtocol
 
 NS_SWIFT_NAME(IRouteAction)
-@protocol TSRouteActionProtocol <NSObject>
+@protocol TSRouteActionProtocol <TSCreatable>
 
 - (TSStream *)getStreamByComponent:(TSTreeUrlComponent *)component;
 

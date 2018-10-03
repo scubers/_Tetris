@@ -14,25 +14,14 @@
 
 @implementation RIBaseViewController
 
-+ (instancetype)ts_createByIntent:(TSIntent *)intent {
-    return [[self alloc] initWithIntent:intent];
-}
-
-- (instancetype)initWithIntent:(TSIntent *)sourceIntent {
-    if (self = [super init]) {
-        _ts_sourceIntent = sourceIntent;
-    }
-    return self;
++ (instancetype)ts_create {
+    return [[self alloc] init];
 }
 
 - (void)ts_setIntent:(TSIntent *)intent {
     _ts_sourceIntent = intent;
 }
 
-- (instancetype)init {
-    NSAssert(NO, @"不支持此初始化方法");
-    return nil;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,8 +32,7 @@
 }
 
 - (void)back:(id)sender {
-    [self.ts_sourceIntent.displayer ts_finishDisplayViewController:self animated:YES completion:nil];
-//    [self ri_finishDisplay];
+    [self ts_finishDisplay];
 }
 
 - (void)alert:(NSString *)msg {

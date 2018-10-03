@@ -8,17 +8,9 @@
 
 import UIKit
 
-class MenuVC: BaseVC, IRouterComponent {
+class MenuVC: BaseVC, Routable {
 
-    required init(intent: Intent) {
-        super.init(intent: intent)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    static var routeURLs: [URLPresentable] {
+    class var routeURLs: [URLPresentable] {
         return ["/swift/menu"]
     }
 

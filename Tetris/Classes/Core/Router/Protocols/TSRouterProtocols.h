@@ -8,17 +8,16 @@
 #ifndef TSRouterProtocols_h
 #define TSRouterProtocols_h
 
+#import "TSCreatable.h"
 @class TSIntent;
 @protocol TSIntercepterJudger;
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(Intentable)
-@protocol TSIntentable <NSObject>
+@protocol TSIntentable <TSCreatable, NSObject>
 
-+ (instancetype)ts_createByIntent:(TSIntent *)intent;
-
-@property (nonatomic, strong) TSIntent *ts_sourceIntent;
+@property (nonatomic, strong, nullable) TSIntent *ts_sourceIntent;
 
 @optional
 

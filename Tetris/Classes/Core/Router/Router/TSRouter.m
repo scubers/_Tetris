@@ -20,6 +20,10 @@
 
 @implementation _TSRouteAction
 
++ (instancetype)ts_create {
+    return [[self alloc] init];
+}
+
 - (TSStream *)getStreamByComponent:(TSTreeUrlComponent *)component {
     return _action(component);
 }
@@ -209,7 +213,7 @@
     UIViewController *intentable;
     
     if (!intent.intentable && intent.intentClass) {
-        intentable = [((Class)intent.intentClass) ts_createByIntent:intent];
+        intentable = [((Class)intent.intentClass) ts_create];
         [(id<TSIntentable>)intentable setTs_sourceIntent:intent];
     }
 

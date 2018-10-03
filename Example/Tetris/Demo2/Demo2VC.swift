@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Demo2VC: BaseVC, IRouterComponent {
+class Demo2VC: BaseVC, Routable {
 
     static var routeURLs: [URLPresentable] {
         return ["/swift/demo2/demo2"]
@@ -17,10 +17,10 @@ class Demo2VC: BaseVC, IRouterComponent {
     var name: String?
     var number: NSNumber?
 
-    override var ts_sourceIntent: Intent {
+    override var ts_sourceIntent: Intent? {
         didSet {
-            name = ts_sourceIntent.getString("name")
-            number = ts_sourceIntent.getNumber("number")
+            name = ts_sourceIntent?.getString("name")
+            number = ts_sourceIntent?.getNumber("number")
         }
     }
 
@@ -32,8 +32,8 @@ class Demo2VC: BaseVC, IRouterComponent {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         alert(msg: """
-            fragment: \(String(describing: ts_sourceIntent.urlComponent?.fragment))
-            params: \(String(describing: ts_sourceIntent.urlComponent?.params))
+            fragment: \(String(describing: ts_sourceIntent?.urlComponent?.fragment))
+            params: \(String(describing: ts_sourceIntent?.urlComponent?.params))
             name: \(String(describing: name))
             number: \(String(describing: number))
             """)

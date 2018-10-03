@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Demo5Inter: IntercepterAdapter, IIntercepterComponent {
+class Demo5Inter: IntercepterAdapter, IComponent {
     required override init() {
         super.init()
     }
@@ -26,7 +26,7 @@ class Demo5Inter: IntercepterAdapter, IIntercepterComponent {
 
 }
 
-class Demo5VC: BaseVC, IRouterComponent {
+class Demo5VC: BaseVC, Routable {
 
 
     class var routeURLs: [URLPresentable] {
@@ -35,7 +35,7 @@ class Demo5VC: BaseVC, IRouterComponent {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let f = ts_sourceIntent.urlComponent?.fragment, f.count > 0 {
+        if let f = ts_sourceIntent?.urlComponent?.fragment, f.count > 0 {
             alert(msg: f)
         }
     }

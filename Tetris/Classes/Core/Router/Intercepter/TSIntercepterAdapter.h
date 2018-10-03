@@ -20,8 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(IntercepterAdapter)
 @interface TSIntercepterAdapter : NSObject <TSIntercepterProtocol>
 
-- (instancetype)initWithPriority:(TSIntercepterPriority)priority;
-
 @property (nonatomic, assign) TSIntercepterPriority priority;
 
 

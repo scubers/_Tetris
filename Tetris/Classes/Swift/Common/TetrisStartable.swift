@@ -9,11 +9,7 @@ public protocol TetrisStartable {
     static func tetrisStart()
 }
 
-public protocol Initializable {
-    init()
-}
-
-public protocol IComponent : TetrisStartable , Initializable {}
+public protocol IComponent : TetrisStartable {}
 
 
 class TetrisAwaker {

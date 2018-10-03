@@ -11,6 +11,7 @@
 #import <objc/runtime.h>
 #import "TSLogger.h"
 #import "TSTrigger.h"
+#import "TSCreator.h"
 
 #pragma mark - TSModuleContext
 
@@ -38,41 +39,43 @@ static TSModuleContext *__sharedContext;
 
 #pragma mark - TSModule
 
-@interface TSModule ()
-
-@property (nonatomic, strong) Class<TSTetrisModulable> moduleClass;
-
-@end
-
-@implementation TSModule
-
-+ (instancetype)moduleWithClass:(Class<TSTetrisModulable>)aClass priority:(TSModulePriority)priority {
-    TSModule *module = [TSModule new];
-    module.moduleClass = aClass;
-    module->_priority = priority;
-    return module;
-}
-
-
-@synthesize moduleInstance = _moduleInstance;
-
-- (id<TSTetrisModulable>)moduleInstance {
-    if (!_moduleInstance) {
-        _moduleInstance = [[(Class)_moduleClass alloc] init];
-    }
-    return _moduleInstance;
-}
-
-@end
+//@interface TSModule ()
+//
+//@property (nonatomic, strong) Class<TSTetrisModulable> moduleClass;
+//
+//@end
+//
+//@implementation TSModule
+//
+//+ (instancetype)moduleWithClass:(Class<TSTetrisModulable>)aClass priority:(TSModulePriority)priority {
+//    TSModule *module = [TSModule new];
+//    module.moduleClass = aClass;
+//    module->_priority = priority;
+//    return module;
+//}
+//
+//
+//@synthesize moduleInstance = _moduleInstance;
+//
+//- (id<TSTetrisModulable>)moduleInstance {
+//    if (!_moduleInstance) {
+//        _moduleInstance = [[(Class)_moduleClass alloc] init];
+//    }
+//    return _moduleInstance;
+//}
+//
+//@end
 
 
 #pragma mark - TSTetrisModuler
 
 @interface TSTetrisModuler () <TSTriggerProtocol>
 
-@property (nonatomic, strong) TSLinkNode<TSModule *> *root;
+@property (nonatomic, strong) TSLinkNode<id<TSTetrisModulable>> *root;
 
 @property (nonatomic, strong) TSTrigger<id<TSTetrisModulable>> *applicationTrigger;
+
+@property (nonatomic, strong) TSCreator *creator;
 
 @end
 
@@ -81,17 +84,24 @@ static TSModuleContext *__sharedContext;
 - (instancetype)init {
     if (self = [super init]) {
         _applicationTrigger = [[TSTrigger alloc] initWithTarget:self protocol:@protocol(TSTetrisModulable)];
+        _creator = [TSCreator shared];
     }
     return self;
 }
 
 - (void)registerModuleWithClass:(Class<TSTetrisModulable>)aClass priority:(TSModulePriority)priority {
-    TSModule *module = [TSModule moduleWithClass:aClass priority:priority];
-    [self registerModule:module];
+    TSAssertion([[NSOperationQueue mainQueue] isEqual:[NSOperationQueue currentQueue]], "Register module should execute in main queue");
+    id<TSTetrisModulable> module = (id<TSTetrisModulable>)[_creator createByClass:aClass];
+    module.priority = priority;
+    [self addModule:module];
 }
 
-- (void)registerModule:(TSModule *)module {
+- (void)registerModuleWithClass:(Class<TSTetrisModulable>)aClass {
     TSAssertion([[NSOperationQueue mainQueue] isEqual:[NSOperationQueue currentQueue]], "Register module should execute in main queue");
+    [self addModule:(id<TSTetrisModulable>)([_creator createByClass:aClass])];
+}
+
+- (void)addModule:(id<TSTetrisModulable>)module {
     if (!_root) {
         _root = [TSLinkNode linkNodeWithObject:module];
     } else {
@@ -99,8 +109,8 @@ static TSModuleContext *__sharedContext;
     }
 }
 
-- (void)_placeModule:(TSModule *)module {
-    TSLinkNode<TSModule *> *current = _root;
+- (void)_placeModule:(id<TSTetrisModulable>)module {
+    TSLinkNode<id<TSTetrisModulable>> *current = _root;
     while (current && current.value.priority > module.priority) {
         current = current.next;
     }
@@ -122,9 +132,9 @@ static TSModuleContext *__sharedContext;
     return _root.count;
 }
 
-- (void)enumerateModules:(void (^)(TSModule * _Nonnull, NSUInteger))block {
+- (void)enumerateModules:(void (^)(id<TSTetrisModulable> _Nonnull, NSUInteger))block {
     if (block) {
-        [_root enumerateObject:^(TSModule * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [_root enumerateObject:^(id<TSTetrisModulable>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             block(obj, idx);
         }];
     }
@@ -133,10 +143,9 @@ static TSModuleContext *__sharedContext;
 #pragma mark - TSTriggerProtocol
 
 - (void)trigger:(TSTrigger *)trigger didTriggered:(NSInvocation *)invocation {
-    [_root enumerateObject:^(TSModule * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        id module = obj.moduleInstance;
-        if ([module respondsToSelector:invocation.selector]) {
-            [invocation invokeWithTarget:module];
+    [_root enumerateObject:^(id<TSTetrisModulable>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj respondsToSelector:invocation.selector]) {
+            [invocation invokeWithTarget:obj];
         }
     }];
 }

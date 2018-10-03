@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Demo3Inter: IntercepterAdapter, IIntercepterComponent {
+class Demo3Inter: IntercepterAdapter, IComponent {
     required override init() {
         super.init()
         priority = TSIntercepterPriorityNormal
@@ -25,7 +25,7 @@ class Demo3Inter: IntercepterAdapter, IIntercepterComponent {
     }
 }
 
-class Demo3VC: BaseVC, IRouterComponent {
+class Demo3VC: BaseVC, Routable {
     class var routeURLs: [URLPresentable] {
         return ["/swift/demo3"]
     }

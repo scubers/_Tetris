@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TSCreatable.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,8 +26,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - TSTetrisModulable
 
+typedef NSInteger TSModulePriority NS_SWIFT_NAME(ModulePriority);
+
+static TSModulePriority const TSModulePriorityMin = NSIntegerMin;
+static TSModulePriority const TSModulePriorityLow = 1000;
+static TSModulePriority const TSModulePriorityNormal = 5000;
+static TSModulePriority const TSModulePriorityHigh = 10000;
+static TSModulePriority const TSModulePriorityMax = NSIntegerMax;
+
+
 NS_SWIFT_NAME(IModulable)
-@protocol TSTetrisModulable <UIApplicationDelegate>
+@protocol TSTetrisModulable <UIApplicationDelegate, TSCreatable>
+
+@property (nonatomic, assign) TSModulePriority priority;
 
 @optional
 
@@ -39,27 +51,6 @@ NS_SWIFT_NAME(IModulable)
 @end
 
 
-typedef NSInteger TSModulePriority NS_SWIFT_NAME(ModulePriority);
-
-static TSModulePriority const TSModulePriorityMin = NSIntegerMin;
-static TSModulePriority const TSModulePriorityLow = 1000;
-static TSModulePriority const TSModulePriorityNormal = 5000;
-static TSModulePriority const TSModulePriorityHigh = 10000;
-static TSModulePriority const TSModulePriorityMax = NSIntegerMax;
-
-#pragma mark - TSModule
-
-NS_SWIFT_NAME(Module)
-@interface TSModule : NSObject
-
-@property (nonatomic, assign, readonly) TSModulePriority priority;
-@property (nonatomic, strong, readonly) id<TSTetrisModulable> moduleInstance;
-
-+ (TSModule *)moduleWithClass:(Class<TSTetrisModulable>)aClass priority:(TSModulePriority)priority;
-
-@end
-
-
 #pragma mark - TSTetrisModuler
 
 NS_SWIFT_NAME(TetrisModuler)
@@ -68,12 +59,11 @@ NS_SWIFT_NAME(TetrisModuler)
 @property (nonatomic, strong, readonly) id<TSTetrisModulable> trigger;
 
 - (void)registerModuleWithClass:(Class<TSTetrisModulable>)aClass priority:(TSModulePriority)priority;
-
-- (void)registerModule:(TSModule *)module;
+- (void)registerModuleWithClass:(Class<TSTetrisModulable>)aClass;
 
 - (NSUInteger)count;
 
-- (void)enumerateModules:(void (^)(TSModule *module, NSUInteger index))block;
+- (void)enumerateModules:(void (^)(id<TSTetrisModulable> module, NSUInteger index))block;
 
 @end
 
