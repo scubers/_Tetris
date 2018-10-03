@@ -29,6 +29,23 @@ public extension Observable {
             return cancel
         })
     }
+    
 }
 
+public extension Observable where Element : AnyObject {
+    public func toStream() -> TSStream<Element> {
+        return TSStream<Element>.create({ (r) -> TSCanceller? in
+            let dispose = self.subscribe(onNext: { (e) in
+                r.post(e)
+            }, onError: { (error) in
+                r.postError(error)
+            }, onCompleted: {
+                r.close()
+            }, onDisposed: nil)
+            return TSCanceller.init(block: {
+                dispose.dispose()
+            })
+        })
+    }
+}
 

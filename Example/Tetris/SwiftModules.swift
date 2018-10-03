@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class SwiftBaseModule: AbstractModule {
     func tetrisModuleInit(_ context: TSModuleContext) {
@@ -90,11 +92,13 @@ class MyAction: NSObject, RouteActionable {
     }
     
     func getStreamBy(_ component: TreeUrlComponent) -> TSStream<AnyObject> {
-        return TSStream<AnyObject>.create({ (r) -> TSCanceller? in
-            r.post(100)
-            r.close()
-            return nil
-        })
+        return
+            Observable<AnyObject>
+                .just(100 as AnyObject)
+                .toStream()
+                .onNext({ (_) in
+                    
+                })
     }
     
     
