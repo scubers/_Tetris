@@ -17,7 +17,7 @@
 - (void)bMethod;
 @end
 
-@interface TestServiceClassA : NSObject <TestAProtocol, TSServiceExportable>
+@interface TestServiceClassA : NSObject <TestAProtocol, TSServiceable>
 @end
 @implementation TestServiceClassA
 

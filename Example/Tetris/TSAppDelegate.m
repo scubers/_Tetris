@@ -8,6 +8,7 @@
 
 #import "TSAppDelegate.h"
 #import <Tetris/Tetris-umbrella.h>
+#import "Tetris_Example-Swift.h"
 
 
 @interface TSAppDelegate ()
@@ -53,6 +54,12 @@
     // 触发
     _isSwiftDemo = YES;
     [stream post:nil];
+    
+    [[_Tetris.router actionByUrl:@"/swift/actionDemo"] subscribe:^(id  _Nullable obj) {
+        
+    }];
+    
+    [TS_GET_SERVICE(TestProtocolA) methodA];
 
     [self.window makeKeyAndVisible];
     

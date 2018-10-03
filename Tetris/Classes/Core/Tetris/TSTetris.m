@@ -33,7 +33,7 @@ static TSTetris *__sharedInstance;
 
 #pragma mark - server methods
 
-- (void)registerServiceByProtocol:(Protocol *)aProtocol class:(Class<TSServiceExportable>)aClass singleton:(BOOL)singleton {
+- (void)registerServiceByProtocol:(Protocol *)aProtocol class:(Class<TSServiceable>)aClass singleton:(BOOL)singleton {
     [_server bindServiceByProtocol:aProtocol class:aClass singleton:singleton];
     
 }

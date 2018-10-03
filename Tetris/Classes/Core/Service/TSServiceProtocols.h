@@ -10,8 +10,8 @@
 
 #import "TSCreatable.h"
 
-NS_SWIFT_NAME(ServiceExportable)
-@protocol TSServiceExportable <TSCreatable>
+NS_SWIFT_NAME(Serviceable)
+@protocol TSServiceable <TSCreatable>
 @end
 
 #endif /* TSServiceProtocols_h */

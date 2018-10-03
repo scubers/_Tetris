@@ -47,9 +47,7 @@ public extension IComponent where Self : IIntercepter {
 }
 
 
-//public typealias IActionComponent = (IComponent & IRouteAction & URLRoutable)
-
-public extension IComponent where Self : IRouteAction, Self : URLRoutable {
+public extension IComponent where Self : RouteActionable, Self : URLRoutable {
     public static func tetrisStart() {
         TSTetris.shared().router.bindUrl(try! self.routeURLs.first!.toURL().absoluteString,
                                          toRouteAction: self.ts_create())

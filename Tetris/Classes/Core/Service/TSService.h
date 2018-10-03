@@ -14,13 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TSService : NSObject
 
-@property (nonatomic, strong) Class<TSServiceExportable> serviceClass;
+@property (nonatomic, strong) Class<TSServiceable> serviceClass;
 
 @property (nonatomic, assign) BOOL singleton;
 
-- (id<TSServiceExportable>)getService;
+- (id<TSServiceable>)getService;
 
-+ (instancetype)serviceWithClass:(Class<TSServiceExportable>)aClass;
++ (instancetype)serviceWithClass:(Class<TSServiceable>)aClass;
 
 @end
 
@@ -29,12 +29,12 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(TetrisServer)
 @interface TSTetrisServer : NSObject
 
-- (void)bindServiceByName:(NSString *)service class:(Class<TSServiceExportable>)aClass singleton:(BOOL)singleton;
-- (nullable id<TSServiceExportable>)serviceByName:(NSString *)name;
+- (void)bindServiceByName:(NSString *)service class:(Class<TSServiceable>)aClass singleton:(BOOL)singleton;
+- (nullable id<TSServiceable>)serviceByName:(NSString *)name;
 
 
-- (void)bindServiceByProtocol:(Protocol *)aProtocol class:(Class<TSServiceExportable>)aClass singleton:(BOOL)singleton;
-- (nullable id<TSServiceExportable>)serviceByProtoocl:(Protocol *)aProtocol;
+- (void)bindServiceByProtocol:(Protocol *)aProtocol class:(Class<TSServiceable>)aClass singleton:(BOOL)singleton;
+- (nullable id<TSServiceable>)serviceByProtoocl:(Protocol *)aProtocol;
 
 @end
 

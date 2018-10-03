@@ -44,21 +44,43 @@ class SwiftModules: AbstractModule, IComponent {
 }
 
 @objc
-protocol TestProtocolA {
+public protocol TestProtocolA {
     func methodA()
 }
 
-class Services : NSObject, IServiceComponent {
+
+
+
+class Services : NSObject, IServiceable, IComponent, TestProtocolA {
     
-    override func ts_didCreate() {
-        
-    }
-    static var servicePrtocol: Protocol? = TestProtocolA.self
+    static var interface: Protocol? = TestProtocolA.self
     
-    static var serviceName: String?
+    static var name: String?
     
     static var singleton: Bool = false
     
+    
+    func methodA() {
+        print("--swift servcie---")
+    }
+    
+    
+}
+
+
+class MyAction: NSObject, RouteActionable, URLRoutable, IComponent {
+    
+    class var routeURLs: [URLPresentable] {
+        return ["/swift/actionDemo?"]
+    }
+    
+    func getStreamBy(_ component: TreeUrlComponent) -> TSStream<AnyObject> {
+        return TSStream<AnyObject>.create({ (r) -> TSCanceller? in
+            r.post(100)
+            r.close()
+            return nil
+        })
+    }
     
     
 }

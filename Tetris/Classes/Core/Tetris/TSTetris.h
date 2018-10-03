@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - server methods
 
-- (void)registerServiceByProtocol:(Protocol *)aProtocol class:(Class<TSServiceExportable>)aClass singleton:(BOOL)singleton;
+- (void)registerServiceByProtocol:(Protocol *)aProtocol class:(Class<TSServiceable>)aClass singleton:(BOOL)singleton;
 
 #pragma mark - moduler methods
 

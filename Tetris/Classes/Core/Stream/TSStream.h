@@ -44,9 +44,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef TSStream *(^TSBindStreamBlock)(T _Nullable value, BOOL *stop);
 
-+ (TSStream *)create:(nullable TSCanceller *(^)(id<TSReceivable> receiver))block;
++ (TSStream *)create:(TSCanceller * _Nullable (^)(id<TSReceivable> receiver))block;
 
-- (TSStream *)initWithBlock:(nullable TSCanceller *(^)(id<TSReceivable> receiver))block;
+- (TSStream *)initWithBlock:(TSCanceller * _Nullable (^)(id<TSReceivable> receiver))block;
 
 - (nullable TSCanceller *)subscribe:(void (^)(T _Nullable obj))next
                               error:(void (^_Nullable)(NSError * _Nullable error))error
