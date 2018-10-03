@@ -8,39 +8,49 @@
 
 import UIKit
 
-class SwiftModules: AbstractModule, IComponent {
-    
-    override class func ts_create() -> Self? {
-        return self.init()
-    }
-
-    open override func ts_didCreate() {
-        priority = TSModulePriorityNormal
-    }
-    
+class SwiftBaseModule: AbstractModule {
     func tetrisModuleInit(_ context: TSModuleContext) {
         print("\(type(of: self)) \(#function)")
     }
-
+    
     func tetrisModuleSetup(_ context: TSModuleContext) {
         print("\(type(of: self)) \(#function)")
     }
-
+    
     func tetrisModuleSplash(_ context: TSModuleContext) {
         print("\(#function)")
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         print("\(#function)")
-
+        
         TSTetris.shared().moduler.trigger.tetrisModuleDidTrigger!(event: 100, userInfo: nil)
     }
-
+    
     func tetrisModuleDidTrigger(event: Int, userInfo: [AnyHashable : Any]? = nil) {
         print("\(#function)  event: \(event)")
     }
+}
 
-
+class SwiftModules1: SwiftBaseModule, IComponent {
+    open override func ts_didCreate() {
+        priority = TSModulePriorityNormal + 20000
+    }
+}
+class SwiftModules2: SwiftBaseModule, IComponent {
+    open override func ts_didCreate() {
+        priority = TSModulePriorityHigh  + 20000
+    }
+}
+class SwiftModules3: SwiftBaseModule, IComponent {
+    open override func ts_didCreate() {
+        priority = TSModulePriorityLow + 20000
+    }
+}
+class SwiftModules4: SwiftBaseModule, IComponent {
+    open override func ts_didCreate() {
+        priority = TSModulePriorityNormal  + 20000
+    }
 }
 
 @objc

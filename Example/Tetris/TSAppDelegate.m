@@ -9,6 +9,7 @@
 #import "TSAppDelegate.h"
 #import <Tetris/Tetris-umbrella.h>
 #import "Tetris_Example-Swift.h"
+@import ReactiveObjC;
 
 
 @interface TSAppDelegate ()
@@ -26,6 +27,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
     [TetrisSwiftStarter start];
     [super application:application didFinishLaunchingWithOptions:launchOptions];
 

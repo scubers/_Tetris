@@ -67,9 +67,9 @@
                           error:(void (^)(NSError *error))error
                        complete:(dispatch_block_t)complete {
     if (self = [super init]) {
-        _success = success;
-        _error = error;
-        _complete = complete;
+        _success = success ?: ^(id obj){};
+        _error = error ?: ^(NSError *err){};
+        _complete = complete ?: ^(){};
     }
     return self;
 }
@@ -145,11 +145,17 @@
 }
 
 - (TSCanceller *)subscribe:(void (^)(id _Nullable))success error:(void (^)(NSError * _Nullable))error {
-    return [self subscribe:success error:error complete:nil];
+    return [self subscribe:success error:error complete:^{
+        
+    }];
 }
 
 - (TSCanceller *)subscribe:(void (^)(id _Nullable))success {
-    return [self subscribe:success error:nil complete:nil];
+    return [self subscribe:success error:^(NSError * _Nullable error) {
+        
+    } complete:^{
+        
+    }];
 }
 
 
@@ -159,11 +165,13 @@
         
         // 用来记录当前叠加的流数量
         __block volatile int32_t count = 1;
+        
+        OSAtomicIncrement32Barrier(&count);
 
         TSCanceller *canceller = [TSCanceller new];
         
         void (^completeBlock)() = ^() {
-            if (OSAtomicDecrement32(&count) == 0) {
+            if (OSAtomicDecrement32Barrier(&count) == 0) {
                 [receiver close];
             }
         };
@@ -176,7 +184,6 @@
             TSStream *stream = bindBlock(obj, &stop);
             
             [stream subscribe:^(id  _Nullable obj) {
-                OSAtomicIncrement32Barrier(&count);
                 [receiver post:obj];
                 if (stop) {
                     completeBlock();
@@ -190,7 +197,12 @@
             } complete:completeBlock];
             
             
-        }];
+        } error:^(NSError * _Nullable error) {
+            
+            [canceller cancel];
+            [receiver postError:error];
+            
+        } complete:completeBlock];
         
         [canceller addCanceller:innerCanceller];
         
@@ -447,16 +459,14 @@
 }
 
 - (TSStream *)async {
-    return [self bind:^TSBindStreamBlock _Nonnull{
-        return ^(id obj, BOOL *stop) {
-            return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
-                dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    [receiver post:obj];
-                    [receiver close];
-                });
-                return nil;
-            }];
-        };
+    return [self transform:^TSStream * _Nonnull(id  _Nullable object) {
+        return [TSStream create:^TSCanceller * _Nullable(id<TSReceivable>  _Nonnull receiver) {
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                [receiver post:object];
+                [receiver close];
+            });
+            return nil;
+        }];
     }];
 }
 

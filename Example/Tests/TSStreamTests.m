@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+@import ReactiveObjC;
 
 @interface TSStreamTests : XCTestCase
 
@@ -81,6 +82,29 @@
     XCTAssert(_flags.count == 3);
 }
 
+- (void)testMultiple1 {
+    TSStream *s = [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
+        [receiver post:@1];
+        [receiver post:@2];
+        [receiver close];
+        return nil;
+    }];
+    
+    [[[[s
+       nonsenese:^id _Nullable(id  _Nullable obj) {
+           return obj;
+       }]
+       onNext:^(id  _Nullable obj) {
+           [self addFlag];
+       }]
+      last:^{
+          [self addFlag];
+      }]
+     subscribe:^(id  _Nullable obj) {
+     }];
+    XCTAssert(self.flags.count == 3);
+}
+
 - (void)testMultiple {
     TSStream *s = [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
         [receiver post:@1];
@@ -106,6 +130,10 @@
       }]
      subscribe:^(id  _Nullable obj) {
          [self addFlag];
+     } error:^(NSError * _Nullable error) {
+         
+     } complete:^{
+         
      }]
     ;
     XCTAssert(_flags.count == 5);
@@ -164,8 +192,8 @@
          [exp fulfill];
      }];
     
-    [self waitForExpectationsWithTimeout:2 handler:^(NSError * _Nullable error) {
-        
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError * _Nullable error) {
+
     }];
 }
 
@@ -185,6 +213,29 @@
     }];
     [_driven post:@1];
     XCTAssert(self.flags.count == 4);
+}
+
+- (void)testRAC {
+    RACSignal *s = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+        [subscriber sendNext:@1];
+        [subscriber sendNext:@2];
+        [subscriber sendCompleted];
+        return nil;
+    }];
+    
+    [[[[s
+       map:^id _Nullable(id  _Nullable value) {
+           return value;
+       }]
+       doNext:^(id  _Nullable x) {
+           
+       }]
+      doCompleted:^{
+          
+      }]
+     subscribeNext:^(id  _Nullable x) {
+         
+     }];
 }
 
 - (void)addFlag {

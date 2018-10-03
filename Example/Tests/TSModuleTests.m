@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) TSTetrisModuler *moduler;
 
+@property (nonatomic, assign) TSModulePriority priority;
+
 @end
 
 @implementation TSModuleTests
@@ -38,7 +40,7 @@
 
 - (void)testModulePriority {
     __block TSModulePriority last = TSModulePriorityMax;
-    [_moduler enumerateModules:^(TSModule * _Nonnull module, NSUInteger index) {
+    [_moduler enumerateModules:^(id<TSTetrisModulable>  _Nonnull module, NSUInteger index) {
         NSLog(@"Priority test: current: %zd, last: %zd", module.priority, last);
         XCTAssert(module.priority <= last);
         last = module.priority;

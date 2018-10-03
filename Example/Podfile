@@ -3,7 +3,8 @@ install! 'cocoapods', :deterministic_uuids => false
 
 target 'Tetris_Example' do
   pod 'Tetris/Swift', :path => '../'
-
+  pod 'ReactiveObjC'
+  
   target 'Tetris_Tests' do
     inherit! :search_paths
 
