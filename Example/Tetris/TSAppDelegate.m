@@ -34,6 +34,11 @@
 
     TSDrivenStream *stream = [TSDrivenStream stream];
     
+    _Tetris.router.intercepterMgr.finalIntercepter = [[TSFinalIntercepter alloc] initWithAction:^(id<TSIntercepterJudger>  _Nonnull judger) {
+        NSLog(@"----- final intercepter ------");
+        [judger doContinue];
+    }];
+    
     [_Tetris.router subscribeDrivenByUrl:@"/changeDemo" callback:^(TSTreeUrlComponent * _Nonnull component) {
         [stream post:nil];
     }];
@@ -49,7 +54,7 @@
           }
           return [_Tetris.router prepare:[TSIntent pushPopIntentByUrl:@"/menu"] source:nil complete:nil];
       }]
-     subscribe:^(TSRouteResult *  _Nullable obj) {
+     subscribeNext:^(TSRouteResult *  _Nullable obj) {
          self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:obj.destination];
      }];
 
@@ -60,11 +65,11 @@
     _isSwiftDemo = YES;
     [stream post:nil];
     
-    [[_Tetris.router actionByUrl:@"/swift/actionDemo"] subscribe:^(id  _Nullable obj) {
+    [[_Tetris.router actionByUrl:@"/swift/actionDemo"] subscribeNext:^(id  _Nullable obj) {
         
     }];
     
-    [[_Tetris.router actionByUrl:@"/oc/action"] subscribe:^(id  _Nullable obj) {
+    [[_Tetris.router actionByUrl:@"/oc/action"] subscribeNext:^(id  _Nullable obj) {
         
     }];
     

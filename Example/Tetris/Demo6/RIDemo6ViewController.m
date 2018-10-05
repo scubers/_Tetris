@@ -28,7 +28,7 @@ TS_INTERCEPTER(TSIntercepterPriorityNormal)
 
     TSIntent *intent = [TSIntent pushPopIntentByUrl:@"/login/demo6"];
     intent.displayer = [TSPresentDismissDisplayer new];
-    [intent.onResult subscribe:^(id  _Nullable obj) {
+    [intent.onResult subscribeNext:^(id  _Nullable obj) {
         [adjudger.intent.extraParameters addEntriesFromDictionary:@{@"userId" : @"userId"}];
         [adjudger restart];
     }];

@@ -19,7 +19,7 @@ public extension Observable {
     public class func by<Value>(stream: TSStream<Value>) -> Observable<Value> {
         return Observable<Value>.create({ (o) -> Disposable in
             
-            let cancel = stream.subscribe({ (value) in
+            let cancel = stream.subscribeNext({ (value) in
                 o.onNext(value!)
             }, error: { (error) in
                 o.onError(error)

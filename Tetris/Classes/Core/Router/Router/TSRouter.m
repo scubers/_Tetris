@@ -112,7 +112,7 @@
             comp = [_drivenTree findByURLString:urlString];
         }
     }
-    return [((TSDrivenStream<TSTreeUrlComponent *> *)comp.value) subscribe:^(TSTreeUrlComponent * _Nullable obj) {
+    return [((TSDrivenStream<TSTreeUrlComponent *> *)comp.value) subscribeNext:^(TSTreeUrlComponent * _Nullable obj) {
         callback(obj);
     }];
     

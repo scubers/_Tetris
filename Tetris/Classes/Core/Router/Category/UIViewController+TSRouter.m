@@ -23,7 +23,7 @@
 
 - (void)ts_start:(TSIntent *)intent complete:(void (^ _Nullable)(void))complete {
     [[self ts_prepare:intent complete:complete]
-     subscribe:^(TSRouteResult * _Nullable obj) {
+     subscribeNext:^(TSRouteResult * _Nullable obj) {
 
      } error:^(NSError * _Nullable error) {
          TSLog(@"%@", error);

@@ -33,7 +33,7 @@
 
 - (void)testSubscribe {
     [[TSStream just:@1]
-     subscribe:^(id  _Nullable obj) {
+     subscribeNext:^(id  _Nullable obj) {
          XCTAssert([obj isEqual:@1]);
      } error:^(NSError * _Nullable error) {
          
@@ -45,7 +45,7 @@
 - (void)testMap {
     [[[TSStream just:@1]
       forceMap:@"1"]
-     subscribe:^(id  _Nullable obj) {
+     subscribeNext:^(id  _Nullable obj) {
          XCTAssert([obj isEqualToString:@"1"]);
      }];
 }
@@ -59,7 +59,7 @@
       onError:^(NSError * _Nonnull error) {
           [self addFlag];
       }]
-     subscribe:^(id  _Nullable obj) {
+     subscribeNext:^(id  _Nullable obj) {
          
      }]
     ;
@@ -78,7 +78,7 @@
       onNext:^(id  _Nullable obj) {
           [self addFlag];
       }]
-     subscribe:^(id  _Nullable obj) {
+     subscribeNext:^(id  _Nullable obj) {
          [self addFlag];
      }]
     ;
@@ -103,7 +103,7 @@
       last:^{
           [self addFlag];
       }]
-     subscribe:^(id  _Nullable obj) {
+     subscribeNext:^(id  _Nullable obj) {
      }];
     XCTAssert(self.flags.count == 3);
 }
@@ -131,7 +131,7 @@
       onCompleted:^{
           [self addFlag];
       }]
-     subscribe:^(id  _Nullable obj) {
+     subscribeNext:^(id  _Nullable obj) {
          [self addFlag];
      } error:^(NSError * _Nullable error) {
          
@@ -156,7 +156,7 @@
       onNext:^(id  _Nullable obj) {
           [self addFlag];
       }]
-     subscribe:^(id  _Nullable obj) {
+     subscribeNext:^(id  _Nullable obj) {
          [self addFlag];
      }];
 }
@@ -167,7 +167,7 @@
     
     [[[TSStream just:@1]
       delay:3]
-     subscribe:^(id  _Nullable obj) {
+     subscribeNext:^(id  _Nullable obj) {
          [exp fulfill];
      }];
     
@@ -191,7 +191,7 @@
       onNext:^(id  _Nullable obj) {
           XCTAssert(![[NSOperationQueue mainQueue] isEqual:[NSOperationQueue currentQueue]]);
       }]
-     subscribe:^(id  _Nullable obj) {
+     subscribeNext:^(id  _Nullable obj) {
          [exp fulfill];
      }];
     
@@ -205,13 +205,13 @@
       onNext:^(id  _Nullable obj) {
           [self addFlag];
       }]
-     subscribe:^(id  _Nullable obj) {
+     subscribeNext:^(id  _Nullable obj) {
         [self addFlag];
     }];
-    [_driven subscribe:^(id  _Nullable obj) {
+    [_driven subscribeNext:^(id  _Nullable obj) {
         [self addFlag];
     }];
-    [_driven subscribe:^(id  _Nullable obj) {
+    [_driven subscribeNext:^(id  _Nullable obj) {
         [self addFlag];
     }];
     [_driven post:@1];
@@ -234,7 +234,7 @@
      onCompleted:^{
          
      }]
-     subscribe:^(id  _Nullable obj) {
+     subscribeNext:^(id  _Nullable obj) {
          
      }];
 }

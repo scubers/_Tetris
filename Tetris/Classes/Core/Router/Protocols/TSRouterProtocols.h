@@ -30,7 +30,7 @@ NS_SWIFT_NAME(Intentable)
 
 @optional
 
-+ (nullable id<TSIntercepter>)ts_finalIntercepter;
++ (nullable id<TSIntercepter>)ts_selfIntercepter;
 
 @end
 

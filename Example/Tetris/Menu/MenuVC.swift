@@ -38,8 +38,6 @@ class MenuVC: BaseVC, Routable {
     }
 
     @objc func change() {
-//        TSTetris.shared().router.driven(byUrl: "/changeDemo")?.post(nil)
-//        TSTetris.shared().router.postStream("/changeDemo", params: nil)
         TSTetris.shared().router.postDriven(byUrl: "/changeDemo", params: nil)
     }
 
@@ -63,16 +61,12 @@ extension MenuVC : UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let intent = intents[indexPath.row].values.first!.copy() as? Intent
         intent?.onResult
-            .subscribe({ (obj) in
-                print(obj as Any)
-            })
+            .onNext { print($0 as Any) }
+            .subscribe()
         
-        ts_prepare(intent!, complete: {
-            print("---- swift finish route ----")
-        }).subscribe({ (ret) in
-            
-        }) { (err) in
-            self.alert(msg: "\(err)")
-        }
+        
+        ts_prepare(intent!, complete: { print("---- swift finish route ----") })
+            .onError { self.alert(msg: "\($0)") }
+            .subscribe()
     }
 }

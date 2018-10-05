@@ -52,16 +52,19 @@ typedef TSStream *(^TSBindStreamBlock)(T _Nullable value, BOOL *stop);
 
 - (instancetype)initWithBlock:(TSCanceller * _Nullable (^)(id<TSReceivable> receiver))block;
 
-- (TSCanceller *)subscribe:(void (^)(T _Nullable obj))next
-                              error:(void (^_Nullable)(NSError * error))error
-                           complete:(dispatch_block_t _Nullable)complete;
-
-- (TSCanceller *)subscribe:(void (^ _Nullable)(T _Nullable obj))next
-                              error:(void (^)(NSError * error))error;
-
-- (TSCanceller *)subscribe:(void (^ _Nullable)(T _Nullable obj))next;
-
 - (TSCanceller *)subscribeByReciever:(id<TSReceivable>)reciever;
+
+- (TSCanceller *)subscribeNext:(void (^)(T _Nullable obj))next
+                         error:(void (^_Nullable)(NSError * error))error
+                      complete:(dispatch_block_t _Nullable)complete;
+
+- (TSCanceller *)subscribeNext:(void (^ _Nullable)(T _Nullable obj))next
+                         error:(void (^)(NSError * error))error;
+
+- (TSCanceller *)subscribeNext:(void (^ _Nullable)(T _Nullable obj))next;
+
+
+- (TSCanceller *)subscribe;
 
 - (TSStream *)bind:(TSBindStreamBlock (^)(void))block;
 

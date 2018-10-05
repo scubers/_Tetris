@@ -19,7 +19,9 @@ NS_SWIFT_NAME(Intent)
 
 @property (nonatomic, strong, nullable) Class<TSIntentable> intentClass;
 
-@property (nonatomic, copy, nullable) NSString *urlString;
+@property (nonatomic, copy  , nullable) NSString *urlString;
+
+@property (nonatomic, assign) BOOL skip; // skip the intercepters or not
 
 @property (nonatomic, strong, nullable) id<TSViewControllable> viewControllable;
 

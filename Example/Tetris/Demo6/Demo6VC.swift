@@ -25,7 +25,7 @@ class Demo6Inter : IntercepterAdapter, Component {
         intent.displayer = judger.intent().displayer
         intent
             .onResult
-            .subscribe({_ in
+            .subscribeNext({_ in
                 judger.intent().extraParameters.addEntries(from: ["userId" : "userId"])
                 judger.restart()
             })

@@ -44,7 +44,7 @@ TS_EXPORT_ROUTE(RIDemo8ViewController, "/demo8", 100)
 }
 
 - (void)getMsg:(id)sender {
-    [[_Tetris.router actionByUrl:@"/action/demo8?a=b#fragment"] subscribe:^(id  _Nullable obj) {
+    [[_Tetris.router actionByUrl:@"/action/demo8?a=b#fragment"] subscribeNext:^(id  _Nullable obj) {
         [self alert:obj];
     }];
 }

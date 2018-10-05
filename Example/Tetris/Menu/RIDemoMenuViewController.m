@@ -82,13 +82,13 @@ TS_VC_ROUTE("/menu")
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     TSIntent *intent = [self.intents[indexPath.row].allValues.lastObject copy];
 
-    [intent.onResult subscribe:^(id  _Nullable obj) {
+    [intent.onResult subscribeNext:^(id  _Nullable obj) {
         [self alert:[NSString stringWithFormat:@"%@", obj]];
     }];
 
     [[self ts_prepare:intent complete:^{
         NSLog(@"---- finish route ----");
-    }] subscribe:^(TSRouteResult * _Nullable obj) {
+    }] subscribeNext:^(TSRouteResult * _Nullable obj) {
 
     } error:^(NSError * _Nullable error) {
         [self alert:[NSString stringWithFormat:@"%@", error]];

@@ -49,11 +49,11 @@ class MyAppDelegate: TSBaseApplicationDelegate {
         
         p.onNext(true)
         
-        TSTetris.shared().router.action(byUrl: "/swift/actionDemo")?.subscribe({ (_) in
+        TSTetris.shared().router.action(byUrl: "/swift/actionDemo")?.subscribeNext({ (_) in
             
         })
         
-        TSTetris.shared().router.action(byUrl: "/oc/actionDemo")?.subscribe({ (_) in
+        TSTetris.shared().router.action(byUrl: "/oc/actionDemo")?.subscribeNext({ (_) in
             
         })
         

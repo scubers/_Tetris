@@ -15,8 +15,11 @@ class Demo1VC: BaseVC, Routable {
         return ["/swift/demo1"]
     }
     
-    class func ts_finalIntercepter() -> Intercepter? {
-        return FinalIntercepter.init { $0.doContinue() }
+    class func ts_selfIntercepter() -> Intercepter? {
+        return FinalIntercepter.init {
+            print("----- demo1 vc self intercepter -----")
+            $0.doContinue()
+        }
     }
 
 }

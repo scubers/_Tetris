@@ -45,6 +45,8 @@ typedef void(^TSRunIntercepterFinish)(TSIntercepterResult *result);
 NS_SWIFT_NAME(IntercepterManager)
 @interface TSIntercepterManager : NSObject
 
+@property (nonatomic, strong, nullable) id<TSIntercepter> finalIntercepter;
+
 + (instancetype)manager;
 
 - (void)addIntercepter:(id<TSIntercepter>)intercepter NS_SWIFT_NAME(add(intercepter:));
@@ -52,9 +54,6 @@ NS_SWIFT_NAME(IntercepterManager)
 - (void)runIntent:(TSIntent *)intent
            source:(nullable id<TSViewControllable>)source
            finish:(TSRunIntercepterFinish)finish;
-
-
-
 
 @end
 

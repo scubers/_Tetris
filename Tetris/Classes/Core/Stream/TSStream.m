@@ -147,23 +147,21 @@
     return outerCanceller;
 }
 
-- (TSCanceller *)subscribe:(void (^)(id _Nullable))block error:(void (^)(NSError *error))error complete:(dispatch_block_t)complete {
+- (TSCanceller *)subscribeNext:(void (^)(id _Nullable))block error:(void (^)(NSError *error))error complete:(dispatch_block_t)complete {
     TSReceiver *receiver = [[TSReceiver alloc] initWithSuccess:block error:error complete:complete];
     return [self subscribeByReciever:receiver];
 }
 
-- (TSCanceller *)subscribe:(void (^)(id _Nullable))success error:(void (^)(NSError * _Nullable))error {
-    return [self subscribe:success error:error complete:^{
-        
-    }];
+- (TSCanceller *)subscribeNext:(void (^)(id _Nullable))success error:(void (^)(NSError * _Nullable))error {
+    return [self subscribeNext:success error:error complete:nil];
 }
 
-- (TSCanceller *)subscribe:(void (^)(id _Nullable))success {
-    return [self subscribe:success error:^(NSError * _Nullable error) {
-        
-    } complete:^{
-        
-    }];
+- (TSCanceller *)subscribeNext:(void (^)(id _Nullable))success {
+    return [self subscribeNext:success error:nil complete:nil];
+}
+
+- (TSCanceller *)subscribe {
+    return [self subscribeNext:nil];
 }
 
 
@@ -193,7 +191,7 @@
             TSCanceller *selfDisposable = [[TSCanceller alloc] init];
             [compoundDisposable addCanceller:selfDisposable];
             
-            TSCanceller *disposable = [signal subscribe:^(id  _Nullable obj) {
+            TSCanceller *disposable = [signal subscribeNext:^(id  _Nullable obj) {
                 [receiver post:obj];
             } error:^(NSError * _Nullable error) {
                 [receiver postError:error];
@@ -212,7 +210,7 @@
             [compoundDisposable addCanceller:selfDisposable];
             
             TSCanceller *bindingCanceller =
-            [self subscribe:^(id  _Nullable obj) {
+            [self subscribeNext:^(id  _Nullable obj) {
                 
                 BOOL stop = NO;
                 id signal = bindingBlock(obj, &stop);
@@ -371,7 +369,7 @@
 - (TSStream *)onNext:(void (^)(id _Nullable))onNext {
     TSAssertion(onNext != nil, "%s: block is nil", __FUNCTION__);
     return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
-        return [self subscribe:^(id  _Nullable obj) {
+        return [self subscribeNext:^(id  _Nullable obj) {
             onNext(obj);
             [receiver post:obj];
         } error:^(NSError * _Nullable error) {
@@ -385,7 +383,7 @@
 - (TSStream *)onError:(void (^)(NSError * _Nonnull))onError {
     TSAssertion(onError != nil, "%s: block is nil", __FUNCTION__);
     return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
-        return [self subscribe:^(id  _Nullable obj) {
+        return [self subscribeNext:^(id  _Nullable obj) {
             [receiver post:obj];
         } error:^(NSError * _Nullable error) {
             onError(error);
@@ -399,7 +397,7 @@
 - (TSStream *)onCompleted:(void (^)(void))onCompleted {
     TSAssertion(onCompleted != nil, "%s: block is nil", __FUNCTION__);
     return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
-        return [self subscribe:^(id  _Nullable obj) {
+        return [self subscribeNext:^(id  _Nullable obj) {
             [receiver post:obj];
         } error:^(NSError * _Nullable error) {
             [receiver postError:error];
@@ -417,7 +415,7 @@
         TSCanceller *outterCanceller = [TSCanceller new];
         
         TSCanceller *canceller =
-        [self subscribe:^(id  _Nullable obj) {
+        [self subscribeNext:^(id  _Nullable obj) {
             [receiver post:obj];
         } error:^(NSError * _Nullable error) {
             
@@ -449,7 +447,7 @@
 - (TSStream *)last:(void (^)(void))last {
     TSAssertion(last != nil, "%s: block is nil", __FUNCTION__);
     return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
-        return [self subscribe:^(id  _Nullable obj) {
+        return [self subscribeNext:^(id  _Nullable obj) {
             [receiver post:obj];
         } error:^(NSError * _Nullable error) {
             [receiver postError:error];

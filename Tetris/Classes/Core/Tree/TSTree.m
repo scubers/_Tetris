@@ -394,14 +394,14 @@
 - (void)removeNodeWithPath:(NSArray<NSString *> *)path {
     [self addOperationWithBlock:^{
         [super removeNodeWithPath:path];
-    } wait:NO];
+    } wait:NO]; // async remove
 }
 
 - (void)addOperationWithBlock:(dispatch_block_t)block wait:(BOOL)wait {
     if ([_queue isEqual:[NSOperationQueue currentQueue]]) {
         block();
     } else {
-        NSOperation *operation  = [NSBlockOperation blockOperationWithBlock:^{
+        NSOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
             block();
         }];
         [_queue addOperation:operation];
