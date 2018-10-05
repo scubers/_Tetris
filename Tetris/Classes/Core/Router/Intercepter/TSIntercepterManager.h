@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /////////////////////////////////////////////////////////////////
 
+#pragma mark - TSIntercepterResult
+
 NS_SWIFT_NAME(IntercepterResultStatus)
 typedef NS_ENUM(NSInteger, TSIntercepterResultStatus) {
     TSIntercepterResultStatusPass,
@@ -36,6 +38,8 @@ NS_SWIFT_NAME(IntercepterResult)
 
 /////////////////////////////////////////////////////////////////
 
+#pragma mark - TSIntercepterManager
+
 typedef void(^TSRunIntercepterFinish)(TSIntercepterResult *result);
 
 NS_SWIFT_NAME(IntercepterManager)
@@ -43,12 +47,10 @@ NS_SWIFT_NAME(IntercepterManager)
 
 + (instancetype)manager;
 
-- (void)addIntercepter:(id<TSIntercepter>)intercepter
-NS_SWIFT_NAME(add(intercepter:));
-
+- (void)addIntercepter:(id<TSIntercepter>)intercepter NS_SWIFT_NAME(add(intercepter:));
 
 - (void)runIntent:(TSIntent *)intent
-           source:(nullable UIViewController *)source
+           source:(nullable id<TSViewControllable>)source
            finish:(TSRunIntercepterFinish)finish;
 
 

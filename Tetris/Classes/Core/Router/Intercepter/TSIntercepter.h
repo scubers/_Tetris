@@ -12,6 +12,7 @@
 @class TSIntent;
 @class UIViewController;
 #import "TSCreatable.h"
+#import "TSRouterProtocols.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,7 +32,7 @@ NS_SWIFT_NAME(IntercepterJudger)
  
  @return Return the source that given by the user
  */
-- (UIViewController * _Nullable)source;
+- (id<TSViewControllable> _Nullable)source;
 
 /**
  Redirect to intent;

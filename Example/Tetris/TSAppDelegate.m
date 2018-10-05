@@ -23,13 +23,14 @@
 
 @synthesize window = _window;
 
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [TetrisSwiftStarter start];
+    return [super application:application willFinishLaunchingWithOptions:launchOptions];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-    
-    [TetrisSwiftStarter start];
     [super application:application didFinishLaunchingWithOptions:launchOptions];
-
 
     TSDrivenStream *stream = [TSDrivenStream stream];
     

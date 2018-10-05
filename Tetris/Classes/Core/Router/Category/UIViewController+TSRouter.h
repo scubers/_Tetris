@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIViewController (TSRouter)
+@interface UIViewController (TSRouter) <TSViewControllable>
 
 - (TSStream<TSRouteResult *> *)ts_prepare:(TSIntent *)intent;
 - (TSStream<TSRouteResult *> *)ts_prepare:(TSIntent *)intent complete:(void (^ _Nullable)(void))complete;
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)ts_setNeedDisplay:(BOOL)animated;
 - (void)ts_setNeedDisplay:(BOOL)animated complete:(void (^ _Nullable)(void))complete;
 
-- (void)ts_sendStream:(nullable id)stream;
+- (void)ts_sendResult:(nullable id)stream;
 
 - (void)ts_sendResult:(nullable id)result byCode:(id<NSCopying>)code;
 

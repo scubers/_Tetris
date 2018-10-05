@@ -11,11 +11,13 @@
 #import "TSError.h"
 #import "UIViewController+TSRouter.h"
 
+#pragma mark - _TSIntercepterJudger
+
 @interface _TSIntercepterJudger : NSObject <TSIntercepterJudger>
 
 @property (nonatomic, strong) TSIntent *intent;
 
-@property (nonatomic, strong) UIViewController *source;
+@property (nonatomic, strong) id<TSViewControllable> source;
 
 @property (nonatomic, copy) void (^doSwitchAction)(TSIntent *intent);
 @property (nonatomic, copy) void (^doRejectAction)(NSError *error);
@@ -31,7 +33,7 @@
 @implementation _TSIntercepterJudger
 
 + (instancetype)adjudgerWithSourceIntent:(TSIntent *)sourceIntent
-                                  source:(UIViewController *)source
+                                  source:(id<TSViewControllable>)source
                                 continue:(void (^)(void))doContinue
                                   switch:(void (^)(TSIntent *intent))doSwtich
                                   reject:(void (^)(NSError *error))doReject {
@@ -67,7 +69,7 @@
 }
 
 - (void)restart {
-    [self.source ts_start:self.intent];
+    [self.source.ts_viewController ts_start:self.intent];
 }
 
 
@@ -75,7 +77,7 @@
 
 ////////////////////////////////////////////////////////////////////////
 
-
+#pragma mark - TSIntercepterResult
 @implementation TSIntercepterResult
 
 + (TSIntercepterResult *)resultWithStatus:(TSIntercepterResultStatus)status intent:(TSIntent *)intent error:(NSError *)error {
@@ -89,6 +91,7 @@
 @end
 
 
+#pragma mark - TSIntercepterManager
 
 @interface TSIntercepterManager ()
 
@@ -106,7 +109,7 @@
 {
     self = [super init];
     if (self) {
-        _intercepters = [NSMutableArray array];
+        _intercepters = [NSMutableArray arrayWithCapacity:1];
     }
     return self;
 }
@@ -127,11 +130,16 @@
 }
 
 - (void)_runIntent:(TSIntent *)intent
-            source:(UIViewController *)source
+            source:(id<TSViewControllable>)source
   intercepterIndex:(NSUInteger)index
       intercepters:(NSArray<id<TSIntercepter>> *)intercepters
             finish:(TSRunIntercepterFinish)finish {
-
+    
+    // pass all intercepters
+    if (!(index < intercepters.count)) {
+        finish([TSIntercepterResult resultWithStatus:TSIntercepterResultStatusPass intent:intent error:nil]);
+        return;
+    }
 
     // declare a block that generate the adjudger;
     _TSIntercepterJudger *(^getAdjudger)() = ^() {
@@ -148,32 +156,18 @@
         }];
     };
 
-    // passed all intercepters
-    if (index > intercepters.count) {
-        finish([TSIntercepterResult resultWithStatus:TSIntercepterResultStatusPass intent:intent error:nil]);
-        return;
-    }
-
-    // exec if class implement the final adjudgement
-    if (index == intercepters.count) {
-        if (intent.intentClass && [intent.intentClass respondsToSelector:@selector(ts_finalAdjudgement:)]) {
-            Class<TSIntentable> aClass = intent.intentClass;
-            [aClass ts_finalAdjudgement:getAdjudger()];
-        } else {
-            finish([TSIntercepterResult resultWithStatus:TSIntercepterResultStatusPass intent:intent error:nil]);
-        }
-        return;
-    }
-
     // exec the intercepter
     id<TSIntercepter> intercepter = intercepters[index];
     [intercepter ts_judgeIntent:getAdjudger()];
 }
 
 - (void)runIntent:(TSIntent *)intent source:(UIViewController *)source finish:(TSRunIntercepterFinish)finish {
-    [self _runIntent:intent source:source intercepterIndex:0 intercepters:_intercepters finish:finish];
+    // fix if the target class can handle final intercepter
+    NSMutableArray<id<TSIntercepter>> *intercepters = self.intercepters.mutableCopy;
+    if (intent.intentClass && [intent.intentClass respondsToSelector:@selector(ts_finalIntercepter)]) {
+        [intercepters addObject:[intent.intentClass ts_finalIntercepter]];
+    }
+    [self _runIntent:intent source:source intercepterIndex:0 intercepters:intercepters finish:finish];
 }
-
-
 
 @end

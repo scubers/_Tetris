@@ -101,6 +101,21 @@ class MyAction: NSObject, RouteActionable {
                 })
     }
     
+    func test() {
+        
+        _ = Observable<AnyObject>
+            .by(stream: getStreamBy(TreeUrlComponent()))
+            .map({ _ in return 100})
+            .do(onNext: { (next) in
+                
+            })
+            .do(onError: { error in
+                
+            })
+            .subscribe()
+        
+    }
+    
     
     
 }

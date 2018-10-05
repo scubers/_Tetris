@@ -8,8 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "TSIntercepter.h"
+#import "TSUtils.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+
+#pragma mark - TSIntercepterAdapter
 
 /**
  Adapter for RIRouteIntercepter
@@ -55,5 +59,15 @@ NS_SWIFT_NAME(IntercepterAdapter)
 
 @end
 
+
+#pragma mark - TSFinalIntercepter
+
+NS_SWIFT_NAME(FinalIntercepter)
+TS_FINAL_CLASS
+@interface TSFinalIntercepter : TSIntercepterAdapter
+
+- (instancetype)initWithAction:(void (^)(id<TSIntercepterJudger> judger))action;
+
+@end
 
 NS_ASSUME_NONNULL_END

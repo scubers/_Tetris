@@ -29,7 +29,7 @@ TS_VC_ROUTE("/demo11")
     [[self.ts_sourceIntent resultByCode:@1] subscribe:^(id  _Nullable obj) {
         [ws alert:obj complete:^{
             [ws ts_finishDisplay:YES complete:^{
-                [ws ts_sendStream:@{@"key" : @"result"}];
+                [ws ts_sendResult:@{@"key" : @"result"}];
             }];
         }];
     }];

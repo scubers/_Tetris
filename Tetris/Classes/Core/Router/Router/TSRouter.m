@@ -145,7 +145,7 @@
     [_viewTree buildTreeWithURLString:urlString value:aClass];
 }
 
-- (TSStream<TSRouteResult *> *)prepare:(TSIntent *)intent source:(UIViewController *)source complete:(void (^)(void))complete {
+- (TSStream<TSRouteResult *> *)prepare:(TSIntent *)intent source:(nullable id<TSViewControllable>)source complete:(void (^ _Nullable)(void))complete {
     return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
         [self _startIntent:intent source:source completion:complete finish:^(TSRouteResult *result) {
             if (result.error) {
@@ -159,16 +159,20 @@
     }];
 }
 
+- (TSStream<TSRouteResult *> *)prepare:(TSIntent *)intent source:(id<TSViewControllable>)source {
+    return [self prepare:intent source:source complete:nil];
+}
+
 #pragma mark - private
 
 - (void)_startIntent:(TSIntent *)intent
-              source:(UIViewController *)source
+              source:(id<TSViewControllable>)source
           completion:(void (^)(void))completion
               finish:(void(^)(TSRouteResult *result))finish {
 
-    if (intent.intentable != nil) {
+    if (intent.viewControllable != nil) {
         // intent 手动设置对象属于异常情况直接跳转
-        finish([self startViewTransition:intent source:source viewController:intent.intentable complete:completion]);
+        finish([self startViewTransition:intent source:source target:intent.viewControllable complete:completion]);
         return;
     }
 
@@ -197,19 +201,19 @@
                 
             case TSIntercepterResultStatusPass:
             {
-                if (result.intent.intentable) {
+                if (result.intent.viewControllable) {
                     // 如果有主动设置对象，最高优先级
                     finish([self startViewTransition:result.intent
                                               source:source
-                                      viewController:result.intent.intentable
+                                              target:result.intent.viewControllable
                                             complete:completion]);
 
                 } else if (result.intent.intentClass) {
                     // 找到配置
-                    UIViewController *vc = [self generateInstanceForIntent:result.intent];
+                    id<TSViewControllable> target = [self generateInstanceForIntent:result.intent];
                     finish([self startViewTransition:result.intent
                                               source:source
-                                      viewController:vc
+                                              target:target
                                             complete:completion]);
                 } else {
                     // Lost
@@ -227,30 +231,34 @@
 }
 
 - (TSRouteResult *)startViewTransition:(TSIntent *)intent
-                                source:(UIViewController *)source
-                        viewController:(UIViewController *)vc
+                                source:(id<TSViewControllable>)source
+                                target:(id<TSViewControllable>)target
                               complete:(void (^)(void))complete {
 
-    TSRouteResult *ret = [TSRouteResult resultWithStatus:TSRouteResultStatusPass destination:vc intent:intent error:nil];
+    TSRouteResult *ret = [TSRouteResult resultWithStatus:TSRouteResultStatusPass destination:target.ts_viewController intent:intent error:nil];
 
     if (!source) return ret;
 
     if (!intent.displayer) {
         TSLog(@"Displayer is nil.");
+    } else if (!source) {
+        TSLog(@"Source is nil.");
     } else {
-        [intent.displayer ts_displayFromViewController:source toViewController:vc animated:YES completion:complete];
+        UIViewController *sourceVC = [source ts_viewController];
+        UIViewController *targetVC = [target ts_viewController];
+        [intent.displayer ts_displayFromViewController:sourceVC toViewController:targetVC animated:YES completion:complete];
     }
 
     return ret;
 }
 
-- (UIViewController *)generateInstanceForIntent:(TSIntent *)intent {
+- (id<TSViewControllable>)generateInstanceForIntent:(TSIntent *)intent {
     
-    if (intent.intentable) return intent.intentable;
+    if (intent.viewControllable) return intent.viewControllable;
     
-    UIViewController *intentable;
+    id<TSIntentable> intentable;
     
-    if (!intent.intentable && intent.intentClass) {
+    if (!intent.viewControllable && intent.intentClass) {
         intentable = [((Class)intent.intentClass) ts_create];
         [(id<TSIntentable>)intentable setTs_sourceIntent:intent];
     }

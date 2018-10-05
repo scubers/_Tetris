@@ -10,6 +10,10 @@
 
 @implementation UIViewController (TSRouter)
 
+- (UIViewController *)ts_viewController {
+    return self;
+}
+
 - (TSStream<TSRouteResult *> *)ts_prepare:(TSIntent *)intent complete:(void (^ _Nullable)(void))complete {
     return [_Tetris.router prepare:intent source:self complete:complete];
 }
@@ -71,7 +75,7 @@
     [self ts_setNeedDisplay:YES];
 }
 
-- (void)ts_sendStream:(id)stream {
+- (void)ts_sendResult:(id)stream {
     [[self ts_getIntentable].ts_sourceIntent.onResult post:stream];
 }
 

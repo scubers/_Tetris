@@ -14,9 +14,9 @@ class Demo1VC: BaseVC, Routable {
     class var routeURLs: [URLPresentable] {
         return ["/swift/demo1"]
     }
-
-    class func ts_finalAdjudgement(_ judger: IntercepterJudger) {
-        judger.doContinue()
+    
+    class func ts_finalIntercepter() -> Intercepter? {
+        return FinalIntercepter.init { $0.doContinue() }
     }
 
 }

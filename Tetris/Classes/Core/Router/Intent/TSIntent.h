@@ -21,7 +21,7 @@ NS_SWIFT_NAME(Intent)
 
 @property (nonatomic, copy, nullable) NSString *urlString;
 
-@property (nonatomic, strong, nullable) UIViewController *intentable;
+@property (nonatomic, strong, nullable) id<TSViewControllable> viewControllable;
 
 @property (nonatomic, strong, nullable) TSTreeUrlComponent *urlComponent;
 

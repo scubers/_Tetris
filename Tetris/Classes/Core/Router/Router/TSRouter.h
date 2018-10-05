@@ -63,7 +63,9 @@ NS_SWIFT_NAME(Router)
 
 - (void)bindUrl:(NSString *)urlString viewController:(Class<TSIntentable>)aClass;
 
-- (TSStream<TSRouteResult *> *)prepare:(TSIntent *)intent source:(nullable UIViewController *)source complete:(void (^ _Nullable)(void))complete;
+- (TSStream<TSRouteResult *> *)prepare:(TSIntent *)intent source:(nullable id<TSViewControllable>)source complete:(void (^ _Nullable)(void))complete;
+
+- (TSStream<TSRouteResult *> *)prepare:(TSIntent *)intent source:(nullable id<TSViewControllable>)source;
 
 @end
 

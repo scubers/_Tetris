@@ -92,3 +92,29 @@
 }
 
 @end
+
+#pragma mark - TSFinalIntercepter
+
+@interface TSFinalIntercepter ()
+
+@property (nonatomic, copy) void (^action)(id<TSIntercepterJudger> judger);
+
+@end
+
+
+@implementation TSFinalIntercepter
+
+- (instancetype)initWithAction:(void (^)(id<TSIntercepterJudger> _Nonnull))action {
+    if (self = [super init]) {
+        _action = [action copy];
+    }
+    return self;
+}
+
+- (void)ts_judgeIntent:(id<TSIntercepterJudger>)judger {
+    _action(judger);
+}
+
+
+@end
+

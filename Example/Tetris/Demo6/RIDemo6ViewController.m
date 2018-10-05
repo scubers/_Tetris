@@ -70,7 +70,7 @@ TS_VC_ROUTE("/demo6")
 
 - (void)login:(id)sender {
     [self ts_finishDisplay:YES complete:^{
-        [self ts_sendStream:nil];
+        [self ts_sendResult:nil];
     }];
 }
 

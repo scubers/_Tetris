@@ -11,9 +11,9 @@ import Tetris
 
 class BaseVC: UIViewController, Intentable {
     
-    override class func ts_create() -> Self? {
-        return self.init()
-    }
+//    override class func ts_create() -> Self? {
+//        return self.init()
+//    }
     
     var ts_sourceIntent: Intent?
 

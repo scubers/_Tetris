@@ -20,7 +20,7 @@
     TSIntent *intent = [TSIntent intentWithUrl:self.urlString intentClass:self.intentClass displayer:self.displayer];
     intent->_extraParameters = self.extraParameters.mutableCopy;
     intent.urlComponent = self.urlComponent;
-    intent.intentable = self.intentable;
+    intent.viewControllable = self.viewControllable;
     return intent;
 }
 

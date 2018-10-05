@@ -21,8 +21,11 @@ TS_VC_ROUTE("/demo1")
     self.navigationItem.title = @"Just Route";
 }
 
-+ (void)ts_finalAdjudgement:(id<TSIntercepterJudger>)judger {
-    [judger doContinue];
++ (id<TSIntercepter>)ts_finalIntercepter {
+    return [[TSFinalIntercepter alloc] initWithAction:^(id<TSIntercepterJudger>  _Nonnull judger) {
+        NSLog(@"-- demo1 final intercepter --");
+        [judger doContinue];
+    }];
 }
 
 @end

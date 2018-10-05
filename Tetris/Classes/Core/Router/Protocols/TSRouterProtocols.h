@@ -11,19 +11,31 @@
 #import "TSCreatable.h"
 @class TSIntent;
 @protocol TSIntercepterJudger;
+@protocol TSIntercepter;
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(ViewControllable)
+@protocol TSViewControllable
+
+- (UIViewController *)ts_viewController;
+
+@end
+
+
 NS_SWIFT_NAME(Intentable)
-@protocol TSIntentable <TSCreatable, NSObject>
+@protocol TSIntentable <TSCreatable, TSViewControllable, NSObject>
 
 @property (nonatomic, strong, nullable) TSIntent *ts_sourceIntent;
 
 @optional
 
-+ (void)ts_finalAdjudgement:(id<TSIntercepterJudger>)judger;
++ (nullable id<TSIntercepter>)ts_finalIntercepter;
 
 @end
+
+
+
 
 NS_ASSUME_NONNULL_END
 

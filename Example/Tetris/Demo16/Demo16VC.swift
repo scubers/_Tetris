@@ -29,7 +29,7 @@ class Demo16VC: BaseVC, Routable {
         let intent = Intent.pushPop(byUrl: "")!
         let vc = UIViewController()
         vc.view.backgroundColor = UIColor.gray
-        intent.intentable = vc
+        intent.viewControllable = vc
         ts_start(intent)
     }
 
