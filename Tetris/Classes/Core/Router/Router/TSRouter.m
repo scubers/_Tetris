@@ -241,8 +241,6 @@
 
     if (!intent.displayer) {
         TSLog(@"Displayer is nil.");
-    } else if (!source) {
-        TSLog(@"Source is nil.");
     } else {
         UIViewController *sourceVC = [source ts_viewController];
         UIViewController *targetVC = [target ts_viewController];

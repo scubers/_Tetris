@@ -9,7 +9,10 @@
 #define TSIntentDisplayerProtocol_h
 
 
+
 @class UIViewController;
+
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  ViewIntent Displayer Protocol
@@ -27,7 +30,7 @@ NS_SWIFT_NAME(IIntentDisplayer)
  @param animated If animated?
  @param completion Completion handler
  */
-- (void)ts_displayFromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC animated:(BOOL)animated completion:(void (^)(void))completion;
+- (void)ts_displayFromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC animated:(BOOL)animated completion:(void (^ _Nullable)(void))completion;
 
 /**
  Finish display given ViewController
@@ -36,7 +39,7 @@ NS_SWIFT_NAME(IIntentDisplayer)
  @param animated If animated
  @param completion Completion handler
  */
-- (void)ts_finishDisplayViewController:(UIViewController *)vc animated:(BOOL)animated completion:(void (^)(void))completion;
+- (void)ts_finishDisplayViewController:(UIViewController *)vc animated:(BOOL)animated completion:(void (^ _Nullable)(void))completion;
 
 
 /**
@@ -47,10 +50,11 @@ NS_SWIFT_NAME(IIntentDisplayer)
  @param animated If animated
  @param completion Completion handler
  */
-- (void)ts_setNeedDisplay:(UIViewController *)vc animated:(BOOL)animated completion:(void (^)(void))completion;
+- (void)ts_setNeedDisplay:(UIViewController *)vc animated:(BOOL)animated completion:(void (^ _Nullable)(void))completion;
 
 
 @end
 
+NS_ASSUME_NONNULL_END
 
 #endif /* TSIntentDisplayerProtocol_h */
