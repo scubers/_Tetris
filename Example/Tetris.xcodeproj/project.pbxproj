@@ -56,6 +56,9 @@
 		A84C73792161EAA400457D69 /* Demo2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84C73782161EAA400457D69 /* Demo2VC.swift */; };
 		A84C737B2161EC6100457D69 /* Demo3VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84C737A2161EC6100457D69 /* Demo3VC.swift */; };
 		A8ABFC1F2162021700D8D238 /* SwiftModules.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8ABFC1E2162021700D8D238 /* SwiftModules.swift */; };
+		A8BEE7C42169F8A9000367CA /* RIDemo14ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8BEE7C32169F8A9000367CA /* RIDemo14ViewController.m */; };
+		A8BEE7C82169F91D000367CA /* RIDemo15ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8BEE7C72169F91D000367CA /* RIDemo15ViewController.m */; };
+		A8BEE7CA216A001C000367CA /* Demo8VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BEE7C9216A001C000367CA /* Demo8VC.swift */; };
 		FA66EE06F52ABEE9E23FD60F /* Pods_Tetris_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8E90E4B3480B03DAB0720 /* Pods_Tetris_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -148,6 +151,11 @@
 		A84C73782161EAA400457D69 /* Demo2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo2VC.swift; sourceTree = "<group>"; };
 		A84C737A2161EC6100457D69 /* Demo3VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo3VC.swift; sourceTree = "<group>"; };
 		A8ABFC1E2162021700D8D238 /* SwiftModules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftModules.swift; sourceTree = "<group>"; };
+		A8BEE7C22169F8A9000367CA /* RIDemo14ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo14ViewController.h; sourceTree = "<group>"; };
+		A8BEE7C32169F8A9000367CA /* RIDemo14ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo14ViewController.m; sourceTree = "<group>"; };
+		A8BEE7C62169F91D000367CA /* RIDemo15ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIDemo15ViewController.h; sourceTree = "<group>"; };
+		A8BEE7C72169F91D000367CA /* RIDemo15ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIDemo15ViewController.m; sourceTree = "<group>"; };
+		A8BEE7C9216A001C000367CA /* Demo8VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo8VC.swift; sourceTree = "<group>"; };
 		AA6481AD3053FDD3B1A0EC22 /* Pods-Tetris_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tetris_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tetris_Example/Pods-Tetris_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		B76960F99E00198E1065DD5F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		EBE8E90E4B3480B03DAB0720 /* Pods_Tetris_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tetris_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -239,6 +247,8 @@
 			isa = PBXGroup;
 			children = (
 				A81A1F9F21622234008E6A57 /* Demo16 */,
+				A8BEE7C52169F91D000367CA /* Demo15 */,
+				A8BEE7C12169F8A9000367CA /* Demo14 */,
 				A84C73592161B5A200457D69 /* Demo13 */,
 				A84C73552161B55D00457D69 /* Demo12 */,
 				A84C73512161B42800457D69 /* Demo11 */,
@@ -408,6 +418,7 @@
 			children = (
 				A84C73422161243C00457D69 /* RIDemo8ViewController.m */,
 				A84C73432161243C00457D69 /* RIDemo8ViewController.h */,
+				A8BEE7C9216A001C000367CA /* Demo8VC.swift */,
 			);
 			path = Demo8;
 			sourceTree = "<group>";
@@ -459,6 +470,24 @@
 				A84C735F2161B5A200457D69 /* MyPresentDismiss.m */,
 			);
 			path = Demo13;
+			sourceTree = "<group>";
+		};
+		A8BEE7C12169F8A9000367CA /* Demo14 */ = {
+			isa = PBXGroup;
+			children = (
+				A8BEE7C22169F8A9000367CA /* RIDemo14ViewController.h */,
+				A8BEE7C32169F8A9000367CA /* RIDemo14ViewController.m */,
+			);
+			path = Demo14;
+			sourceTree = "<group>";
+		};
+		A8BEE7C52169F91D000367CA /* Demo15 */ = {
+			isa = PBXGroup;
+			children = (
+				A8BEE7C62169F91D000367CA /* RIDemo15ViewController.h */,
+				A8BEE7C72169F91D000367CA /* RIDemo15ViewController.m */,
+			);
+			path = Demo15;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -614,11 +643,13 @@
 				09BE3F502163B41400127372 /* RIDemo6ViewController.m in Sources */,
 				A84C730B2160F85F00457D69 /* RIBaseViewController.m in Sources */,
 				09BE3F522163B4E200127372 /* Demo6VC.swift in Sources */,
+				A8BEE7C82169F91D000367CA /* RIDemo15ViewController.m in Sources */,
 				A84C733421610C0800457D69 /* RIDemo4ViewController.m in Sources */,
 				A84C73792161EAA400457D69 /* Demo2VC.swift in Sources */,
 				A84C73752161D28200457D69 /* BaseVC.swift in Sources */,
 				6003F5A7195388D20070C39A /* TSViewController.m in Sources */,
 				A84C73622161B5A300457D69 /* MyPresentDismiss.m in Sources */,
+				A8BEE7CA216A001C000367CA /* Demo8VC.swift in Sources */,
 				A84C7328216106FB00457D69 /* RIDemo2ViewController.m in Sources */,
 				099A7D2B2164E20B0030D863 /* MyAppDelegate.swift in Sources */,
 				A81A1FA121622251008E6A57 /* Demo16VC.swift in Sources */,
@@ -630,6 +661,7 @@
 				A81EC7772161FA0B0083FA79 /* Demo5VC.swift in Sources */,
 				093F5D18215F1E68008245C9 /* TSDemoModules.m in Sources */,
 				A81EC7752161F8F50083FA79 /* Demo4VC.swift in Sources */,
+				A8BEE7C42169F8A9000367CA /* RIDemo14ViewController.m in Sources */,
 				A84C73772161E66D00457D69 /* MenuVC.swift in Sources */,
 				A84C73602161B5A300457D69 /* RIDemo13ViewController.m in Sources */,
 				A84C73442161243C00457D69 /* RIDemo8ViewController.m in Sources */,

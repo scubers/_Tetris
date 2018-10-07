@@ -21,7 +21,7 @@ class Demo6Inter : IntercepterAdapter, Component {
             return
         }
         
-        let intent = Intent.pushPop(byUrl: "/login/demo6")!
+        let intent = Intent.pushPop(byUrl: "/login/demo6")
         intent.displayer = judger.intent().displayer
         intent
             .onResult

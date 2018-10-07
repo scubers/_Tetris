@@ -19,7 +19,7 @@ class Demo5Inter: IntercepterAdapter, Component {
 
     override func doAdjudgement(_ judger: IntercepterJudger) {
         print("swift Demo5 switch intercepter!!")
-        let intent = Intent.pushPop(byUrl: "/swift/interceptered/demo5#intercepted")!
+        let intent = Intent.pushPop(byUrl: "/swift/interceptered/demo5#intercepted")
         intent.displayer = judger.intent().displayer
         judger.doSwitch(intent)
     }

@@ -16,7 +16,7 @@ class Demo1VC: BaseVC, Routable {
     }
     
     class func ts_selfIntercepter() -> Intercepter? {
-        return FinalIntercepter.init {
+        return FinalIntercepter {
             print("----- demo1 vc self intercepter -----")
             $0.doContinue()
         }

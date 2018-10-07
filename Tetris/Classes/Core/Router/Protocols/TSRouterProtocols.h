@@ -15,6 +15,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#pragma mark - TSViewControllable
+
 NS_SWIFT_NAME(ViewControllable)
 @protocol TSViewControllable
 
@@ -22,6 +24,7 @@ NS_SWIFT_NAME(ViewControllable)
 
 @end
 
+#pragma mark - TSIntentable
 
 NS_SWIFT_NAME(Intentable)
 @protocol TSIntentable <TSCreatable, TSViewControllable, NSObject>
@@ -33,8 +36,6 @@ NS_SWIFT_NAME(Intentable)
 + (nullable id<TSIntercepter>)ts_selfIntercepter;
 
 @end
-
-
 
 
 NS_ASSUME_NONNULL_END

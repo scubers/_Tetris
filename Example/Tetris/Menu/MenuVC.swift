@@ -22,6 +22,8 @@ class MenuVC: BaseVC, Routable {
         ["4. Intercepter: Continue" : Intent.pushPop(byUrl: "/swift/demo4")],
         ["5. Intercepter: Switch" : Intent.pushPop(byUrl: "/swift/demo5")],
         ["6. Intercepter: Login or something need prepare" : Intent.pushPop(byUrl: "/swift/demo6")],
+        ["7. Global mismatch" : Intent.pushPop(byUrl: "/swift/demo7/lkj/33/6lkjo")],
+        ["8. Action" : Intent.pushPop(byUrl: "/swift/demo8")],
     ]
 
     override func viewDidLoad() {

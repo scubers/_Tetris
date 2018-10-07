@@ -10,6 +10,8 @@
 #import "TSDisplayerAdapter.h"
 #import "TSIntent.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 NS_SWIFT_NAME(PresentDismissDisplayer)
 @interface TSPresentDismissDisplayer : TSDisplayerAdapter
 
@@ -23,3 +25,5 @@ NS_SWIFT_NAME(PresentDismissDisplayer)
 + (instancetype)presentDismissByUrl:(NSString *)url;
 
 @end
+
+NS_ASSUME_NONNULL_END

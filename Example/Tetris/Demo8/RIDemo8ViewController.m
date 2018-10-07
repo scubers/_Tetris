@@ -8,6 +8,23 @@
 
 #import "RIDemo8ViewController.h"
 
+@interface RIDemo8Action : NSObject <TSRouteActioner>
+@end
+@implementation RIDemo8Action
+
+TS_ACTION(@"/action/demo8")
+
+- (TSStream *)getStreamByComponent:(TSTreeUrlComponent *)component {
+    return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
+        [receiver post:[NSString stringWithFormat:@"action success for url: /action/demo8\nparams: %@, fragment: %@", component.params, component.fragment]];
+        [receiver close];
+        return nil;
+    }];
+}
+
+@end
+
+
 TS_EXPORT_ROUTE(RIDemo8ViewController, "/demo8", 100)
 
 @interface RIDemo8ViewController ()
@@ -15,22 +32,6 @@ TS_EXPORT_ROUTE(RIDemo8ViewController, "/demo8", 100)
 @end
 
 @implementation RIDemo8ViewController
-
-+ (void)load {
-//    [_RIRouter registerUrl:@"/action/demo8" withAction:^RIFetchActionCanceller * _Nullable(RIFetchActioner * _Nonnull actioner, NSDictionary * _Nonnull params, NSString * _Nonnull fragment) {
-//        NSLog(@"action params: %@", params);
-//        NSLog(@"action fragment: %@", fragment);
-//        [actioner actionResult:[NSString stringWithFormat:@"action success for url: /action/demo8\nparams: %@", params] error:nil];
-//        return nil;
-//    }];
-    [_Tetris.router bindUrl:@"/action/demo8" toAction:^TSStream * _Nonnull(TSTreeUrlComponent * _Nonnull component) {
-        return [TSStream create:^TSCanceller * _Nonnull(id<TSReceivable>  _Nonnull receiver) {
-            [receiver post:[NSString stringWithFormat:@"action success for url: /action/demo8\nparams: %@, fragment: %@", component.params, component.fragment]];
-            [receiver close];
-            return nil;
-        }];
-    }];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

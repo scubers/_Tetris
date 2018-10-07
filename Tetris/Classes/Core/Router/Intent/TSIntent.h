@@ -40,6 +40,10 @@ NS_SWIFT_NAME(Intent)
 
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
 
+- (instancetype)initWithUrl:(NSString *)urlString;
+- (instancetype)initWithClass:(Class<TSIntentable>)aClass;
+- (instancetype)initWithDisplayer:(id<TSIntentDisplayerProtocol>)displayer;
+
 - (instancetype)initWithUrl:(nullable NSString *)urlString
                 intentClass:(nullable Class<TSIntentable>)intentClass
                   displayer:(nullable id<TSIntentDisplayerProtocol>)displayer;

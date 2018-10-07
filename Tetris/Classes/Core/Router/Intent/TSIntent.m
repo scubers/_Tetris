@@ -38,8 +38,19 @@
     return self;
 }
 
-- (instancetype)init
-{
+- (instancetype)initWithUrl:(NSString *)urlString {
+    return [self initWithUrl:urlString intentClass:nil displayer:nil];
+}
+
+- (instancetype)initWithClass:(Class<TSIntentable>)aClass {
+    return [self initWithUrl:nil intentClass:aClass displayer:nil];
+}
+
+- (instancetype)initWithDisplayer:(id<TSIntentDisplayerProtocol>)displayer {
+    return [self initWithUrl:nil intentClass:nil displayer:displayer];
+}
+
+- (instancetype)init {
     self = [super init];
     if (self) {
         _extraParameters = [NSMutableDictionary dictionaryWithCapacity:1];

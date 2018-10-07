@@ -163,17 +163,21 @@
 
 - (void)runIntent:(TSIntent *)intent source:(UIViewController *)source finish:(TSRunIntercepterFinish)finish {
     // fix if the target class can handle final intercepter
-    NSMutableArray<id<TSIntercepter>> *intercepters = [NSMutableArray arrayWithCapacity:1];
+    NSMutableArray<id<TSIntercepter>> *intercepters = nil;
     
     // only skip intercepter array
-    if (!intent.skip) {
+    if (intent.skip) {
+        intercepters = [NSMutableArray arrayWithCapacity:1];
+    } else {
         intercepters = self.intercepters.mutableCopy;
     }
-    
+
+    // self intercepter
     if (intent.intentClass && [intent.intentClass respondsToSelector:@selector(ts_selfIntercepter)]) {
         [intercepters addObject:[intent.intentClass ts_selfIntercepter]];
     }
-    
+
+    // final intercepter
     if (_finalIntercepter) {
         [intercepters addObject:_finalIntercepter];
     }

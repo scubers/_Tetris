@@ -26,7 +26,7 @@ class Demo16VC: BaseVC, Routable {
     }
 
     @objc func click() {
-        let intent = Intent.pushPop(byUrl: "")!
+        let intent = Intent.pushPop(byUrl: "")
         let vc = UIViewController()
         vc.view.backgroundColor = UIColor.gray
         intent.viewControllable = vc

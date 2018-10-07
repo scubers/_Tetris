@@ -10,6 +10,8 @@
 #import "TSViewDisplayer.h"
 #import "TSIntent.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 NS_SWIFT_NAME(PushPopDisplayer)
 @interface TSPushPopDisplayer : TSViewDisplayer
 
@@ -23,3 +25,6 @@ NS_SWIFT_NAME(PushPopDisplayer)
 + (instancetype)pushPopIntentByUrl:(NSString *)url;
 
 @end
+
+
+NS_ASSUME_NONNULL_END
