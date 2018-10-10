@@ -9,6 +9,7 @@
 #import "TSTree.h"
 #import "TSError.h"
 #import "TSLogger.h"
+#import "TSCreator.h"
 
 #pragma mark - _TSRouteAction
 
@@ -257,7 +258,7 @@
     id<TSIntentable> intentable;
     
     if (!intent.viewControllable && intent.intentClass) {
-        intentable = [((Class)intent.intentClass) ts_create];
+        intentable = (id<TSIntentable>)[[TSCreator shared] createByClass:intent.intentClass];
         [(id<TSIntentable>)intentable setTs_sourceIntent:intent];
     }
 

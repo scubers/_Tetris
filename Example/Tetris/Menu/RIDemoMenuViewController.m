@@ -7,7 +7,7 @@
 //
 
 #import "RIDemoMenuViewController.h"
-
+#import "Tetris_Example-Swift.h"
 
 
 
@@ -68,7 +68,10 @@ TS_VC_ROUTE("/menu")
       @{@"14. Scheme host checking" : [TSIntent pushPopIntentByUrl:@"/demo14"]},
       @{@"15. Path parameter" : [TSIntent pushPopIntentByUrl:@"/demo15/100/keyword30/666/suffix"]},
       @{@"16. Test direct set vc" : [TSIntent pushPopIntentByUrl:@"/demo16"]},
+      @{@"17. Native map" : [TSIntent pushPopIntentByUrl:[NSString stringWithFormat:@"/demo17/native_map/%@", NSStringFromClass(Demo17VC.class)]]},
       ];
+    
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

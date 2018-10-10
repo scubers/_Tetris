@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		091D0BB8216DD37200796745 /* Demo17VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091D0BB7216DD37200796745 /* Demo17VC.swift */; };
 		092B307A2160A32E00016B71 /* TSStreamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 092B30792160A32E00016B71 /* TSStreamTests.m */; };
 		093F5D18215F1E68008245C9 /* TSDemoModules.m in Sources */ = {isa = PBXBuildFile; fileRef = 093F5D17215F1E68008245C9 /* TSDemoModules.m */; };
 		093F5D1A215F2361008245C9 /* TSModuleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 093F5D19215F2361008245C9 /* TSModuleTests.m */; };
@@ -74,6 +75,7 @@
 
 /* Begin PBXFileReference section */
 		010242AB6224A33963B53CA1 /* Pods-Tetris_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tetris_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tetris_Tests/Pods-Tetris_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		091D0BB7216DD37200796745 /* Demo17VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo17VC.swift; sourceTree = "<group>"; };
 		092B30792160A32E00016B71 /* TSStreamTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TSStreamTests.m; sourceTree = "<group>"; };
 		093F5D16215F1E68008245C9 /* TSDemoModules.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSDemoModules.h; sourceTree = "<group>"; };
 		093F5D17215F1E68008245C9 /* TSDemoModules.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TSDemoModules.m; sourceTree = "<group>"; };
@@ -188,6 +190,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		091D0BB6216DD34F00796745 /* Demo17 */ = {
+			isa = PBXGroup;
+			children = (
+				091D0BB7216DD37200796745 /* Demo17VC.swift */,
+			);
+			path = Demo17;
+			sourceTree = "<group>";
+		};
 		09BE3F4D2163B41400127372 /* Demo6 */ = {
 			isa = PBXGroup;
 			children = (
@@ -246,6 +256,7 @@
 		6003F593195388D20070C39A /* Example for Tetris */ = {
 			isa = PBXGroup;
 			children = (
+				091D0BB6216DD34F00796745 /* Demo17 */,
 				A81A1F9F21622234008E6A57 /* Demo16 */,
 				A8BEE7C52169F91D000367CA /* Demo15 */,
 				A8BEE7C12169F8A9000367CA /* Demo14 */,
@@ -648,6 +659,7 @@
 				A84C73792161EAA400457D69 /* Demo2VC.swift in Sources */,
 				A84C73752161D28200457D69 /* BaseVC.swift in Sources */,
 				6003F5A7195388D20070C39A /* TSViewController.m in Sources */,
+				091D0BB8216DD37200796745 /* Demo17VC.swift in Sources */,
 				A84C73622161B5A300457D69 /* MyPresentDismiss.m in Sources */,
 				A8BEE7CA216A001C000367CA /* Demo8VC.swift in Sources */,
 				A84C7328216106FB00457D69 /* RIDemo2ViewController.m in Sources */,
