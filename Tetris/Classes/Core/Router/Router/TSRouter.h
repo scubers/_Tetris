@@ -61,7 +61,7 @@ NS_SWIFT_NAME(Router)
 
 #pragma mark - View
 
-- (void)bindUrl:(NSString *)urlString viewController:(Class<TSIntentable>)aClass;
+- (void)bindUrl:(NSString *)urlString intentable:(Class<TSIntentable>)aClass;
 
 - (TSStream<TSRouteResult *> *)prepare:(TSIntent *)intent source:(nullable id<TSViewControllable>)source complete:(void (^ _Nullable)(void))complete;
 

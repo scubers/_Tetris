@@ -141,7 +141,7 @@
 
 #pragma mark - View
 
-- (void)bindUrl:(NSString *)urlString viewController:(Class<TSIntentable>)aClass {
+- (void)bindUrl:(NSString *)urlString intentable:(Class<TSIntentable>)aClass {
     [_viewTree buildTreeWithURLString:urlString value:aClass];
 }
 

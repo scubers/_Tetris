@@ -40,7 +40,7 @@ public typealias Routable = (Component & URLRoutable)
 public extension Component where Self : URLRoutable, Self : Intentable {
     public static func tetrisStart() {
         self.routeURLs.forEach { (url) in
-            try! TSTetris.shared().router.bindUrl(url.toURL().absoluteString, viewController: Self.self)
+            try! TSTetris.shared().router.bindUrl(url.toURL().absoluteString, intentable: Self.self)
         }
     }
 }
