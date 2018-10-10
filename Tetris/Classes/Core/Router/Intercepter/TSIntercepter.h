@@ -32,7 +32,7 @@ NS_SWIFT_NAME(IntercepterJudger)
  
  @return Return the source that given by the user
  */
-- (id<TSViewControllable> _Nullable)source;
+- (nullable id<TSViewControllable>)source;
 
 /**
  Redirect to intent;

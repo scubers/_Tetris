@@ -36,7 +36,7 @@ TS_INTERCEPTER(TSIntercepterPriorityNormal)
 
 @implementation RIDemo3ViewController
 
-TS_VC_ROUTE("/demo3")
+TS_VC_ROUTE(@"/demo3")
 
 - (void)viewDidLoad {
     [super viewDidLoad];

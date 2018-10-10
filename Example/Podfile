@@ -2,7 +2,7 @@ use_frameworks!
 install! 'cocoapods', :deterministic_uuids => false
 
 target 'Tetris_Example' do
-  pod 'Tetris/Swift', :path => '../'
+  pod 'Tetris/Rx', :path => '../'
 #  pod 'ReactiveObjC'
 
   target 'Tetris_Tests' do

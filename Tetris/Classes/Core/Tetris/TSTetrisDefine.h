@@ -55,16 +55,16 @@
 
 #define TS_EXPORT_ROUTE(className, url, anyDifferentSuffix) \
         @implementation className (IntentExport_##className##_##anyDifferentSuffix)\
-        + (void)load { [_Tetris.router bindUrl:@url intentable:self];} \
+        + (void)load { [_Tetris.router bindUrl:(url) intentable:self];} \
         @end
 
 #define TS_VC_ROUTE(_url) \
-        + (void)load { [_Tetris.router bindUrl:@_url intentable:self];}
+        + (void)load { [_Tetris.router bindUrl:(_url) intentable:self];}
 
 #define TS_INTERCEPTER(TSIntercepterPriority) \
         + (void)load { \
             id<TSIntercepter> inter = [self ts_create];\
-            inter.priority = TSIntercepterPriority;\
+            inter.priority = (TSIntercepterPriority);\
             [_Tetris.router.intercepterMgr addIntercepter:inter];\
         }
 

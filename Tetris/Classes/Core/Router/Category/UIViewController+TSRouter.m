@@ -22,12 +22,11 @@
 }
 
 - (void)ts_start:(TSIntent *)intent complete:(void (^ _Nullable)(void))complete {
-    [[self ts_prepare:intent complete:complete]
-     subscribeNext:^(TSRouteResult * _Nullable obj) {
-
-     } error:^(NSError * _Nullable error) {
-         TSLog(@"%@", error);
-     }];
+    [[[self ts_prepare:intent complete:complete]
+      onError:^(NSError * _Nonnull error) {
+          TSLog(@"%@", error);
+      }]
+     subscribe];
 }
 
 - (void)ts_start:(TSIntent *)intent {

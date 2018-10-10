@@ -1,18 +1,17 @@
 PODS:
-  - RxCocoa (4.3.1):
-    - RxSwift (~> 4.0)
   - RxSwift (4.3.1)
   - Tetris/Core (0.1.0)
+  - Tetris/Rx (0.1.0):
+    - RxSwift (~> 4.3.1)
+    - Tetris/Swift
   - Tetris/Swift (0.1.0):
-    - RxCocoa (~> 4.3.1)
     - Tetris/Core
 
 DEPENDENCIES:
-  - Tetris/Swift (from `../`)
+  - Tetris/Rx (from `../`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - RxCocoa
     - RxSwift
 
 EXTERNAL SOURCES:
@@ -20,10 +19,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
-  Tetris: 55ca1c5749b9cccaa049b4f17815d5622f4032dc
+  Tetris: 7876343efc247707f657142972753faaa2f11333
 
-PODFILE CHECKSUM: 7b3b1b201158854fa27012cf9d3e98a38229b2f1
+PODFILE CHECKSUM: db79522b23e11c156b463d4769770dcb11112ba3
 
 COCOAPODS: 1.5.3

@@ -21,11 +21,11 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/wangjunren/Tetris'
+  s.homepage         = 'https://github.com/scubers/_Tetris'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'wangjunren' => 'wangjunren@youzan.com' }
-  s.source           = { :git => 'https://github.com/wangjunren/Tetris.git', :tag => s.version.to_s }
+  s.author           = { 'jr-wong' => 'jr-wong@qq.com' }
+  s.source           = { :git => 'https://github.com/scubers/_Tetris.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
@@ -37,7 +37,12 @@ TODO: Add long description of the pod here.
   s.subspec 'Swift' do |swift|
     swift.source_files = 'Tetris/Classes/Swift/**/*'
     swift.dependency 'Tetris/Core'
-    swift.dependency 'RxCocoa', '~> 4.3.1'
+  end
+  
+  s.subspec 'Rx' do |rx|
+      rx.source_files = 'Tetris/Classes/Rx/**/*'
+      rx.dependency 'Tetris/Swift'
+      rx.dependency 'RxSwift', '~> 4.3.1'
   end
 
   s.default_subspec = 'Core'

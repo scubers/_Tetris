@@ -21,7 +21,7 @@
 
 @implementation RIDemoMenuViewController
 
-TS_VC_ROUTE("/menu")
+TS_VC_ROUTE(@"/menu")
 
 - (void)viewDidLoad {
     [super viewDidLoad];

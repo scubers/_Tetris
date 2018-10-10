@@ -8,7 +8,7 @@
 
 #import "RIDemo9ViewController.h"
 
-TS_EXPORT_ROUTE(RIDemo9ViewController, "/demo9", 100)
+TS_EXPORT_ROUTE(RIDemo9ViewController, @"/demo9", 100)
 @interface RIDemo9ViewController ()
 
 //@property (nonatomic, strong) RIUnListener *unlistener;

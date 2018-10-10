@@ -108,7 +108,7 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8439D5B6D7D9A83944F93D6A /* Tetris.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Tetris.podspec; path = ../Tetris.podspec; sourceTree = "<group>"; };
+		8439D5B6D7D9A83944F93D6A /* Tetris.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Tetris.podspec; path = ../Tetris.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		895F8E6333EC1BBC4E486319 /* Pods-Tetris_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tetris_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tetris_Example/Pods-Tetris_Example.release.xcconfig"; sourceTree = "<group>"; };
 		A81A1FA021622251008E6A57 /* Demo16VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo16VC.swift; sourceTree = "<group>"; };

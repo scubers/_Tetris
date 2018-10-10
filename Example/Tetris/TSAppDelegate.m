@@ -84,9 +84,7 @@
 
 
 @interface TSURLPrinterIntercepter : TSIntercepterAdapter
-
 @end
-
 @implementation TSURLPrinterIntercepter
 
 TS_INTERCEPTER(TSIntercepterPriorityMax)

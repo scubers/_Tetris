@@ -25,7 +25,7 @@ TS_ACTION(@"/action/demo8")
 @end
 
 
-TS_EXPORT_ROUTE(RIDemo8ViewController, "/demo8", 100)
+TS_EXPORT_ROUTE(RIDemo8ViewController, @"/demo8", 100)
 
 @interface RIDemo8ViewController ()
 

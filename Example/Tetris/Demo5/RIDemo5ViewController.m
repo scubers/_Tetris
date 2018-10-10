@@ -30,7 +30,7 @@ TS_INTERCEPTER(TSIntercepterPriorityNormal)
 @end
 
 
-TS_EXPORT_ROUTE(RIDemo5ViewController, "/interceptered/demo5", 100);
+TS_EXPORT_ROUTE(RIDemo5ViewController, @"/interceptered/demo5", 100);
 
 @interface RIDemo5ViewController ()
 
@@ -38,8 +38,8 @@ TS_EXPORT_ROUTE(RIDemo5ViewController, "/interceptered/demo5", 100);
 
 @implementation RIDemo5ViewController
 
-TS_VC_ROUTE("/demo5")
-//TS_VC_ROUTE("/demo5")
+TS_VC_ROUTE(@"/demo5")
+//TS_VC_ROUTE(@"/demo5")
 
 - (void)viewDidLoad {
     [super viewDidLoad];

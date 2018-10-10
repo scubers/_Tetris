@@ -8,7 +8,7 @@
 
 #import "RIDemo10ViewController.h"
 
-#define please_take_me_as_an_webview "/please_take_me_as_an_webview/ohyeah"
+#define please_take_me_as_an_webview @"/please_take_me_as_an_webview/ohyeah"
 
 @interface RIDemo10Intercepter : TSIntercepterAdapter
 @end
@@ -21,7 +21,7 @@ TS_INTERCEPTER(TSIntercepterPriorityNormal)
 
 - (void)doAdjudgement:(id<TSIntercepterJudger>)adjudger {
     NSLog(@"Demo10 intercepter!!");
-    TSIntent *intent = [TSIntent pushPopIntentByUrl:@please_take_me_as_an_webview];
+    TSIntent *intent = [TSIntent pushPopIntentByUrl:please_take_me_as_an_webview];
     intent.displayer = adjudger.intent.displayer;
     [adjudger doSwitch:intent];
 }

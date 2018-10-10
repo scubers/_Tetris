@@ -7,53 +7,35 @@
 //
 
 import UIKit
-import RxCocoa
 import RxSwift
 
-class SwiftBaseModule: AbstractModule {
+class SwiftModules1: NSObject, Modularable {
+    var priority: ModulePriority = TSModulePriorityNormal + 2000
+    
     func tetrisModuleInit(_ context: TSModuleContext) {
         print("\(type(of: self)) \(#function)")
     }
-    
-    lazy var service: TestProtocolA? = Tetris.getService(TestProtocolA.self)
-    
-    func tetrisModuleSetup(_ context: TSModuleContext) {
+}
+
+class SwiftModules2: NSObject, Modularable {
+    var priority: ModulePriority = TSModulePriorityHigh  + 20000
+    func tetrisModuleInit(_ context: TSModuleContext) {
         print("\(type(of: self)) \(#function)")
     }
-    
-    func tetrisModuleSplash(_ context: TSModuleContext) {
-        print("\(#function)")
-    }
-    
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        print("\(#function)")
-        
-        TSTetris.shared().modular.trigger.tetrisModuleDidTrigger!(event: 100, userInfo: nil)
-    }
-    
-    func tetrisModuleDidTrigger(event: Int, userInfo: [AnyHashable : Any]? = nil) {
-        print("\(#function)  event: \(event)")
+
+}
+
+class SwiftModules3: NSObject, Modularable {
+    var priority: ModulePriority = TSModulePriorityLow + 20000
+    func tetrisModuleInit(_ context: TSModuleContext) {
+        print("\(type(of: self)) \(#function)")
     }
 }
 
-class SwiftModules1: SwiftBaseModule, Component {
-    open override func ts_didCreate() {
-        priority = TSModulePriorityNormal + 20000
-    }
-}
-class SwiftModules2: SwiftBaseModule, Component {
-    open override func ts_didCreate() {
-        priority = TSModulePriorityHigh  + 20000
-    }
-}
-class SwiftModules3: SwiftBaseModule, Component {
-    open override func ts_didCreate() {
-        priority = TSModulePriorityLow + 20000
-    }
-}
-class SwiftModules4: SwiftBaseModule, Component {
-    open override func ts_didCreate() {
-        priority = TSModulePriorityNormal  + 20000
+class SwiftModules4: NSObject, Modularable {
+    var priority: ModulePriority = TSModulePriorityNormal  + 20000
+    func tetrisModuleInit(_ context: TSModuleContext) {
+        print("\(type(of: self)) \(#function)")
     }
 }
 
