@@ -17,7 +17,7 @@ TSInjectString(string)
 
 @implementation RIDemo12ViewController
 
-TS_VC_ROUTE(@"/demo12")
+TS_ROUTE(@"/demo12")
 
 - (void)viewDidLoad {
     [super viewDidLoad];

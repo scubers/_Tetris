@@ -11,6 +11,7 @@
 @implementation TSViewControllableCreatorListener
 
 - (void)ts_didCreateObject:(id<TSCreatable>)object {
+    // autowire service
     if (
         [((id)object) conformsToProtocol:@protocol(TSViewControllable)]
         && [((id)object) conformsToProtocol:@protocol(TSAutowireable)]

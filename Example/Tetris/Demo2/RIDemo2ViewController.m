@@ -17,7 +17,7 @@ TSInjectNumber(number);
 
 @implementation RIDemo2ViewController
 
-TS_VC_ROUTE(@"/demo2/demo2")
+TS_ROUTE(@"/demo2/demo2")
 
 - (void)viewDidLoad {
     [super viewDidLoad];

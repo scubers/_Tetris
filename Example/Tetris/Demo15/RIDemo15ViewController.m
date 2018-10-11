@@ -18,7 +18,7 @@ TSInjectNumber(id);
 
 @implementation RIDemo15ViewController
 
-TS_VC_ROUTE(@"/demo15/:identifier/:keyword/:id/suffix")
+TS_ROUTE(@"/demo15/:identifier/:keyword/:id/suffix")
 
 
 - (void)setTs_sourceIntent:(TSIntent *)ts_sourceIntent {

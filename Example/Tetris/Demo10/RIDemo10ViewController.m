@@ -38,7 +38,7 @@ TS_INTERCEPTER(TSIntercepterPriorityNormal)
 
 @implementation RIDemo10ViewController
 
-TS_VC_ROUTE(please_take_me_as_an_webview)
+TS_ROUTE(please_take_me_as_an_webview)
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -25,22 +25,16 @@
             [_Tetris.server bindServiceByProtocol:@protocol(_protocol) class:self singleton:_singleton];\
         }
 
-///**
-// 对本类进行导出到对应接口的服务，并实现默认方法
-// @param _protocol 接口
-// @param _singleton 是否单例
-// */
-//#define TS_DEFAULT_SERVICE(_protocol, _singleton) \
-//        TS_SERVICE_PROTOCOL(_protocol, _singleton) \
-//        + (instancetype)ts_create { return [[self alloc] init];}
-
-
 /**
  根据接口获取服务
  @param _protocol 接口
  */
 #define TS_GET_SERVICE(_protocol) \
         ((id<_protocol>)([_Tetris.server serviceByProtoocl:@protocol(_protocol)]))
+
+
+#define TS_AUTOWIRED(_protocol, _name) \
+        @property id<_protocol, TSAutowired> _name;
 
 
 #pragma mark - module
@@ -58,7 +52,7 @@
         + (void)load { [_Tetris.router bindUrl:(url) intentable:self];} \
         @end
 
-#define TS_VC_ROUTE(_url) \
+#define TS_ROUTE(_url) \
         + (void)load { [_Tetris.router bindUrl:(_url) intentable:self];}
 
 #define TS_INTERCEPTER(TSIntercepterPriority) \

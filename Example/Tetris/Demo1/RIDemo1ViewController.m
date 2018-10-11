@@ -17,12 +17,13 @@
 
 @interface RIDemo1ViewController ()
 
-@property (nonatomic, strong) id<RIDemo1ServicePrt, TSAutowired> demo1Service;
+TS_AUTOWIRED(RIDemo1ServicePrt, demo1Service)
 
 @end
 
 @implementation RIDemo1ViewController
-TS_VC_ROUTE(@"/demo1")
+
+TS_ROUTE(@"/demo1")
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,9 +31,9 @@ TS_VC_ROUTE(@"/demo1")
     [_demo1Service demo1Method];
 }
 
-+ (id<TSIntercepter>)ts_SelfIntercepter {
++ (id<TSIntercepter>)ts_selfIntercepter {
     return [[TSFinalIntercepter alloc] initWithAction:^(id<TSIntercepterJudger>  _Nonnull judger) {
-        NSLog(@"-- demo1 final intercepter --");
+        NSLog(@"-- demo1 self intercepter --");
         [judger doContinue];
     }];
 }

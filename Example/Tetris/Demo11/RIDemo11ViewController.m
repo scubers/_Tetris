@@ -14,7 +14,7 @@
 
 @implementation RIDemo11ViewController
 
-TS_VC_ROUTE(@"/demo11")
+TS_ROUTE(@"/demo11")
 
 - (void)viewDidLoad {
     [super viewDidLoad];

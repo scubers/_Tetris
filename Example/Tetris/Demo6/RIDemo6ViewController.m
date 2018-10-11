@@ -46,7 +46,7 @@ TS_EXPORT_ROUTE(RIDemo6ViewController, @"/login/demo6", 100);
 
 @implementation RIDemo6ViewController
 
-TS_VC_ROUTE(@"/demo6")
+TS_ROUTE(@"/demo6")
 
 - (void)viewDidLoad {
     [super viewDidLoad];

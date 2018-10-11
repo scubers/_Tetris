@@ -42,7 +42,7 @@ TS_INTERCEPTER(TSIntercepterPriorityHigh)
 
 @implementation RIDemo14ViewController
 
-TS_VC_ROUTE(@"/demo14")
+TS_ROUTE(@"/demo14")
 
 - (void)viewDidLoad {
     [super viewDidLoad];
