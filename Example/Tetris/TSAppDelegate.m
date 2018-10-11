@@ -11,7 +11,7 @@
 #import "Tetris_Example-Swift.h"
 
 
-@interface TSAppDelegate ()
+@interface TSAppDelegate () <TSCreatorListener>
 
 @property (nonatomic, strong) UIWindow *window;
 
@@ -21,9 +21,16 @@
 
 @implementation TSAppDelegate
 
+- (void)ts_didCreateObject:(id<TSCreatable>)object {
+    NSLog(@"create: [%@]", object);
+}
+
 @synthesize window = _window;
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[TSCreator shared] addListener:self];
+    [[TSCreator shared] addListener:[TSServiceCreatorListener new]];
+    [[TSCreator shared] addListener:[TSViewControllableCreatorListener new]];
     [TetrisSwiftStarter start];
     return [super application:application willFinishLaunchingWithOptions:launchOptions];
 }

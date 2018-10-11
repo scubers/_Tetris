@@ -20,19 +20,19 @@
  @param _protocol 接口
  @param _singleton 是否单例
  */
-#define TS_SERVICE_PROTOCOL(_protocol, _singleton) \
+#define TS_SERVICE(_protocol, _singleton) \
         + (void)load {\
             [_Tetris.server bindServiceByProtocol:@protocol(_protocol) class:self singleton:_singleton];\
         }
 
-/**
- 对本类进行导出到对应接口的服务，并实现默认方法
- @param _protocol 接口
- @param _singleton 是否单例
- */
-#define TS_DEFAULT_SERVICE(_protocol, _singleton) \
-        TS_SERVICE_PROTOCOL(_protocol, _singleton) \
-        + (instancetype)ts_create { return [[self alloc] init];}
+///**
+// 对本类进行导出到对应接口的服务，并实现默认方法
+// @param _protocol 接口
+// @param _singleton 是否单例
+// */
+//#define TS_DEFAULT_SERVICE(_protocol, _singleton) \
+//        TS_SERVICE_PROTOCOL(_protocol, _singleton) \
+//        + (instancetype)ts_create { return [[self alloc] init];}
 
 
 /**
@@ -63,9 +63,7 @@
 
 #define TS_INTERCEPTER(TSIntercepterPriority) \
         + (void)load { \
-            id<TSIntercepter> inter = [self ts_create];\
-            inter.priority = (TSIntercepterPriority);\
-            [_Tetris.router.intercepterMgr addIntercepter:inter];\
+            [_Tetris.router.intercepterMgr addIntercepter:self];\
         }
 
 #pragma mark - Action

@@ -14,7 +14,6 @@ class Demo6Inter : IntercepterAdapter, Component {
         return ["^/swift/demo6\\??.*"]
     }
     
-    
     override func doAdjudgement(_ judger: IntercepterJudger) {
         if let userId = judger.intent().getString("userId"), userId.count > 0 {
             judger.doContinue()

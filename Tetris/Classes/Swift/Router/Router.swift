@@ -47,7 +47,8 @@ public extension Component where Self : URLRoutable, Self : Intentable {
 
 public extension Component where Self : Intercepter {
     public static func tetrisStart() {
-        TSTetris.shared().router.intercepterMgr.add(intercepter: self.ts_create())
+        TSTetris.shared().router.intercepterMgr.add(self)
+//        TSTetris.shared().router.intercepterMgr.add(intercepter: self.ts_create())
     }
 }
 

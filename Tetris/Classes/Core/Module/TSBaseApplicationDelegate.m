@@ -19,7 +19,7 @@
     [_Tetris.modular.trigger tetrisModuleInit:context];
     [_Tetris.modular.trigger tetrisModuleSetup:context];
     [_Tetris.modular.trigger tetrisModuleSplash:context];
-    [_Tetris.modular.trigger application:application didFinishLaunchingWithOptions:launchOptions];
+    [_Tetris.modular.trigger application:application willFinishLaunchingWithOptions:launchOptions];
     
     return YES;
 }

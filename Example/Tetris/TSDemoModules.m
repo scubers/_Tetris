@@ -9,6 +9,16 @@
 #import "TSDemoModules.h"
 @import Tetris;
 
+@protocol TSServiceA <NSObject>
+- (void)methodA;
+@end
+
+@protocol TSServiceB <NSObject>
+- (void)methodB;
+@end
+
+
+
 @interface TSDemoModules () <TSModularComposable>
 
 @end
@@ -31,6 +41,7 @@
 - (void)tetrisModuleSplash:(TSModuleContext *)context {
     NSLog(@"%@, %s", self, __FUNCTION__);
 }
+
 @end
 
 @interface Module1 : TSDemoModules <TSModularComposable>
@@ -55,6 +66,12 @@ TS_MODULE(TSModulePriorityLow)
 @end
 @implementation Module4
 TS_MODULE(TSModulePriorityNormal + 1)
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [TS_GET_SERVICE(TSServiceA) methodA];
+    return YES;
+}
+
 @end
 
 
@@ -75,3 +92,38 @@ TS_ACTION(@"/oc/action")
 }
 
 @end
+
+
+@interface TSServiceAImpl : NSObject<TSServiceA, TSServiceable>
+
+@property (nonatomic, strong) id<TSServiceB, TSAutowired> serviceB;
+
+@end
+
+@implementation TSServiceAImpl
+
+TS_SERVICE(TSServiceA, YES)
+
+- (void)methodA {
+    NSLog(@"method a execute");
+    [_serviceB methodB];
+}
+
+@end
+
+
+@interface TSServiceBImpl : NSObject<TSServiceB, TSServiceable>
+
+@end
+
+@implementation TSServiceBImpl
+
+TS_SERVICE(TSServiceB, YES)
+
+- (void)methodB {
+    NSLog(@"method b execute");
+}
+
+@end
+
+

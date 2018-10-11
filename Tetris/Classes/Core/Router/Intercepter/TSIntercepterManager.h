@@ -49,7 +49,10 @@ NS_SWIFT_NAME(IntercepterManager)
 
 + (instancetype)manager;
 
-- (void)addIntercepter:(id<TSIntercepter>)intercepter NS_SWIFT_NAME(add(intercepter:));
+- (void)addIntercepter:(Class<TSIntercepter>)aClass;
+- (void)addIntercepter:(Class<TSIntercepter>)aClass priority:(TSIntercepterPriority)priority;
+
+
 
 - (void)runIntent:(TSIntent *)intent
            source:(nullable id<TSViewControllable>)source

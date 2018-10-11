@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 #import "TSError.h"
 #import "TSUtils.h"
+#import "TSCreator.h"
 
 @interface TSService ()
 
@@ -39,8 +40,7 @@
 }
 
 - (id<TSServiceable>)generateService {
-    id service = [_serviceClass ts_create];
-    return service;
+    return (id<TSServiceable>)[[TSCreator shared] createByClass:_serviceClass];
 }
 
 

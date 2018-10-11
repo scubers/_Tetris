@@ -10,6 +10,7 @@
 #import "TSIntent.h"
 #import "TSError.h"
 #import "UIViewController+TSRouter.h"
+#import "TSCreator.h"
 
 #pragma mark - _TSIntercepterJudger
 
@@ -114,7 +115,19 @@
     return self;
 }
 
-- (void)addIntercepter:(id<TSIntercepter>)intercepter {
+- (void)addIntercepter:(Class<TSIntercepter>)aClass priority:(TSIntercepterPriority)priority {
+    id<TSIntercepter> obj = (id<TSIntercepter>)[[TSCreator shared] createByClass:aClass];
+    obj.priority = priority;
+    [self _addIntercepter:obj];
+}
+
+- (void)addIntercepter:(Class<TSIntercepter>)aClass {
+    id<TSIntercepter> obj = (id<TSIntercepter>)[[TSCreator shared] createByClass:aClass];
+    [self _addIntercepter:obj];
+}
+
+
+- (void)_addIntercepter:(id<TSIntercepter>)intercepter {
     NSUInteger index = [_intercepters indexOfObjectPassingTest:^BOOL(id<TSIntercepter>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (obj.priority < intercepter.priority) {
             return YES;
