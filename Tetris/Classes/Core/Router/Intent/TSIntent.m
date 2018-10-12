@@ -17,44 +17,20 @@
 @implementation TSIntent
 
 - (id)copyWithZone:(NSZone *)zone {
-    TSIntent *intent = [TSIntent intentWithUrl:self.urlString intentClass:self.intentClass displayer:self.displayer];
+    TSIntent *intent = [TSIntent intentWithUrl:self.urlString
+                                   intentClass:self.intentClass
+                                     displayer:self.displayer
+                              viewControllable:self.viewControllable];
     intent->_extraParameters = self.extraParameters.mutableCopy;
     intent.urlComponent = self.urlComponent;
     intent.viewControllable = self.viewControllable;
     return intent;
 }
 
-+ (instancetype)intentWithUrl:(NSString *)urlString intentClass:(Class<TSIntentable>)intentClass displayer:(id<TSIntentDisplayerProtocol>)displayer {
-    return [[self alloc] initWithUrl:urlString intentClass:intentClass displayer:displayer];
-}
-
-- (instancetype)initWithUrl:(NSString *)urlString intentClass:(Class<TSIntentable>)intentClass displayer:(nullable id<TSIntentDisplayerProtocol>)displayer {
-    if (self = [self init]) {
-        _urlString = urlString;
-        _intentClass = intentClass;
-        _displayer = displayer;
-        _streams = [NSMutableDictionary dictionaryWithCapacity:0];
-    }
-    return self;
-}
-
-- (instancetype)initWithUrl:(NSString *)urlString {
-    return [self initWithUrl:urlString intentClass:nil displayer:nil];
-}
-
-- (instancetype)initWithClass:(Class<TSIntentable>)aClass {
-    return [self initWithUrl:nil intentClass:aClass displayer:nil];
-}
-
-- (instancetype)initWithDisplayer:(id<TSIntentDisplayerProtocol>)displayer {
-    return [self initWithUrl:nil intentClass:nil displayer:displayer];
-}
-
 - (instancetype)init {
     self = [super init];
     if (self) {
         _extraParameters = [NSMutableDictionary dictionaryWithCapacity:1];
-        _onResult = [TSDrivenStream stream];
     }
     return self;
 }
@@ -103,12 +79,77 @@
     return driven;
 }
 
+- (TSDrivenStream *)onResult {
+    return [self resultByCode:[NSString stringWithFormat:@"OnResultStream.%@", self]];
+}
+
+- (TSDrivenStream *)onDestroy {
+    return [self resultByCode:[NSString stringWithFormat:@"OnDestroyStream.%@", self]];
+}
+
 - (NSNumberFormatter *)formatter {
     if (!_formatter) {
         _formatter = [[NSNumberFormatter alloc] init];
     }
     return _formatter;
 }
+
+- (void)dealloc {
+    [self.onDestroy post:self];
+}
+
 @end
 
+#pragma mark - Creations
+
+@implementation TSIntent (Creations)
+
++ (instancetype)intentWithUrl:(NSString *)urlString intentClass:(Class<TSIntentable>)intentClass displayer:(id<TSIntentDisplayerProtocol>)displayer viewControllable:(nullable id<TSViewControllable>)viewControllable {
+    return [[self alloc] initWithUrl:urlString intentClass:intentClass displayer:displayer viewControllable:viewControllable];
+}
+
+- (instancetype)initWithUrl:(NSString *)urlString intentClass:(Class<TSIntentable>)intentClass displayer:(nullable id<TSIntentDisplayerProtocol>)displayer viewControllable:(nullable id<TSViewControllable>)viewControllable {
+    if (self = [self init]) {
+        _urlString = urlString;
+        _intentClass = intentClass;
+        _displayer = displayer;
+        _viewControllable = viewControllable;
+        _streams = [NSMutableDictionary dictionaryWithCapacity:0];
+    }
+    return self;
+}
+
+- (instancetype)initWithUrl:(NSString *)urlString {
+    return [self initWithUrl:urlString intentClass:nil displayer:nil viewControllable:nil];
+}
+
+- (instancetype)initWithClass:(Class<TSIntentable>)aClass {
+    return [self initWithUrl:nil intentClass:aClass displayer:nil viewControllable:nil];
+}
+
+- (instancetype)initWithDisplayer:(id<TSIntentDisplayerProtocol>)displayer {
+    return [self initWithUrl:nil intentClass:nil displayer:displayer viewControllable:nil];
+}
+
+- (instancetype)initWithTarget:(id<TSViewControllable>)target {
+    return [self initWithUrl:nil intentClass:nil displayer:nil viewControllable:target];
+}
+
++ (instancetype)intentWithUrl:(NSString *)urlString {
+    return [[self alloc] initWithUrl:urlString];
+}
+
++ (instancetype)intentWithClass:(Class<TSIntentable>)aClass {
+    return [[self alloc] initWithClass:aClass];
+}
+
++ (instancetype)intentWithDisplayer:(id<TSIntentDisplayerProtocol>)displayer {
+    return [[self alloc] initWithDisplayer:displayer];
+}
+
++ (instancetype)intentWithTarget:(id<TSViewControllable>)target {
+    return [[self alloc] initWithTarget:target];
+}
+
+@end
 

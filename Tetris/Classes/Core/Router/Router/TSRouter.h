@@ -67,6 +67,8 @@ NS_SWIFT_NAME(Router)
 
 - (TSStream<TSRouteResult *> *)prepare:(TSIntent *)intent source:(nullable id<TSViewControllable>)source;
 
+- (TSStream<TSRouteResult *> *)prepare:(TSIntent *)intent;
+
 @end
 
 NS_ASSUME_NONNULL_END

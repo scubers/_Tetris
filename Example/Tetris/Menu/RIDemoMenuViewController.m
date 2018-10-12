@@ -88,6 +88,10 @@ TS_ROUTE(@"/menu")
     [intent.onResult subscribeNext:^(id  _Nullable obj) {
         [self alert:[NSString stringWithFormat:@"%@", obj]];
     }];
+    
+    [intent.onDestroy subscribeNext:^(id  _Nullable obj) {
+        NSLog(@"---- intent destroy ----");
+    }];
 
     [[self ts_prepare:intent complete:^{
         NSLog(@"---- finish route ----");

@@ -63,6 +63,11 @@ extension MenuVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let intent = intents[indexPath.row].values.first!.copy() as? Intent
+        
+        intent?.onDestroy
+            .onNext { _ in print("---- intent destroy ----") }
+            .subscribe()
+        
         intent?.onResult
             .onNext { print($0 as Any) }
             .subscribe()

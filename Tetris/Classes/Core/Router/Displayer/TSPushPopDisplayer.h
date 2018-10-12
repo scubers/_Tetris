@@ -23,6 +23,7 @@ NS_SWIFT_NAME(PushPopDisplayer)
 @interface TSIntent (PushPopInit)
 
 + (instancetype)pushPopIntentByUrl:(NSString *)url;
++ (instancetype)pushPopIntentByClass:(Class<TSIntentable>)aClass;
 
 @end
 

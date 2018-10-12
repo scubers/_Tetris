@@ -11,7 +11,7 @@
 
 @interface TSPresentDismissDisplayer ()
 
-@property (nonatomic, strong) UIViewController *TS_sourceViewController;
+@property (nonatomic, strong) UIViewController *ts_sourceViewController;
 
 @end
 
@@ -34,13 +34,13 @@
         if (completion) {
             completion();
         }
-        _TS_sourceViewController = fromVC;
+        _ts_sourceViewController = fromVC;
     }];
 }
 
 - (void)ts_finishDisplayViewController:(UIViewController *)vc animated:(BOOL)animated completion:(void (^)(void))completion {
 //    [vc dismissViewControllerAnimated:animated completion:completion];
-    [(_TS_sourceViewController ?: vc) dismissViewControllerAnimated:animated completion:^{
+    [(_ts_sourceViewController ?: vc) dismissViewControllerAnimated:animated completion:^{
         if (completion) {
             completion();
         }
@@ -54,7 +54,11 @@
 @implementation TSIntent (PresentDismissInit)
 
 + (instancetype)presentDismissByUrl:(NSString *)url {
-    return [[self alloc] initWithUrl:url intentClass:nil displayer:[TSPresentDismissDisplayer new]];
+    return [[self alloc] initWithUrl:url intentClass:nil displayer:[TSPresentDismissDisplayer new] viewControllable:nil];
+}
+
++ (instancetype)presentDismissByClass:(Class<TSIntentable>)aClass {
+    return [[self alloc] initWithUrl:nil intentClass:aClass displayer:[TSPresentDismissDisplayer new] viewControllable:nil];
 }
 
 @end

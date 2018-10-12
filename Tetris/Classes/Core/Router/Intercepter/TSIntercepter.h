@@ -80,9 +80,9 @@ NS_SWIFT_NAME(Intercepter)
 
 /**
  Do intercepter logic;
- One intercepter life cycle, should call adjudger's doSwitch or doReject or doContinue once;
+ In intercepter life cycle, should call adjudger's doSwitch or doReject or doContinue once;
  
- @param adjudgement The adjudger
+ @param judger The judger
  */
 - (void)ts_judgeIntent:(id<TSIntercepterJudger>)judger;
 

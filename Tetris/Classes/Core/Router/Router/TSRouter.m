@@ -164,6 +164,10 @@
     return [self prepare:intent source:source complete:nil];
 }
 
+- (TSStream<TSRouteResult *> *)prepare:(TSIntent *)intent {
+    return [self prepare:intent source:nil];
+}
+
 #pragma mark - private
 
 - (void)_startIntent:(TSIntent *)intent

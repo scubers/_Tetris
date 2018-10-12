@@ -35,7 +35,7 @@ TS_ROUTE(@"/demo13")
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    TSIntent *intent = [[TSIntent alloc] initWithUrl:@"/demo13" intentClass:nil displayer:nil];
+    TSIntent *intent = [TSIntent intentWithUrl:@"/demo13"];
     intent.displayer = self.displayers[indexPath.row].allValues.lastObject;
     [self ts_start:intent];
 }

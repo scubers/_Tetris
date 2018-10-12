@@ -32,6 +32,8 @@ NS_SWIFT_NAME(Intent)
 @property (nonatomic, strong, nullable) id<TSIntentDisplayerProtocol> displayer;
 
 @property (nonatomic, strong, readonly) TSDrivenStream *onResult;
+@property (nonatomic, strong, readonly) TSDrivenStream *onDestroy;
+
 
 - (id)objectForKeyedSubscript:(id)key;
 
@@ -40,25 +42,40 @@ NS_SWIFT_NAME(Intent)
 
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
 
-- (instancetype)initWithUrl:(NSString *)urlString;
-- (instancetype)initWithClass:(Class<TSIntentable>)aClass;
-- (instancetype)initWithDisplayer:(id<TSIntentDisplayerProtocol>)displayer;
-
-- (instancetype)initWithUrl:(nullable NSString *)urlString
-                intentClass:(nullable Class<TSIntentable>)intentClass
-                  displayer:(nullable id<TSIntentDisplayerProtocol>)displayer;
-
-+ (instancetype)intentWithUrl:(nullable NSString *)urlString
-                  intentClass:(nullable Class<TSIntentable>)intentClass
-                    displayer:(nullable id<TSIntentDisplayerProtocol>)displayer;
-
-
 - (nullable NSString *)getString:(NSString *)key;
 - (nullable NSNumber *)getNumber:(NSString *)key;
+
 
 - (TSDrivenStream *)resultByCode:(id<NSCopying>)code NS_SWIFT_NAME(result(by:));
 - (void)sendResult:(nullable id)result byCode:(id<NSCopying>)code NS_SWIFT_NAME(send(result:by:));
 
+
+@end
+
+#pragma mark - Creations
+
+@interface TSIntent (Creations)
+
+- (instancetype)initWithUrl:(NSString *)urlString;
+- (instancetype)initWithClass:(Class<TSIntentable>)aClass;
+- (instancetype)initWithDisplayer:(id<TSIntentDisplayerProtocol>)displayer;
+- (instancetype)initWithTarget:(id<TSViewControllable>)target;
+
+- (instancetype)initWithUrl:(nullable NSString *)urlString
+                intentClass:(nullable Class<TSIntentable>)intentClass
+                  displayer:(nullable id<TSIntentDisplayerProtocol>)displayer
+           viewControllable:(nullable id<TSViewControllable>)viewControllable;
+
+
++ (instancetype)intentWithUrl:(nullable NSString *)urlString
+                  intentClass:(nullable Class<TSIntentable>)intentClass
+                    displayer:(nullable id<TSIntentDisplayerProtocol>)displayer
+             viewControllable:(nullable id<TSViewControllable>)viewControllable;
+
++ (instancetype)intentWithUrl:(NSString *)urlString;
++ (instancetype)intentWithClass:(Class<TSIntentable>)aClass;
++ (instancetype)intentWithDisplayer:(id<TSIntentDisplayerProtocol>)displayer;
++ (instancetype)intentWithTarget:(id<TSViewControllable>)target;
 
 @end
 

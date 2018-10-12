@@ -23,6 +23,7 @@ NS_SWIFT_NAME(PresentDismissDisplayer)
 @interface TSIntent (PresentDismissInit)
 
 + (instancetype)presentDismissByUrl:(NSString *)url;
++ (instancetype)presentDismissByClass:(Class<TSIntentable>)aClass;
 
 @end
 
