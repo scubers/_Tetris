@@ -7,8 +7,21 @@
 
 #import "UIViewController+TSRouter.h"
 #import "TSLogger.h"
+#import <objc/runtime.h>
 
 @implementation UIViewController (TSRouter)
+
++ (instancetype)ts_create {
+    return [[self alloc] init];
+}
+
+- (void)setTs_sourceIntent:(TSIntent *)ts_sourceIntent {
+    objc_setAssociatedObject(self, _cmd, ts_sourceIntent, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (TSIntent *)ts_sourceIntent {
+    return objc_getAssociatedObject(self, @selector(setTs_sourceIntent:));
+}
 
 - (UIViewController *)ts_viewController {
     return self;

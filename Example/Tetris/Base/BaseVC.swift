@@ -9,14 +9,12 @@
 import UIKit
 import Tetris
 
-class BaseVC: UIViewController, Intentable {
+class BaseVC: UIViewController {
     
 //    override class func ts_create() -> Self? {
 //        return self.init()
 //    }
     
-    var ts_sourceIntent: Intent?
-
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Swift-\(NSStringFromClass(type(of: self)))"

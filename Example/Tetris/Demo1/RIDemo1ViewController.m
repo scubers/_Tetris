@@ -25,6 +25,10 @@ TS_AUTOWIRED(RIDemo1ServicePrt, demo1Service)
 
 TS_ROUTE(@"/demo1")
 
++ (instancetype)ts_create {
+    return [[self alloc] init];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"Just Route";

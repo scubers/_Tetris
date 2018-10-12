@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIViewController (TSRouter) <TSViewControllable>
+@interface UIViewController (TSRouter) <TSIntentable>
 
 - (TSStream<TSRouteResult *> *)ts_prepare:(TSIntent *)intent;
 - (TSStream<TSRouteResult *> *)ts_prepare:(TSIntent *)intent complete:(void (^ _Nullable)(void))complete;
