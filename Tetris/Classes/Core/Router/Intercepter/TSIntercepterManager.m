@@ -11,6 +11,7 @@
 #import "TSError.h"
 #import "UIViewController+TSRouter.h"
 #import "TSCreator.h"
+#import "TSLogger.h"
 
 #pragma mark - _TSIntercepterJudger
 
@@ -194,7 +195,12 @@
     if (_finalIntercepter) {
         [intercepters addObject:_finalIntercepter];
     }
-    [self _runIntent:intent source:source intercepterIndex:0 intercepters:intercepters finish:finish];
+    NSDate *start = [NSDate date];
+    [self _runIntent:intent source:source intercepterIndex:0 intercepters:intercepters finish:^(TSIntercepterResult * _Nonnull result) {
+        NSDate *end = [NSDate date];
+        TSLog(@"Intercepter time: %.03f ms.", (end.timeIntervalSince1970 * 1000 - start.timeIntervalSince1970 * 1000));
+        !finish ?: finish(result);
+    }];
 }
 
 @end

@@ -19,23 +19,25 @@ TS_INTERCEPTER(TSIntercepterPriorityNormal)
     return @[@"^/demo6\\??.*"];
 }
 
-- (void)doAdjudgement:(id<TSIntercepterJudger>)adjudger {
+- (void)doAdjudgement:(id<TSIntercepterJudger>)judger {
 
-    if ([adjudger.intent[@"userId"] length]) {
-        [adjudger doContinue];
+    if ([judger.intent[@"userId"] length]) {
+        [judger doContinue];
         return;
     }
 
     TSIntent *intent = [TSIntent pushPopIntentByUrl:@"/login/demo6"];
     intent.displayer = [TSPresentDismissDisplayer new];
     [intent.onResult subscribeNext:^(id  _Nullable obj) {
-        [adjudger.intent.extraParameters addEntriesFromDictionary:@{@"userId" : @"userId"}];
-        [adjudger restart];
+        [judger.intent.extraParameters addEntriesFromDictionary:@{@"userId" : @"userId"}];
+        [judger restart];
     }];
-    [adjudger doSwitch:intent];
+    [judger doSwitch:intent];
 }
 
 @end
+
+
 
 TS_EXPORT_ROUTE(RIDemo6ViewController, @"/login/demo6", 100);
 

@@ -18,10 +18,6 @@
     return [[self alloc] init];
 }
 
-- (void)ts_setIntent:(TSIntent *)intent {
-    _ts_sourceIntent = intent;
-}
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,6 +41,7 @@
         if (complete) {
             complete();
         }
+        
     }]];
     [self presentViewController:alert animated:YES completion:nil];
 }

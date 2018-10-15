@@ -24,7 +24,7 @@ class MenuVC: BaseVC, Routable {
         ["6. Intercepter: Login or something need prepare" : Intent.pushPop(byUrl: "/swift/demo6")],
         ["7. Global mismatch" : Intent.pushPop(byUrl: "/swift/demo7/lkj/33/6lkjo")],
         ["8. Action" : Intent.pushPop(byUrl: "/swift/demo8")],
-        ["9. Native map" : Intent.pushPop(byUrl: "/demo17/native_map/not_a_class")],
+        ["9. Native map" : Intent.pushPop(byUrl: "/demo17/native_map/UIViewController")],
     ]
 
     override func viewDidLoad() {

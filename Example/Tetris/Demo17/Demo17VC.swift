@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+// /user/info/100
 // /demo17/native_map/:class_name
 class Demo17Station: NSObject, Intentable, Routable {
     

@@ -37,36 +37,6 @@ static TSModuleContext *__sharedContext;
 
 @end
 
-#pragma mark - TSModule
-
-//@interface TSModule ()
-//
-//@property (nonatomic, strong) Class<TSModularComposable> moduleClass;
-//
-//@end
-//
-//@implementation TSModule
-//
-//+ (instancetype)moduleWithClass:(Class<TSModularComposable>)aClass priority:(TSModulePriority)priority {
-//    TSModule *module = [TSModule new];
-//    module.moduleClass = aClass;
-//    module->_priority = priority;
-//    return module;
-//}
-//
-//
-//@synthesize moduleInstance = _moduleInstance;
-//
-//- (id<TSModularComposable>)moduleInstance {
-//    if (!_moduleInstance) {
-//        _moduleInstance = [[(Class)_moduleClass alloc] init];
-//    }
-//    return _moduleInstance;
-//}
-//
-//@end
-
-
 #pragma mark - TSTetrisModuler
 
 @interface TSTetrisModular () <TSTriggerProtocol>

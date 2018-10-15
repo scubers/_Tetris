@@ -62,7 +62,7 @@
           return [_Tetris.router prepare:[TSIntent pushPopIntentByUrl:@"/menu"] source:nil complete:nil];
       }]
      subscribeNext:^(TSRouteResult *  _Nullable obj) {
-         self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:obj.destination];
+         self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:obj.viewControllable.ts_viewController];
      }];
 
 

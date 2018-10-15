@@ -39,7 +39,7 @@ class MyAppDelegate: TSBaseApplicationDelegate {
             .subscribe({ event in
                 switch event {
                 case .next(let e):
-                    self.window?.rootViewController = UINavigationController.init(rootViewController: e.destination!)
+                    self.window?.rootViewController = UINavigationController.init(rootViewController: e.viewControllable!.ts_viewController())
                 default:break
                 }
             })

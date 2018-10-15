@@ -107,7 +107,7 @@ typedef TSStream *(^TSBindStreamBlock)(T _Nullable value, BOOL *stop);
 
 - (TSStream *)forceMap:(nullable id)object;
 
-- (TSStream<T> *)onNext:(void (^)(id _Nullable obj))onNext;
+- (TSStream<T> *)onNext:(void (^)(T _Nullable obj))onNext;
 
 - (TSStream *)onError:(void (^)(NSError *error))onError;
 

@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 @import Tetris;
 
-@interface RIBaseViewController : UIViewController <TSIntentable>
-
-@property (nonatomic, strong) TSIntent *ts_sourceIntent;
+@interface RIBaseViewController : UIViewController
 
 - (void)alert:(NSString *)msg complete:(dispatch_block_t)complete;
 - (void)alert:(NSString *)msg;

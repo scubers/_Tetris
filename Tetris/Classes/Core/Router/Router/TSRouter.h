@@ -33,7 +33,7 @@ typedef NS_ENUM(NSInteger, TSRouteResultStatus) {
 NS_SWIFT_NAME(RouteResult)
 @interface TSRouteResult : NSObject
 @property (nonatomic, assign) TSRouteResultStatus status;
-@property (nonatomic, strong, nullable) UIViewController *destination;
+@property (nonatomic, strong, nullable) id<TSViewControllable> viewControllable;
 @property (nonatomic, strong) TSIntent *intent;
 @property (nonatomic, strong, nullable) NSError *error;
 @end

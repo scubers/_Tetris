@@ -35,10 +35,10 @@
 
 @implementation TSRouteResult
 
-+ (TSRouteResult *)resultWithStatus:(TSRouteResultStatus)status destination:(UIViewController *)destination intent:(TSIntent *)intent error:(NSError *)error {
++ (TSRouteResult *)resultWithStatus:(TSRouteResultStatus)status viewControllable:(id<TSViewControllable>)viewControllable intent:(TSIntent *)intent error:(NSError *)error {
     TSRouteResult *ret = [[TSRouteResult alloc] init];
     ret.status = status;
-    ret.destination = destination;
+    ret.viewControllable = viewControllable;
     ret.intent = intent;
     ret.error = error;
     return ret;
@@ -50,7 +50,7 @@
 
 #pragma mark - TSRouter
 
-
+// O(n) /x/y/z
 @interface TSRouter ()
 
 @property (nonatomic, strong) TSSyncTree *viewTree;
@@ -199,7 +199,7 @@
             case TSIntercepterResultStatusRejected:
             {
                 // finih by rejected;
-                TSRouteResult *ret = [TSRouteResult resultWithStatus:TSRouteResultStatusRejected destination:nil intent:result.intent error:result.error];
+                TSRouteResult *ret = [TSRouteResult resultWithStatus:TSRouteResultStatusRejected viewControllable:nil intent:result.intent error:result.error];
                 finish(ret);
                 break;
             }
@@ -223,7 +223,7 @@
                 } else {
                     // Lost
                     NSError *lostError = [NSError ts_errorWithCode:-18888 msg:@"Route error: Lost!!!"];
-                    TSRouteResult *ret = [TSRouteResult resultWithStatus:TSRouteResultStatusLost destination:nil intent:result.intent error:lostError];
+                    TSRouteResult *ret = [TSRouteResult resultWithStatus:TSRouteResultStatusLost viewControllable:nil intent:result.intent error:lostError];
                     finish(ret);
                 }
                 break;
@@ -240,7 +240,7 @@
                                 target:(id<TSViewControllable>)target
                               complete:(void (^)(void))complete {
 
-    TSRouteResult *ret = [TSRouteResult resultWithStatus:TSRouteResultStatusPass destination:target.ts_viewController intent:intent error:nil];
+    TSRouteResult *ret = [TSRouteResult resultWithStatus:TSRouteResultStatusPass viewControllable:target intent:intent error:nil];
 
     if (!source) return ret;
 
