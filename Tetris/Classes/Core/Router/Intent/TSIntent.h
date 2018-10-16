@@ -35,19 +35,34 @@ NS_SWIFT_NAME(Intent)
 @property (nonatomic, strong, readonly) TSDrivenStream *onDestroy;
 
 
-- (id)objectForKeyedSubscript:(id)key;
+/**
+ designated initializer
+ */
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
 
+/// subscript
+- (id)objectForKeyedSubscript:(id)key;
+/// subscript
 - (void)setObject:(id)obj forKeyedSubscript:(id<NSCopying>)key;
 
 
-- (instancetype)init NS_DESIGNATED_INITIALIZER;
 
+/**
+ get string parameter
+ */
 - (nullable NSString *)getString:(NSString *)key;
+
+/**
+ get number parameter
+ */
 - (nullable NSNumber *)getNumber:(NSString *)key;
 
 
-- (TSDrivenStream *)resultByCode:(id<NSCopying>)code NS_SWIFT_NAME(result(by:));
-- (void)sendResult:(nullable id)result byCode:(id<NSCopying>)code NS_SWIFT_NAME(send(result:by:));
+- (TSDrivenStream *)resultByKey:(id<NSCopying>)key NS_SWIFT_NAME(result(by:));
+- (void)sendResult:(nullable id)result byKey:(id<NSCopying>)key NS_SWIFT_NAME(send(result:by:));
+
+- (void)addParam:(id)object forKey:(NSString *)key;
+- (void)addParameters:(nullable NSDictionary *)parameters;
 
 
 @end

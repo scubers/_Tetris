@@ -11,6 +11,8 @@
 #import "TSError.h"
 #import "TSUtils.h"
 #import "TSCreator.h"
+#import "TSTrigger.h"
+#import "TSLogger.h"
 
 @interface TSService ()
 

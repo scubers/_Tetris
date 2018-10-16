@@ -28,7 +28,7 @@ typedef void(^TSTriggerBlock)(TSTrigger<T> *trigger, NSInvocation *invocation);
 
 @property (nonatomic, strong, readonly) Protocol *aProtocol;
 
-@property (nonatomic, strong, readonly, nullable) T trigger;
+@property (nonatomic, strong, readonly) T trigger;
 
 /**
  weak!! will not retain target

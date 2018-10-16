@@ -22,7 +22,7 @@ TS_ROUTE(@"/demo12")
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Autowired property to self
-    [self ts_autowireTSTypesWithDict:self.ts_sourceIntent.urlComponent.params];
+//    [self ts_autowireTSTypesWithDict:self.ts_sourceIntent.urlComponent.params];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

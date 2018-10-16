@@ -21,7 +21,7 @@ TS_ROUTE(@"/demo2/demo2")
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self ts_autowireTSTypesWithDict:self.ts_sourceIntent.extraParameters];
+//    [self ts_autowireTSTypesWithDict:self.ts_sourceIntent.extraParameters];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

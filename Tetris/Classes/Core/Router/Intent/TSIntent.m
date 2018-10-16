@@ -50,10 +50,12 @@
 
 - (NSString *)getString:(NSString *)key {
     id obj = _extraParameters[key];
-    if (![obj isKindOfClass:[NSString class]]) {
-        return nil;
+    if ([obj isKindOfClass:[NSString class]]) {
+        return obj;
+    } else if ([obj isKindOfClass:[NSNumber class]]) {
+        return [obj description];
     }
-    return obj;
+    return nil;
 }
 
 - (NSNumber *)getNumber:(NSString *)key {
@@ -66,25 +68,36 @@
     return nil;
 }
 
-- (void)sendResult:(id)result byCode:(id<NSCopying>)code {
-    [_streams[code] post:result];
+- (void)sendResult:(id)result byKey:(id<NSCopying>)key {
+    [_streams[key] post:result];
 }
 
-- (TSDrivenStream *)resultByCode:(id<NSCopying>)code {
-    TSDrivenStream *driven = _streams[code];
+- (TSDrivenStream *)resultByKey:(id<NSCopying>)key {
+    TSDrivenStream *driven = _streams[key];
     if (!driven) {
         driven = [TSDrivenStream stream];
-        _streams[code] = driven;
+        _streams[key] = driven;
     }
     return driven;
 }
 
 - (TSDrivenStream *)onResult {
-    return [self resultByCode:[NSString stringWithFormat:@"OnResultStream.%@", self]];
+    return [self resultByKey:[NSString stringWithFormat:@"OnResultStream.%@", self]];
 }
 
 - (TSDrivenStream *)onDestroy {
-    return [self resultByCode:[NSString stringWithFormat:@"OnDestroyStream.%@", self]];
+    return [self resultByKey:[NSString stringWithFormat:@"OnDestroyStream.%@", self]];
+}
+
+- (void)addParam:(id)object forKey:(NSString *)key {
+    if (!object || !key) {
+        return;
+    }
+    _extraParameters[key] = object;
+}
+
+- (void)addParameters:(NSDictionary *)parameters {
+    [_extraParameters addEntriesFromDictionary:parameters];
 }
 
 - (NSNumberFormatter *)formatter {

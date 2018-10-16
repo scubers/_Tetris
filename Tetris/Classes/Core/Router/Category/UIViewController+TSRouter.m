@@ -91,8 +91,8 @@
     [[self ts_getIntentable].ts_sourceIntent.onResult post:stream];
 }
 
-- (void)ts_sendResult:(id)result byCode:(id<NSCopying>)code {
-    [[self ts_getIntentable].ts_sourceIntent sendResult:result byCode:code];
+- (void)ts_sendResult:(id)result byKey:(id<NSCopying>)key {
+    [[self ts_getIntentable].ts_sourceIntent sendResult:result byKey:key];
 }
 
 @end

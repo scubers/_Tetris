@@ -23,7 +23,7 @@ TS_ROUTE(@"/demo15/:identifier/:keyword/:id/suffix")
 
 - (void)setTs_sourceIntent:(TSIntent *)ts_sourceIntent {
     [super setTs_sourceIntent:ts_sourceIntent];
-    [self ts_autowireTSTypesWithDict:self.ts_sourceIntent.urlComponent.params];
+//    [self ts_autowireTSTypesWithDict:self.ts_sourceIntent.urlComponent.params];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

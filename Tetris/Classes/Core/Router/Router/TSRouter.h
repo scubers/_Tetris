@@ -46,6 +46,8 @@ NS_SWIFT_NAME(Router)
 
 @property (nonatomic, strong) TSIntercepterManager *intercepterMgr;
 
+@property (nonatomic, assign) BOOL viewControllableParamInject;
+
 #pragma mark - Action
 
 - (void)bindUrl:(NSString *)url toAction:(TSStream * (^)(TSTreeUrlComponent *component))action;

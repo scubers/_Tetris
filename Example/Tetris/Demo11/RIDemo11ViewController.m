@@ -26,7 +26,7 @@ TS_ROUTE(@"/demo11")
     [self.view addSubview:btn];
 
     __weak typeof(self) ws = self;
-    [[self.ts_sourceIntent resultByCode:@1] subscribeNext:^(id  _Nullable obj) {
+    [[self.ts_sourceIntent resultByKey:@1] subscribeNext:^(id  _Nullable obj) {
         [ws alert:obj complete:^{
             [ws ts_finishDisplay:YES complete:^{
                 [ws ts_sendResult:@{@"key" : @"result"}];
@@ -38,7 +38,7 @@ TS_ROUTE(@"/demo11")
 }
 
 - (void)sendWave:(id)sender {
-    [self.ts_sourceIntent sendResult:@"by code msg" byCode:@1];
+    [self.ts_sourceIntent sendResult:@"by code msg" byKey:@1];
 }
 
 @end

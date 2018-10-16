@@ -9,17 +9,30 @@
 import UIKit
 import RxSwift
 
+
+
 class SwiftModules1: NSObject, Modularable {
+    
     var priority: ModulePriority = TSModulePriorityNormal + 2000
     
-    func tetrisModuleInit(_ context: TSModuleContext) {
+    func tetrisModuleInit(_ context: ModuleContext) {
+        print("\(type(of: self)) \(#function)")
+        
+        
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        
+    }
+    
+    func tetrisModuleDidTrigger(event: Int, userInfo: [AnyHashable : Any]? = nil) {
         print("\(type(of: self)) \(#function)")
     }
 }
 
 class SwiftModules2: NSObject, Modularable {
     var priority: ModulePriority = TSModulePriorityHigh  + 20000
-    func tetrisModuleInit(_ context: TSModuleContext) {
+    func tetrisModuleInit(_ context: ModuleContext) {
         print("\(type(of: self)) \(#function)")
     }
 
@@ -27,14 +40,14 @@ class SwiftModules2: NSObject, Modularable {
 
 class SwiftModules3: NSObject, Modularable {
     var priority: ModulePriority = TSModulePriorityLow + 20000
-    func tetrisModuleInit(_ context: TSModuleContext) {
+    func tetrisModuleInit(_ context: ModuleContext) {
         print("\(type(of: self)) \(#function)")
     }
 }
 
 class SwiftModules4: NSObject, Modularable {
     var priority: ModulePriority = TSModulePriorityNormal  + 20000
-    func tetrisModuleInit(_ context: TSModuleContext) {
+    func tetrisModuleInit(_ context: ModuleContext) {
         print("\(type(of: self)) \(#function)")
     }
 }
@@ -58,8 +71,6 @@ class Services : NSObject, IServiceable, Component, TestProtocolA {
     
     func methodA() {
         print("--swift servcie---")
-        
-            
     }
     
     

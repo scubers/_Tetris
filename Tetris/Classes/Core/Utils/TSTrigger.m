@@ -28,8 +28,13 @@
         _aProtocol = aProtocol;
         _target = target;
         _signatures = @{}.mutableCopy;
+        [self setClassConfirmToProtocol:aProtocol];
     }
     return self;
+}
+
+- (void)setClassConfirmToProtocol:(Protocol *)aProtocol {
+    class_addProtocol(self.class, aProtocol);
 }
 
 - (instancetype)initWithProtocol:(Protocol *)aProtocol block:(TSTriggerBlock)block {
@@ -37,6 +42,7 @@
         _aProtocol = aProtocol;
         _block = block;
         _signatures = @{}.mutableCopy;
+        [self setClassConfirmToProtocol:aProtocol];
     }
     return self;
 }
@@ -45,7 +51,7 @@
     return self;
 }
 
-+ (BOOL)resolveClassMethod:(SEL)sel {
++ (BOOL)resolveInstanceMethod:(SEL)sel {
     return YES;
 }
 

@@ -15,19 +15,21 @@ public protocol TetrisStartable {
 /// Define a protocol that use for auto export
 public protocol Component : TetrisStartable {}
 
-
 @objc
 public class TetrisSwiftStarter : NSObject {
+    
+    public static var enableCache = false
+    
     @objc public class func start() {
-        
         let path = getDefaultPath()
-        
         let begin = Date.init().timeIntervalSince1970
-        if FileManager.default.fileExists(atPath: path) && construct(path: path) {
+        
+        if enableCache && FileManager.default.fileExists(atPath: path) && construct(path: path) {
             
         } else {
             _ = onlyAction
         }
+        
         let end = Date().timeIntervalSince1970
         print("\(begin)")
         print("\(end)")

@@ -23,12 +23,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - server methods
 
+- (void)enableServiceAutowired;
 
 #pragma mark - moduler methods
 
 
 #pragma mark - router methods
 
+- (void)enableViewControllableServiceAutowired;
+
+- (void)enableViewControllableInjection;
 
 @end
 

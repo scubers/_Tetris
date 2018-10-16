@@ -10,6 +10,7 @@
 #import "TSError.h"
 #import "TSLogger.h"
 #import "TSCreator.h"
+#import "TSTypesAutowire.h"
 
 #pragma mark - _TSRouteAction
 
@@ -264,6 +265,9 @@
     if (!intent.viewControllable && intent.intentClass) {
         intentable = (id<TSIntentable>)[[TSCreator shared] createByClass:intent.intentClass];
         [(id<TSIntentable>)intentable setTs_sourceIntent:intent];
+        if (_viewControllableParamInject && [intentable isKindOfClass:[NSObject class]]) {
+            [((NSObject *)intentable) ts_autowireTSTypesWithDict:intent.extraParameters];
+        }
     }
 
     return intentable;

@@ -122,7 +122,7 @@ static TSModuleContext *__sharedContext;
 
 #pragma mark - getter
 
-- (id<UIApplicationDelegate>)trigger {
+- (id<TSModularComposable>)trigger {
     return _applicationTrigger.trigger;
 }
 

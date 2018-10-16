@@ -29,8 +29,11 @@
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[TSCreator shared] addListener:self];
-    [[TSCreator shared] addListener:[TSServiceCreatorListener new]];
-    [[TSCreator shared] addListener:[TSViewControllableCreatorListener new]];
+    
+    [_Tetris enableServiceAutowired];
+    [_Tetris enableViewControllableServiceAutowired];
+    [_Tetris enableViewControllableInjection];
+    
     [TetrisSwiftStarter start];
     return [super application:application willFinishLaunchingWithOptions:launchOptions];
 }

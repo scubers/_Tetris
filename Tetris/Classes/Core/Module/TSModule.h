@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - TSModuleContext
 
+NS_SWIFT_NAME(ModuleContext)
 @interface TSModuleContext : NSObject
 
 @property (nonatomic, strong, readonly) id<UIApplicationDelegate> applicationDelegate;

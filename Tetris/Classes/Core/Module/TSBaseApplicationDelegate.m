@@ -18,7 +18,9 @@
     
     [_Tetris.modular.trigger tetrisModuleInit:context];
     [_Tetris.modular.trigger tetrisModuleSetup:context];
-    [_Tetris.modular.trigger tetrisModuleSplash:context];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [_Tetris.modular.trigger tetrisModuleSplash:context];
+    });
     [_Tetris.modular.trigger application:application willFinishLaunchingWithOptions:launchOptions];
     
     return YES;
