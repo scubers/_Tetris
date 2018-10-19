@@ -76,19 +76,29 @@ public class TetrisSwiftStarter : NSObject {
     }
     
     class func starAwake() -> [String] {
-        let typeCount = Int(objc_getClassList(nil, 0))
-        let types = UnsafeMutablePointer<AnyClass>.allocate(capacity: typeCount)
-        let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyClass>(types)
-        objc_getClassList(autoreleasingTypes, Int32(typeCount))
+        
         var classes = [String]()
-        for index in 0 ..< typeCount {
-            if let type = types[index] as? TetrisStartable.Type {
-                classes.append(NSStringFromClass(types[index]))
+        TSUtils.enumerateClasses { (anyClass, idx) in
+            if let type = anyClass as? TetrisStartable.Type {
+                classes.append(NSStringFromClass(anyClass))
                 type.tetrisStart()
             }
         }
-        types.deallocate()
         print("class count: \(classes.count)")
         return classes
+        
+//        let typeCount = Int(objc_getClassList(nil, 0))
+//        let types = UnsafeMutablePointer<AnyClass>.allocate(capacity: typeCount)
+//        let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyClass>(types)
+//        objc_getClassList(autoreleasingTypes, Int32(typeCount))
+//        for index in 0 ..< typeCount {
+//            if let type = types[index] as? TetrisStartable.Type {
+//                classes.append(NSStringFromClass(types[index]))
+//                type.tetrisStart()
+//            }
+//        }
+//        types.deallocate()
+//        print("class count: \(classes.count)")
+//        return classes
     }
 }

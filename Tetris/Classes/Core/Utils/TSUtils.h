@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TSUtils : NSObject
 
++ (void)enumerateClasses:(void (^)(Class aClass, NSUInteger idx))block;
+
 @end
 
 NS_ASSUME_NONNULL_END
