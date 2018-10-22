@@ -95,4 +95,16 @@
     [[self ts_getIntentable].ts_sourceIntent sendResult:result byKey:key];
 }
 
+- (void)ts_sendNumber:(NSNumber *)number {
+    [[self ts_getIntentable].ts_sourceIntent.onNumberStream post:number];
+}
+
+- (void)ts_sendString:(NSString *)string {
+    [[self ts_getIntentable].ts_sourceIntent.onStringStream post:string];
+}
+
+- (void)ts_sendDict:(NSDictionary *)dict {
+    [[self ts_getIntentable].ts_sourceIntent.onDictStream post:dict];
+}
+
 @end

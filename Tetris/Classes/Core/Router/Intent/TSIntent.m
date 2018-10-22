@@ -89,6 +89,18 @@
     return [self resultByKey:[NSString stringWithFormat:@"OnDestroyStream.%@", self]];
 }
 
+- (TSDrivenStream<NSNumber *> *)onNumberStream {
+    return [self resultByKey:[NSString stringWithFormat:@"OnNumberStream.%@", self]];
+}
+
+- (TSDrivenStream<NSString *> *)onStringStream {
+    return [self resultByKey:[NSString stringWithFormat:@"OnStringStream.%@", self]];
+}
+
+- (TSDrivenStream<NSDictionary *> *)onDictStream {
+    return [self resultByKey:[NSString stringWithFormat:@"OnDictStream.%@", self]];
+}
+
 - (void)addParam:(id)object forKey:(NSString *)key {
     if (!object || !key) {
         return;

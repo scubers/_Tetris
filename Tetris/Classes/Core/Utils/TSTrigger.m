@@ -11,7 +11,7 @@
 
 
 
-@interface TSTrigger ()
+@interface TSTrigger () <TSTriggerProtocol>
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSMethodSignature *> *signatures;
 
@@ -38,11 +38,8 @@
 }
 
 - (instancetype)initWithProtocol:(Protocol *)aProtocol block:(TSTriggerBlock)block {
-    if (self = [super init]) {
-        _aProtocol = aProtocol;
+    if (self = [self initWithTarget:self protocol:aProtocol]) {
         _block = block;
-        _signatures = @{}.mutableCopy;
-        [self setClassConfirmToProtocol:aProtocol];
     }
     return self;
 }
@@ -80,11 +77,13 @@
 }
 
 - (void)forwardInvocation:(NSInvocation *)anInvocation {
-    if (_target) {
+    if (_target && [_target respondsToSelector:@selector(trigger:didTriggered:)]) {
         [_target trigger:self didTriggered:anInvocation];
-    } else if (_block) {
-        _block(self, anInvocation);
     }
+}
+
+- (void)trigger:(TSTrigger *)trigger didTriggered:(NSInvocation *)invocation {
+    !_block ?: _block(trigger, invocation);
 }
 
 @end

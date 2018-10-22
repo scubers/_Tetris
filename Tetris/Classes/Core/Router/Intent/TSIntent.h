@@ -31,9 +31,6 @@ NS_SWIFT_NAME(Intent)
 
 @property (nonatomic, strong, nullable) id<TSIntentDisplayerProtocol> displayer;
 
-@property (nonatomic, strong, readonly) TSDrivenStream *onResult;
-@property (nonatomic, strong, readonly) TSDrivenStream *onDestroy;
-
 
 /**
  designated initializer
@@ -60,6 +57,14 @@ NS_SWIFT_NAME(Intent)
 
 - (TSDrivenStream *)resultByKey:(id<NSCopying>)key NS_SWIFT_NAME(result(by:));
 - (void)sendResult:(nullable id)result byKey:(id<NSCopying>)key NS_SWIFT_NAME(send(result:by:));
+
+@property (nonatomic, strong, readonly) TSDrivenStream *onResult;
+@property (nonatomic, strong, readonly) TSDrivenStream *onDestroy;
+
+@property (nonatomic, strong, readonly) TSDrivenStream<NSNumber *> *onNumberStream;
+@property (nonatomic, strong, readonly) TSDrivenStream<NSString *> *onStringStream;
+@property (nonatomic, strong, readonly) TSDrivenStream<NSDictionary *> *onDictStream;
+
 
 - (void)addParam:(id)object forKey:(NSString *)key;
 - (void)addParameters:(nullable NSDictionary *)parameters;

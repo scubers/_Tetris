@@ -29,8 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)ts_setNeedDisplay:(BOOL)animated complete:(void (^ _Nullable)(void))complete;
 
 - (void)ts_sendResult:(nullable id)result;
-
 - (void)ts_sendResult:(nullable id)result byKey:(id<NSCopying>)key;
+- (void)ts_sendNumber:(nullable NSNumber *)number;
+- (void)ts_sendString:(nullable NSString *)string;
+- (void)ts_sendDict:(nullable NSDictionary *)dict;
 
 @end
 
