@@ -30,10 +30,13 @@
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[TSCreator shared] addListener:self];
     
+    
+    
     [_Tetris enableServiceAutowired];
     [_Tetris enableViewControllableServiceAutowired];
     [_Tetris enableViewControllableInjection];
     
+    [TetrisSwiftStarter enableCache];
     [TetrisSwiftStarter start];
     return [super application:application willFinishLaunchingWithOptions:launchOptions];
 }

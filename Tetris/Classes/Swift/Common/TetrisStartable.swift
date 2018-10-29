@@ -18,13 +18,18 @@ public protocol Component : TetrisStartable {}
 @objc
 public class TetrisSwiftStarter : NSObject {
     
-    public static var enableCache = false
+    public static var isEnableCache = false
+    
+    
+    @objc public class func enableCache() {
+        isEnableCache = true
+    }
     
     @objc public class func start() {
         let path = getDefaultPath()
         let begin = Date.init().timeIntervalSince1970
         
-        if enableCache && FileManager.default.fileExists(atPath: path) && construct(path: path) {
+        if isEnableCache && FileManager.default.fileExists(atPath: path) && construct(path: path) {
             
         } else {
             _ = onlyAction
@@ -78,27 +83,28 @@ public class TetrisSwiftStarter : NSObject {
     class func starAwake() -> [String] {
         
         var classes = [String]()
-        TSUtils.enumerateClasses { (anyClass, idx) in
-            if let type = anyClass as? TetrisStartable.Type {
-                classes.append(NSStringFromClass(anyClass))
-                type.tetrisStart()
-            }
-        }
-        print("class count: \(classes.count)")
-        return classes
-        
-//        let typeCount = Int(objc_getClassList(nil, 0))
-//        let types = UnsafeMutablePointer<AnyClass>.allocate(capacity: typeCount)
-//        let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyClass>(types)
-//        objc_getClassList(autoreleasingTypes, Int32(typeCount))
-//        for index in 0 ..< typeCount {
-//            if let type = types[index] as? TetrisStartable.Type {
-//                classes.append(NSStringFromClass(types[index]))
+//        TSUtils.enumerateClasses { (anyClass, idx) in
+//            if let type = anyClass as? TetrisStartable.Type {
+//                classes.append(NSStringFromClass(anyClass))
 //                type.tetrisStart()
 //            }
 //        }
-//        types.deallocate()
 //        print("class count: \(classes.count)")
 //        return classes
+        
+        let typeCount = Int(objc_getClassList(nil, 0))
+        let types = UnsafeMutablePointer<AnyClass>.allocate(capacity: typeCount)
+        let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyClass>(types)
+        objc_getClassList(autoreleasingTypes, Int32(typeCount))
+        for index in 0 ..< typeCount {
+            if let type = types[index] as? TetrisStartable.Type {
+                classes.append(NSStringFromClass(types[index]))
+                type.tetrisStart()
+            }
+        }
+        types.deallocate(capacity: typeCount)
+        print("total count: \(typeCount)")
+        print("class count: \(classes.count)")
+        return classes
     }
 }

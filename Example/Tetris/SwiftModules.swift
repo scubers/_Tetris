@@ -10,7 +10,6 @@ import UIKit
 import RxSwift
 
 
-
 class SwiftModules1: NSObject, Modularable {
     
     var priority: ModulePriority = TSModulePriorityNormal + 2000
