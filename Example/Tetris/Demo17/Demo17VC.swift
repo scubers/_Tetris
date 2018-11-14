@@ -23,8 +23,7 @@ class Demo17Station: NSObject, Intentable, Routable {
         didSet {
             if let name = self.ts_sourceIntent?.getString("className")
                 , let classType =  NSClassFromString(name) as? UIViewController.Type {
-                
-                target = classType.init(nibName: nil, bundle: nil)
+                target = classType.init()
             }
         }
     }

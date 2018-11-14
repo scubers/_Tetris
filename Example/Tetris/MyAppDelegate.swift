@@ -22,8 +22,7 @@ class MyAppDelegate: TSBaseApplicationDelegate {
         
         let p = PublishSubject<Bool>()
         
-        TSTetris.shared().router.subscribeDriven(byUrl: "/changeDemo") { (comp) in
-//            s.post(nil)
+        TSTetris.shared().router.subscribeDriven(byUrl: "/changeDemo".to_tsUrl()) { (comp) in
             swiftDemo = !swiftDemo
             p.onNext(swiftDemo)
         }
@@ -48,11 +47,11 @@ class MyAppDelegate: TSBaseApplicationDelegate {
         
         p.onNext(true)
         
-        TSTetris.shared().router.action(byUrl: "/swift/actionDemo")?.subscribeNext({ (_) in
+        TSTetris.shared().router.action(byUrl: "/swift/actionDemo".to_tsUrl())?.subscribeNext({ (_) in
             
         })
         
-        TSTetris.shared().router.action(byUrl: "/oc/actionDemo")?.subscribeNext({ (_) in
+        TSTetris.shared().router.action(byUrl: "/oc/actionDemo".to_tsUrl())?.subscribeNext({ (_) in
             
         })
         

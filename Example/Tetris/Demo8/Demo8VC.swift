@@ -39,7 +39,7 @@ class Demo8VC: BaseVC, Routable {
     }
 
     @objc func click() {
-        TSTetris.shared().router.action(byUrl: "/swift/action/demo8?aa=aa&bb=bb#fff")?.subscribeNext({ (r) in
+        Tetris.action(url: "/swift/action/demo8?aa=aa&bb=bb#fff")?.subscribeNext({ (r) in
             self.alert(msg: "\(String(describing: r))")
         })
     }

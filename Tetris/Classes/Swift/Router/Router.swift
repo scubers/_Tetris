@@ -1,7 +1,7 @@
 
 /// Define a protocol that instance can present as a url
 public protocol URLPresentable {
-    func toURL() throws -> URL
+    func to_tsUrl() -> TSURLPresentable
 }
 
 /// Define a protocol that instance can provide a list of urls
@@ -9,28 +9,19 @@ public protocol URLRoutable {
     static var routeURLs : [URLPresentable] {get}
 }
 
-
 // MARK: - Extent url conforms to URLPresentable
 extension URL : URLPresentable {
-    public func toURL() throws -> URL {
-        return self
+    public func to_tsUrl() -> TSURLPresentable {
+        return NSURL(string: self.absoluteString)!
     }
 }
 
 // MARK: - Extent String conforms to URLPresentable
 extension String : URLPresentable {
-    public func toURL() throws -> URL {
-        return URL.init(string: self)!
+    public func to_tsUrl() -> TSURLPresentable {
+        return NSString(string: self)
     }
 }
-
-// MARK: - Extent NSString conforms to URLPresentable
-extension NSString : URLPresentable {
-    public func toURL() throws -> URL {
-        return URL.init(string: self as String)!
-    }
-}
-
 
 /// Define a Protocol that can auto export for routable
 public typealias Routable = (Component & URLRoutable)
@@ -38,7 +29,7 @@ public typealias Routable = (Component & URLRoutable)
 public extension Component where Self : URLRoutable, Self : Intentable {
     public static func tetrisStart() {
         self.routeURLs.forEach { (url) in
-            try! TSTetris.shared().router.bindUrl(url.toURL().absoluteString, intentable: Self.self)
+            TSTetris.shared().router.bindUrl(url.to_tsUrl(), intentable: Self.self)
         }
     }
 }
@@ -53,7 +44,7 @@ public typealias RouteActionable = (Component & RouteActioner & URLRoutable)
 
 public extension Component where Self : RouteActioner, Self : URLRoutable {
     public static func tetrisStart() {
-        TSTetris.shared().router.bindUrl(try! self.routeURLs.first!.toURL().absoluteString,
+        TSTetris.shared().router.bindUrl(self.routeURLs.first!.to_tsUrl(),
                                          toRouteAction: self.init())
     }
 }
@@ -88,8 +79,8 @@ public func prepare(intent: Intent, source: UIViewController? = nil, complete: (
 /// - Parameters:
 ///   - url: url
 ///   - action: action
-public func bind(url: String, to action: @escaping (TreeUrlComponent) -> TSStream<AnyObject>) {
-    TSTetris.shared().router.bindUrl(url, toAction: action)
+public func bind(url: URLPresentable, to action: @escaping (TreeUrlComponent) -> TSStream<AnyObject>) {
+    TSTetris.shared().router.bindUrl(url.to_tsUrl(), toAction: action)
 }
 
 
@@ -98,6 +89,6 @@ public func bind(url: String, to action: @escaping (TreeUrlComponent) -> TSStrea
 /// - Parameter url: url
 /// - Parameter params: params
 /// - Returns: TSStream
-public func action(url: String, params: [AnyHashable: Any]? = nil) -> TSStream<AnyObject>? {
-    return TSTetris.shared().router.action(byUrl: url, params: params)
+public func action(url: URLPresentable, params: [AnyHashable: Any]? = nil) -> TSStream<AnyObject>? {
+    return TSTetris.shared().router.action(byUrl: url.to_tsUrl(), params: params)
 }

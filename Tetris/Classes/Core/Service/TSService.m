@@ -73,13 +73,13 @@
     NSString *path = [NSString stringWithFormat:@"/%@", serviceName];
     TSService *serviceObject = [TSService serviceWithClass:aClass];
     serviceObject.singleton = singleton;
-    [_tree buildTreeWithURLString:path value:serviceObject];
+    [_tree buildWithURL:path value:serviceObject];
 }
 
 - (id<TSServiceable>)serviceByName:(NSString *)name {
     id<TSServiceable> service;
     NSString *path = [NSString stringWithFormat:@"/%@", name];
-    TSTreeUrlComponent *comp = [self.tree findByURLString:path];
+    TSTreeUrlComponent *comp = [self.tree findByURL:path];
     if (comp.value && [comp.value isKindOfClass:[TSService class]]) {
         service = ((TSService *)comp.value).getService;
     }

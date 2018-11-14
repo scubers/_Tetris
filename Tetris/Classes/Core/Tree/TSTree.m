@@ -322,29 +322,19 @@
 
 @implementation TSTree (URLSupport)
 
-- (void)buildTreeWithURL:(NSURL *)url value:(id)value {
-    TSTreeUrlComponent *comp = [TSTreeUrlComponent componentWithURL:url value:value];
+- (void)buildWithURL:(id<TSURLPresentable>)url value:(id)value {
+    TSTreeUrlComponent *comp = [TSTreeUrlComponent componentWithURL:url.ts_url value:value];
     [self buildTreeByURLComponents:comp];
 }
 
-- (TSTreeUrlComponent *)findByURL:(NSURL *)url {
-    TSTreeUrlComponent *comp = [TSTreeUrlComponent componentWithURL:url value:nil];
+- (TSTreeUrlComponent *)findByURL:(id<TSURLPresentable>)url {
+    TSTreeUrlComponent *comp = [TSTreeUrlComponent componentWithURL:url.ts_url value:nil];
     TSTreeResult *result = [self findNodeWithPath:comp.pathComponents];
     if (result) {
         comp.value = result.node.getValue;
         [comp addParameters:result.params];
     }
     return comp;
-}
-
-- (void)buildTreeWithURLString:(NSString *)urlString value:(id)value {
-    NSURL *url = [NSURL URLWithString:urlString];
-    [self buildTreeWithURL:url value:value];
-}
-
-- (TSTreeUrlComponent *)findByURLString:(NSString *)urlString {
-    NSURL *url = [NSURL URLWithString:urlString];
-    return [self findByURL:url];
 }
 
 #pragma mark - private
@@ -411,5 +401,26 @@
     }
 }
 
+
+@end
+
+
+#pragma mark - Extension
+
+@implementation NSString (TSURLPresentable)
+
+- (NSURL *)ts_url {
+    NSURL *url = [NSURL URLWithString:self];
+    TSAssertion(url, "[%@] cannot convert to a url", self);
+    return url;
+}
+
+@end
+
+@implementation NSURL (TSURLPresentable)
+
+- (NSURL *)ts_url {
+    return self;
+}
 
 @end

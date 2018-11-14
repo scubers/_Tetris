@@ -9,6 +9,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#pragma mark - TSURLPresentable
+
+@protocol TSURLPresentable
+
+- (NSURL *)ts_url;
+
+@end
+
+
 #pragma mark - RINodePath
 
 /**
@@ -122,11 +131,10 @@ NS_SWIFT_NAME(TreeUrlComponent)
 
 @interface TSTree (URLSupport)
 
-- (void)buildTreeWithURL:(NSURL *)url value:(id)value;
-- (TSTreeUrlComponent *)findByURL:(NSURL *)url;
+- (void)buildWithURL:(id<TSURLPresentable>)url value:(id)value;
 
-- (void)buildTreeWithURLString:(NSString *)urlString value:(id)value;
-- (TSTreeUrlComponent *)findByURLString:(NSString *)urlString;
+- (TSTreeUrlComponent *)findByURL:(id<TSURLPresentable>)url;
+
 
 @end
 
@@ -137,6 +145,15 @@ NS_SWIFT_NAME(TreeUrlComponent)
  sync find (block current quene)
  */
 @interface TSSyncTree : TSTree
+@end
+
+
+#pragma mark - Extension
+
+@interface NSString (TSURLPresentable) <TSURLPresentable>
+@end
+
+@interface NSURL (TSURLPresentable) <TSURLPresentable>
 @end
 
 NS_ASSUME_NONNULL_END

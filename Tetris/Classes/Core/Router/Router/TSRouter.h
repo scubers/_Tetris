@@ -50,20 +50,20 @@ NS_SWIFT_NAME(Router)
 
 #pragma mark - Action
 
-- (void)bindUrl:(NSString *)url toAction:(TSStream * (^)(TSTreeUrlComponent *component))action;
-- (void)bindUrl:(NSString *)url toRouteAction:(id<TSRouteActioner>)action;
+- (void)bindUrl:(id<TSURLPresentable>)url toAction:(TSStream * (^)(TSTreeUrlComponent *component))action;
+- (void)bindUrl:(id<TSURLPresentable>)url toRouteAction:(id<TSRouteActioner>)action;
 
-- (nullable TSStream *)actionByUrl:(NSString *)url;
-- (nullable TSStream *)actionByUrl:(NSString *)url params:(nullable NSDictionary *)params;
+- (nullable TSStream *)actionByUrl:(id<TSURLPresentable>)url;
+- (nullable TSStream *)actionByUrl:(id<TSURLPresentable>)url params:(nullable NSDictionary *)params;
 
 #pragma mark - Listener
 
-- (nullable TSCanceller *)subscribeDrivenByUrl:(NSString *)urlString callback:(void (^)(TSTreeUrlComponent *component))callback;
-- (void)postDrivenByUrl:(NSString *)url params:(nullable NSDictionary *)params;
+- (nullable TSCanceller *)subscribeDrivenByUrl:(id<TSURLPresentable>)urlString callback:(void (^)(TSTreeUrlComponent *component))callback;
+- (void)postDrivenByUrl:(id<TSURLPresentable>)url params:(nullable NSDictionary *)params;
 
 #pragma mark - View
 
-- (void)bindUrl:(NSString *)urlString intentable:(Class<TSIntentable>)aClass;
+- (void)bindUrl:(id<TSURLPresentable>)urlString intentable:(Class<TSIntentable>)aClass;
 
 - (TSStream<TSRouteResult *> *)prepare:(TSIntent *)intent source:(nullable id<TSViewControllable>)source complete:(void (^ _Nullable)(void))complete;
 

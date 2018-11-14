@@ -70,18 +70,18 @@
 
 #pragma mark - Action
 
-- (void)bindUrl:(NSString *)url toRouteAction:(id<TSRouteActioner>)action {
-    [_actionTree buildTreeWithURLString:url value:action];
+- (void)bindUrl:(id<TSURLPresentable>)url toRouteAction:(id<TSRouteActioner>)action {
+    [_actionTree buildWithURL:url value:action];
 }
 
-- (void)bindUrl:(NSString *)url toAction:(TSStream * _Nonnull (^)(TSTreeUrlComponent * _Nonnull))action {
+- (void)bindUrl:(id<TSURLPresentable>)url toAction:(TSStream * _Nonnull (^)(TSTreeUrlComponent * _Nonnull))action {
     _TSRouteAction *actionObj = [_TSRouteAction new];
     actionObj.action = action;
     [self bindUrl:url toRouteAction:actionObj];
 }
 
-- (TSStream *)actionByUrl:(NSString *)url params:(NSDictionary *)params {
-    TSTreeUrlComponent *comp = [_actionTree findByURLString:url];
+- (TSStream *)actionByUrl:(id<TSURLPresentable>)url params:(nullable NSDictionary *)params {
+    TSTreeUrlComponent *comp = [_actionTree findByURL:url];
     if (!comp) {
         return nil;
     }
@@ -90,24 +90,24 @@
     return [action getStreamByComponent:comp];
 }
 
-- (TSStream *)actionByUrl:(NSString *)url {
+- (TSStream *)actionByUrl:(id<TSURLPresentable>)url {
     return [self actionByUrl:url params:nil];
 }
 
 #pragma mark - Listener
 
-- (void)registerDrivenByUrl:(NSString *)urlString {
-    [_drivenTree buildTreeWithURLString:urlString value:[TSDrivenStream stream]];
+- (void)registerDrivenByUrl:(id<TSURLPresentable>)urlString {
+    [_drivenTree buildWithURL:urlString value:[TSDrivenStream stream]];
 }
 
-- (TSCanceller *)subscribeDrivenByUrl:(NSString *)urlString callback:(void (^)(TSTreeUrlComponent * _Nonnull))callback {
-    
+
+- (TSCanceller *)subscribeDrivenByUrl:(id<TSURLPresentable>)urlString callback:(void (^)(TSTreeUrlComponent * _Nonnull))callback {
     TSTreeUrlComponent *comp;
     @synchronized (_drivenTree) {
-        comp = [_drivenTree findByURLString:urlString];
+        comp = [_drivenTree findByURL:urlString];
         if (!comp.value) {
             [self registerDrivenByUrl:urlString];
-            comp = [_drivenTree findByURLString:urlString];
+            comp = [_drivenTree findByURL:urlString];
         }
     }
     return [((TSDrivenStream<TSTreeUrlComponent *> *)comp.value) subscribeNext:^(TSTreeUrlComponent * _Nullable obj) {
@@ -116,8 +116,8 @@
     
 }
 
-- (void)postDrivenByUrl:(NSString *)url params:(NSDictionary *)params {
-    TSTreeUrlComponent *comp = [_drivenTree findByURLString:url];
+- (void)postDrivenByUrl:(id<TSURLPresentable>)url params:(NSDictionary *)params {
+    TSTreeUrlComponent *comp = [_drivenTree findByURL:url];
     if (!comp.value || ![comp.value isKindOfClass:[TSDrivenStream class]]) {
         return;
     }
@@ -125,22 +125,22 @@
     [((TSDrivenStream<TSTreeUrlComponent *> *)comp.value) post:comp];
 }
 
-- (void)postStream:(NSString *)urlString params:(NSDictionary *)params {
-    TSTreeUrlComponent *comp = [_drivenTree findByURLString:urlString];
+- (void)postStream:(id<TSURLPresentable>)urlString params:(NSDictionary *)params {
+    TSTreeUrlComponent *comp = [_drivenTree findByURL:urlString];
     [comp.params addEntriesFromDictionary:params];
     if ([comp.value isKindOfClass:[TSDrivenStream class]]) {
         [((TSDrivenStream *)comp.value) post:comp];
     }
 }
 
-- (TSDrivenStream *)drivenByUrl:(NSString *)url {
-    return [_drivenTree findByURLString:url].value;
+- (TSDrivenStream *)drivenByUrl:(id<TSURLPresentable>)url {
+    return [_drivenTree findByURL:url].value;
 }
 
 #pragma mark - View
 
-- (void)bindUrl:(NSString *)urlString intentable:(Class<TSIntentable>)aClass {
-    [_viewTree buildTreeWithURLString:urlString value:aClass];
+- (void)bindUrl:(id<TSURLPresentable>)urlString intentable:(Class<TSIntentable>)aClass {
+    [_viewTree buildWithURL:urlString value:aClass];
 }
 
 - (TSStream<TSRouteResult *> *)prepare:(TSIntent *)intent source:(nullable id<TSViewControllable>)source complete:(void (^ _Nullable)(void))complete {
@@ -180,7 +180,7 @@
 
     // fix intent
     if (intent.intentClass == nil) {
-        TSTreeUrlComponent *comp = [_viewTree findByURLString:intent.urlString];
+        TSTreeUrlComponent *comp = [_viewTree findByURL:intent.urlString];
         intent.urlComponent = comp;
         intent.intentClass = comp.value;
         [intent.extraParameters addEntriesFromDictionary:comp.params];
