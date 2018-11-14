@@ -11,9 +11,13 @@
 
 @implementation UIViewController (TSRouter)
 
-+ (instancetype)ts_create {
-    return [[self alloc] init];
+- (instancetype)initWithIntent:(TSIntent *)intent {
+    if (self = [self init]) {
+        self.ts_sourceIntent = intent;
+    }
+    return self;
 }
+
 
 - (void)setTs_sourceIntent:(TSIntent *)ts_sourceIntent {
     objc_setAssociatedObject(self, _cmd, ts_sourceIntent, OBJC_ASSOCIATION_RETAIN_NONATOMIC);

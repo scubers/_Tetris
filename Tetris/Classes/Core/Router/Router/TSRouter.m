@@ -22,10 +22,6 @@
 
 @implementation _TSRouteAction
 
-+ (instancetype)ts_create {
-    return [[self alloc] init];
-}
-
 - (TSStream *)getStreamByComponent:(TSTreeUrlComponent *)component {
     return _action(component);
 }
@@ -263,7 +259,7 @@
     id<TSIntentable> intentable;
     
     if (!intent.viewControllable && intent.intentClass) {
-        intentable = (id<TSIntentable>)[[TSCreator shared] createByClass:intent.intentClass];
+        intentable = [[TSCreator shared] createIntentableByClass:intent.intentClass intent:intent];
         [(id<TSIntentable>)intentable setTs_sourceIntent:intent];
         if (_viewControllableParamInject && [intentable isKindOfClass:[NSObject class]]) {
             [((NSObject *)intentable) ts_autowireTSTypesWithDict:intent.extraParameters];

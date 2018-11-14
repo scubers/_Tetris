@@ -10,6 +10,7 @@
 #import "TSTetris.h"
 #import "TSError.h"
 #import "TSLogger.h"
+#import "TSIntent.h"
 
 @interface TSCreator ()
 
@@ -30,13 +31,26 @@ static TSCreator *__creator;
 }
 
 - (id<TSCreatable>)createByClass:(Class<TSCreatable>)aClass {
-    id<TSCreatable> object = [aClass ts_create];
+    id<TSCreatable> object = [[aClass alloc] init];
     if ([((id)object) respondsToSelector:@selector(ts_didCreate)]) {
         [object ts_didCreate];
     }
     
     [_listeners enumerateObjectsUsingBlock:^(id<TSCreatorListener>  _Nonnull listener, NSUInteger idx, BOOL * _Nonnull stop) {
         [listener ts_didCreateObject:object];
+    }];
+    
+    return object;
+}
+
+- (id<TSIntentable>)createIntentableByClass:(Class<TSIntentable>)aClass intent:(TSIntent *)intent {
+    id<TSIntentable> object = [[aClass alloc] initWithIntent:intent];
+    if ([((id)object) respondsToSelector:@selector(ts_didCreate)]) {
+        [object ts_didCreate];
+    }
+    
+    [_listeners enumerateObjectsUsingBlock:^(id<TSCreatorListener>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj ts_didCreateObject:object];
     }];
     
     return object;
@@ -61,11 +75,6 @@ static TSCreator *__creator;
 #pragma mark - NSObject Creatable Support
 
 @implementation NSObject (Creatable)
-
-+ (instancetype)ts_create {
-    return [[self alloc] init];
-}
-
 @end
 
 #pragma mark - NSObject Autowire

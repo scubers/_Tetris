@@ -31,6 +31,8 @@ NS_SWIFT_NAME(Intentable)
 
 @property (nonatomic, strong, nullable) TSIntent *ts_sourceIntent;
 
+- (instancetype)initWithIntent:(TSIntent *)intent;
+
 @optional
 
 + (nullable id<TSIntercepter>)ts_selfIntercepter;

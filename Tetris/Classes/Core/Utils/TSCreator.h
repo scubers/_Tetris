@@ -7,8 +7,11 @@
 
 #import <Foundation/Foundation.h>
 #import "TSCreatable.h"
+#import "TSRouterProtocols.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+@class TSIntent;
 
 NS_SWIFT_NAME(CreatorListener)
 @protocol TSCreatorListener
@@ -21,6 +24,8 @@ NS_SWIFT_NAME(Creator)
 + (instancetype)shared;
 
 - (nullable id<TSCreatable>)createByClass:(Class<TSCreatable>)aClass;
+
+- (nullable id<TSIntentable>)createIntentableByClass:(Class<TSIntentable>)aClass intent:(TSIntent *)intent;
 
 - (void)addListener:(id<TSCreatorListener>)listener;
 - (void)removeListener:(id<TSCreatorListener>)listener;

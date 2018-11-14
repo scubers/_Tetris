@@ -16,14 +16,12 @@ class Demo2VC: BaseVC, Routable {
 
     var name: String?
     var number: NSNumber?
-
-    override var ts_sourceIntent: Intent? {
-        didSet {
-            name = ts_sourceIntent?.getString("name")
-            number = ts_sourceIntent?.getNumber("number")
-        }
+    
+    convenience required init(intent: Intent) {
+        self.init()
+        name = intent.getString("name")
+        number = intent.getNumber("number")
     }
-
 
     override func viewDidLoad() {
         super.viewDidLoad()

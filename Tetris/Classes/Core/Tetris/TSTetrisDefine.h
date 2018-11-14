@@ -64,7 +64,7 @@
 
 #define TS_ACTION(_url) \
         + (void)load {\
-            [_Tetris.router bindUrl:_url toRouteAction:[self ts_create]];\
+            [_Tetris.router bindUrl:_url toRouteAction:[[self alloc] init]];\
         }
 
 #endif /* TSTetrisDefine_h */

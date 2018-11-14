@@ -24,10 +24,6 @@
 @end
 @implementation TSDemoModules
 
-+ (instancetype)ts_create {
-    return [[self alloc] init];
-}
-
 - (void)ts_didCreate {
     
 }

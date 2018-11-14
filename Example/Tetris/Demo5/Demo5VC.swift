@@ -9,9 +9,6 @@
 import UIKit
 
 class Demo5Inter: IntercepterAdapter, Component {
-    required override init() {
-        super.init()
-    }
 
     override func matchUrlPatterns() -> [String]? {
         return ["/swift/demo5\\??.*"]

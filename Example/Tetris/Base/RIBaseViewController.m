@@ -14,11 +14,6 @@
 
 @implementation RIBaseViewController
 
-+ (instancetype)ts_create {
-    return [[self alloc] init];
-}
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = NSStringFromClass(self.class);

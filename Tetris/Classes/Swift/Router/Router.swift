@@ -46,7 +46,6 @@ public extension Component where Self : URLRoutable, Self : Intentable {
 public extension Component where Self : Intercepter {
     public static func tetrisStart() {
         TSTetris.shared().router.intercepterMgr.add(self)
-//        TSTetris.shared().router.intercepterMgr.add(intercepter: self.ts_create())
     }
 }
 
@@ -55,7 +54,7 @@ public typealias RouteActionable = (Component & RouteActioner & URLRoutable)
 public extension Component where Self : RouteActioner, Self : URLRoutable {
     public static func tetrisStart() {
         TSTetris.shared().router.bindUrl(try! self.routeURLs.first!.toURL().absoluteString,
-                                         toRouteAction: self.ts_create())
+                                         toRouteAction: self.init())
     }
 }
 
