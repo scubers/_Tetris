@@ -14,7 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-typedef id<TSIntentable>(^TSIntentableFactoryBlock)(void);
+typedef id<TSIntentable> _Nullable (^TSIntentableFactoryBlock)(void);
 
 
 NS_SWIFT_NAME(Intent)
