@@ -90,6 +90,8 @@
 
     [self.window makeKeyAndVisible];
     
+    [TSInspector setEnabled:YES];
+    
     return YES;
 }
 

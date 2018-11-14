@@ -162,7 +162,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _root = [TSTreeNode nodeWithKey:@"Root of the tree" value:nil depth:0];
+        _root = [TSTreeNode nodeWithKey:@" " value:nil depth:0];
     }
     return self;
 }
@@ -253,6 +253,22 @@
     return [NSString stringWithFormat:@"\n%@", _root];
 }
 
+- (void)enumerateEndNode:(void (^)(TSNodePath * _Nonnull))block {
+    [self _enumerateNodes:_root prefix:@[].mutableCopy block:block];
+}
+
+- (void)_enumerateNodes:(TSTreeNode *)node prefix:(NSMutableArray<NSString *> *)prefix block:(void (^)(TSNodePath *))block {
+
+    [prefix addObject:node.key];
+    if (node.isEndingNode) {
+        TSNodePath *path = [TSNodePath nodePathWithPath:prefix value:node.value];
+        block(path);
+    }
+    
+    [node.children enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, TSTreeNode * _Nonnull obj, BOOL * _Nonnull stop) {
+        [self _enumerateNodes:obj prefix:prefix.mutableCopy block:block];
+    }];
+}
 
 @end
 
@@ -262,8 +278,7 @@
 
 @implementation TSTreeUrlComponent
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         _params = [NSMutableDictionary new];

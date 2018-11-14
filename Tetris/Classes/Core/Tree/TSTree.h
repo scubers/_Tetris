@@ -97,6 +97,8 @@ NS_SWIFT_NAME(Tree)
 
 - (nullable TSTreeResult *)findNodeWithPath:(NSArray<NSString *> *)path;
 
+- (void)enumerateEndNode:(void (^)(TSNodePath *path))block;
+
 @end
 
 
