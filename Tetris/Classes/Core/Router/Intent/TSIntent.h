@@ -14,6 +14,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
+typedef id<TSIntentable>(^TSIntentableFactoryBlock)(void);
+
+
 NS_SWIFT_NAME(Intent)
 @interface TSIntent : NSObject <NSCopying>
 
@@ -23,7 +26,7 @@ NS_SWIFT_NAME(Intent)
 
 @property (nonatomic, assign) BOOL skip; // skip the intercepters or not
 
-@property (nonatomic, strong, nullable) id<TSViewControllable> viewControllable;
+@property (nonatomic, copy  , nullable) TSIntentableFactoryBlock factory;
 
 @property (nonatomic, strong, nullable) TSTreeUrlComponent *urlComponent;
 
@@ -79,23 +82,23 @@ NS_SWIFT_NAME(Intent)
 - (instancetype)initWithUrl:(NSString *)urlString;
 - (instancetype)initWithClass:(Class<TSIntentable>)aClass;
 - (instancetype)initWithDisplayer:(id<TSIntentDisplayerProtocol>)displayer;
-- (instancetype)initWithTarget:(id<TSViewControllable>)target;
+- (instancetype)initWithFactory:(TSIntentableFactoryBlock)factory;
 
 - (instancetype)initWithUrl:(nullable NSString *)urlString
                 intentClass:(nullable Class<TSIntentable>)intentClass
                   displayer:(nullable id<TSIntentDisplayerProtocol>)displayer
-           viewControllable:(nullable id<TSViewControllable>)viewControllable;
+                    factory:(nullable TSIntentableFactoryBlock)factory;
 
 
 + (instancetype)intentWithUrl:(nullable NSString *)urlString
                   intentClass:(nullable Class<TSIntentable>)intentClass
                     displayer:(nullable id<TSIntentDisplayerProtocol>)displayer
-             viewControllable:(nullable id<TSViewControllable>)viewControllable;
+                      factory:(nullable TSIntentableFactoryBlock)factory;
 
 + (instancetype)intentWithUrl:(NSString *)urlString;
 + (instancetype)intentWithClass:(Class<TSIntentable>)aClass;
 + (instancetype)intentWithDisplayer:(id<TSIntentDisplayerProtocol>)displayer;
-+ (instancetype)intentWithTarget:(id<TSViewControllable>)target;
++ (instancetype)intentWithFactory:(TSIntentableFactoryBlock)factory;
 
 @end
 

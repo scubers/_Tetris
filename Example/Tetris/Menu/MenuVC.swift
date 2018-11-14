@@ -13,6 +13,7 @@ class MenuVC: BaseVC, Routable {
     class var routeURLs: [URLPresentable] {
         return ["/swift/menu"]
     }
+    
 
     var tableView: UITableView!
     var intents: [[String: Intent]] = [

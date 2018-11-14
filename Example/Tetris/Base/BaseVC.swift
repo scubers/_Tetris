@@ -34,4 +34,7 @@ class BaseVC: UIViewController {
         alert(msg: msg, complete: nil)
     }
 
+    deinit {
+        TSLogger.logMsg("\(String(describing: self)) Deallocated!! ")
+    }
 }

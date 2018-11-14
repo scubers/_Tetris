@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)log:(NSString *)msg, ...;
 
++ (void)logMsg:(NSString *)msg;
+
 + (void)logError:(NSError *)error;
 
 @end

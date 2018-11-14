@@ -20,10 +20,9 @@
     TSIntent *intent = [TSIntent intentWithUrl:self.urlString
                                    intentClass:self.intentClass
                                      displayer:self.displayer
-                              viewControllable:self.viewControllable];
+                                       factory:self.factory];
     intent->_extraParameters = self.extraParameters.mutableCopy;
     intent.urlComponent = self.urlComponent;
-    intent.viewControllable = self.viewControllable;
     return intent;
 }
 
@@ -129,35 +128,35 @@
 
 @implementation TSIntent (Creations)
 
-+ (instancetype)intentWithUrl:(NSString *)urlString intentClass:(Class<TSIntentable>)intentClass displayer:(id<TSIntentDisplayerProtocol>)displayer viewControllable:(nullable id<TSViewControllable>)viewControllable {
-    return [[self alloc] initWithUrl:urlString intentClass:intentClass displayer:displayer viewControllable:viewControllable];
++ (instancetype)intentWithUrl:(NSString *)urlString intentClass:(Class<TSIntentable>)intentClass displayer:(id<TSIntentDisplayerProtocol>)displayer factory:(nullable TSIntentableFactoryBlock)factory {
+    return [[self alloc] initWithUrl:urlString intentClass:intentClass displayer:displayer factory:factory];
 }
 
-- (instancetype)initWithUrl:(NSString *)urlString intentClass:(Class<TSIntentable>)intentClass displayer:(nullable id<TSIntentDisplayerProtocol>)displayer viewControllable:(nullable id<TSViewControllable>)viewControllable {
+- (instancetype)initWithUrl:(NSString *)urlString intentClass:(Class<TSIntentable>)intentClass displayer:(nullable id<TSIntentDisplayerProtocol>)displayer factory:(nullable TSIntentableFactoryBlock)factory {
     if (self = [self init]) {
         _urlString = urlString;
         _intentClass = intentClass;
         _displayer = displayer;
-        _viewControllable = viewControllable;
+        _factory = [factory copy];
         _streams = [NSMutableDictionary dictionaryWithCapacity:0];
     }
     return self;
 }
 
 - (instancetype)initWithUrl:(NSString *)urlString {
-    return [self initWithUrl:urlString intentClass:nil displayer:nil viewControllable:nil];
+    return [self initWithUrl:urlString intentClass:nil displayer:nil factory:nil];
 }
 
 - (instancetype)initWithClass:(Class<TSIntentable>)aClass {
-    return [self initWithUrl:nil intentClass:aClass displayer:nil viewControllable:nil];
+    return [self initWithUrl:nil intentClass:aClass displayer:nil factory:nil];
 }
 
 - (instancetype)initWithDisplayer:(id<TSIntentDisplayerProtocol>)displayer {
-    return [self initWithUrl:nil intentClass:nil displayer:displayer viewControllable:nil];
+    return [self initWithUrl:nil intentClass:nil displayer:displayer factory:nil];
 }
 
-- (instancetype)initWithTarget:(id<TSViewControllable>)target {
-    return [self initWithUrl:nil intentClass:nil displayer:nil viewControllable:target];
+- (instancetype)initWithFactory:(TSIntentableFactoryBlock)factory {
+    return [self initWithUrl:nil intentClass:nil displayer:nil factory:factory];
 }
 
 + (instancetype)intentWithUrl:(NSString *)urlString {
@@ -172,8 +171,8 @@
     return [[self alloc] initWithDisplayer:displayer];
 }
 
-+ (instancetype)intentWithTarget:(id<TSViewControllable>)target {
-    return [[self alloc] initWithTarget:target];
++ (instancetype)intentWithFactory:(TSIntentableFactoryBlock)factory {
+    return [[self alloc] initWithFactory:factory];
 }
 
 @end

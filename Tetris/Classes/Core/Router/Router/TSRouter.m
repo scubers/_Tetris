@@ -171,10 +171,10 @@
               source:(id<TSViewControllable>)source
           completion:(void (^)(void))completion
               finish:(void(^)(TSRouteResult *result))finish {
-
-    if (intent.viewControllable != nil) {
-        // intent 手动设置对象属于异常情况直接跳转
-        finish([self startViewTransition:intent source:source target:intent.viewControllable complete:completion]);
+    
+    if (intent.factory != nil) {
+        id<TSIntentable> object = [self generateInstanceForIntent:intent];
+        finish([self startViewTransition:intent source:source target:object complete:completion]);
         return;
     }
 
@@ -203,16 +203,11 @@
                 
             case TSIntercepterResultStatusPass:
             {
-                if (result.intent.viewControllable) {
-                    // 如果有主动设置对象，最高优先级
-                    finish([self startViewTransition:result.intent
-                                              source:source
-                                              target:result.intent.viewControllable
-                                            complete:completion]);
-
-                } else if (result.intent.intentClass) {
+                
+                id<TSViewControllable> target = [self generateInstanceForIntent:result.intent];
+                
+                if (target) {
                     // 找到配置
-                    id<TSViewControllable> target = [self generateInstanceForIntent:result.intent];
                     finish([self startViewTransition:result.intent
                                               source:source
                                               target:target
@@ -223,6 +218,7 @@
                     TSRouteResult *ret = [TSRouteResult resultWithStatus:TSRouteResultStatusLost viewControllable:nil intent:result.intent error:lostError];
                     finish(ret);
                 }
+
                 break;
             }
                 
@@ -252,14 +248,17 @@
     return ret;
 }
 
-- (id<TSViewControllable>)generateInstanceForIntent:(TSIntent *)intent {
-    
-    if (intent.viewControllable) return intent.viewControllable;
+- (id<TSIntentable>)generateInstanceForIntent:(TSIntent *)intent {
     
     id<TSIntentable> intentable;
     
-    if (!intent.viewControllable && intent.intentClass) {
+    if (intent.factory) {
+        intentable = intent.factory();
+    } else if (intent.intentClass) {
         intentable = [[TSCreator shared] createIntentableByClass:intent.intentClass intent:intent];
+    }
+    
+    if (intentable) {
         [(id<TSIntentable>)intentable setTs_sourceIntent:intent];
         if (_viewControllableParamInject && [intentable isKindOfClass:[NSObject class]]) {
             [((NSObject *)intentable) ts_autowireTSTypesWithDict:intent.extraParameters];

@@ -16,6 +16,10 @@
     va_end(ap);
 }
 
++ (void)logMsg:(NSString *)msg {
+    [self log:msg];
+}
+
 + (void)logError:(NSError *)error {
     NSLog(@"[Tetris error]: %@", error);
 }

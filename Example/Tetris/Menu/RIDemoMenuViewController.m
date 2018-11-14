@@ -50,6 +50,7 @@ TS_ROUTE(@"/menu")
 }
 
 - (NSArray<NSDictionary<NSString *,TSIntent *> *> *)getIntents {
+    
     return
     @[
       @{@"1. Just Route" : [TSIntent pushPopIntentByUrl:@"/demo1"]},
@@ -67,7 +68,7 @@ TS_ROUTE(@"/menu")
       @{@"13. Custom transition animation" : [TSIntent pushPopIntentByUrl:@"/demo13"]},
       @{@"14. Scheme host checking" : [TSIntent pushPopIntentByUrl:@"/demo14"]},
       @{@"15. Path parameter" : [TSIntent pushPopIntentByUrl:@"/demo15/100/keyword30/666/suffix"]},
-      @{@"16. Test direct set vc" : [TSIntent pushPopIntentByUrl:@"/demo16"]},
+      @{@"16. Test Factory" : [TSIntent pushPopIntentByUrl:@"/demo16"]},
       @{@"17. Native map" : [TSIntent pushPopIntentByUrl:[NSString stringWithFormat:@"/demo17/native_map/%@", NSStringFromClass(Demo17VC.class)]]},
       ];
     

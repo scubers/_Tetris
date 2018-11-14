@@ -54,11 +54,11 @@
 @implementation TSIntent (PresentDismissInit)
 
 + (instancetype)presentDismissByUrl:(NSString *)url {
-    return [[self alloc] initWithUrl:url intentClass:nil displayer:[TSPresentDismissDisplayer new] viewControllable:nil];
+    return [[self alloc] initWithUrl:url intentClass:nil displayer:[TSPresentDismissDisplayer new] factory:nil];
 }
 
 + (instancetype)presentDismissByClass:(Class<TSIntentable>)aClass {
-    return [[self alloc] initWithUrl:nil intentClass:aClass displayer:[TSPresentDismissDisplayer new] viewControllable:nil];
+    return [[self alloc] initWithUrl:nil intentClass:aClass displayer:[TSPresentDismissDisplayer new] factory:nil];
 }
 
 @end

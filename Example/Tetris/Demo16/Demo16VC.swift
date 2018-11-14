@@ -27,9 +27,15 @@ class Demo16VC: BaseVC, Routable {
 
     @objc func click() {
         let intent = Intent.pushPop(byUrl: "")
-        let vc = UIViewController()
-        vc.view.backgroundColor = UIColor.gray
-        intent.viewControllable = vc
+        intent.factory = { [weak self] in
+            let vc = BaseVC()
+            vc.view.backgroundColor = UIColor.darkGray
+            print("catch self \(String(describing: self))")
+            return vc
+        }
+        intent.onDestroy.subscribeNext { (_) in
+            
+        }
         ts_start(intent)
     }
 
