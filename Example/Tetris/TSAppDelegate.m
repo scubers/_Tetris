@@ -69,6 +69,7 @@
       }]
      subscribeNext:^(TSRouteResult *  _Nullable obj) {
          self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:obj.viewControllable.ts_viewController];
+         [TSInspector setEnabled:YES];
      }];
 
 

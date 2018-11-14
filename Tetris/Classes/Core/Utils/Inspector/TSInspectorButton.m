@@ -27,9 +27,9 @@ static TSInspectorButton *__singletonInstance;
     TSInspectorButton *btn = [TSInspectorButton buttonWithType:UIButtonTypeCustom];
     [btn setTitle:@"Inspect" forState:UIControlStateNormal];
     btn.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];
-    btn.frame = CGRectMake(0, 100, 80, 80);
+    btn.frame = CGRectMake(0, 100, 60, 60);
     btn.clipsToBounds = YES;
-    btn.layer.cornerRadius = 40;
+    btn.layer.cornerRadius = 30;
     return btn;
 }
 
@@ -49,13 +49,23 @@ static TSInspectorButton *__singletonInstance;
         rect.origin.y += point.y;
         self.frame = rect;
         [pan setTranslation:CGPointZero inView:self];
+    } else if (pan.state == UIGestureRecognizerStateEnded) {
+        CGRect rect = self.frame;
+        CGRect screenRect = [UIScreen mainScreen].bounds;
+        rect.origin.x = rect.origin.x > (screenRect.size.width - rect.size.width) / 2.0 ? (screenRect.size.width - rect.size.width) : 0;
+        rect.origin.y = MIN(MAX(0, rect.origin.y), screenRect.size.height - rect.size.height);
+        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:10 options:0 animations:^{
+            self.frame = rect;
+        } completion:nil];
     }
 }
 
 - (void)touch:(id)sender {
     TSIntent *intent = [TSIntent presentDismissByClass:[TSInspectorVC class]];
     UIViewController *vc = [UIApplication sharedApplication].delegate.window.rootViewController;
-    [[self getTop:vc] ts_start:intent];
+    [[self getTop:vc] ts_start:intent complete:^{
+        [self.superview bringSubviewToFront:self];
+    }];
 }
 
 - (UIViewController *)getTop:(UIViewController *)vc {
