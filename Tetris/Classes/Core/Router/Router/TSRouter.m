@@ -140,7 +140,11 @@
 #pragma mark - View
 
 - (void)bindUrl:(id<TSURLPresentable>)urlString intentable:(Class<TSIntentable>)aClass {
-    [_viewTree buildWithURL:urlString value:aClass];
+    [self bindLine:[[TSLine alloc] initWithUrl:urlString desc:@"" class:aClass]];
+}
+
+- (void)bindLine:(TSLine *)line {
+    [_viewTree buildWithURL:line.url value:line];
 }
 
 - (TSStream<TSRouteResult *> *)prepare:(TSIntent *)intent source:(nullable id<TSViewControllable>)source complete:(void (^ _Nullable)(void))complete {
@@ -182,7 +186,7 @@
     if (intent.intentClass == nil) {
         TSTreeUrlComponent *comp = [_viewTree findByURL:intent.urlString];
         intent.urlComponent = comp;
-        intent.intentClass = comp.value;
+        intent.intentClass = ((TSLine *)(comp.value)).intentableClass;
         [intent.extraParameters addEntriesFromDictionary:comp.params];
     }
     

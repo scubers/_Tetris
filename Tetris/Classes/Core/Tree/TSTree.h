@@ -17,8 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
-#pragma mark - RINodePath
+#pragma mark - TSNodePath
 
 /**
  Tree节点路径描述对象

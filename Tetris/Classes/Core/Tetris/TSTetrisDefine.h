@@ -48,12 +48,18 @@
 
 
 #define TS_EXPORT_ROUTE(className, url, anyDifferentSuffix) \
-        @implementation className (IntentExport_##className##_##anyDifferentSuffix)\
-        + (void)load { [_Tetris.router bindUrl:(url) intentable:self];} \
+        @implementation className (IntentExport_##className##_##anyDifferentSuffix) \
+        + (void)load { [[TSTetris shared].router bindLine:[[TSLine alloc] initWithUrl:(url) desc:@#anyDifferentSuffix class:self]]; }\
         @end
 
-#define TS_ROUTE(_url) \
-        + (void)load { [_Tetris.router bindUrl:(_url) intentable:self];}
+//+ (void)load { @#anyDifferentSuffix;[_Tetris.router bindUrl:(url) intentable:self];} \
+
+#define TS_ROUTE_MSG(_url, _msg) \
+        + (void)load { \
+            [[TSTetris shared].router bindLine:[[TSLine alloc] initWithUrl:_url desc:_msg class:self]];\
+        }
+
+#define TS_ROUTE(_url) TS_ROUTE_MSG(_url, @"")
 
 #define TS_INTERCEPTER(TSIntercepterPriority) \
         + (void)load { \

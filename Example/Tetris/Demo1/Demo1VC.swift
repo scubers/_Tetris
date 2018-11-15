@@ -12,7 +12,8 @@ import UIKit
 class Demo1VC: BaseVC, Routable {
     
     class var routeURLs: [URLPresentable] {
-        return ["/swift/demo1"]
+        //        return ["/swift/demo1"]
+        return [LineDesc("/swift/demo1", desc: "SwiftJustRoute")]
     }
     
     override class func ts_selfIntercepter() -> Intercepter? {

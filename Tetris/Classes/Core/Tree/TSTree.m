@@ -8,7 +8,7 @@
 #import "TSTree.h"
 #import "TSError.h"
 
-#pragma mark - RINodePath
+#pragma mark - TSNodePath
 
 @implementation TSNodePath
 
@@ -21,8 +21,7 @@
 
 @end
 
-
-#pragma mark - RITreeNode
+#pragma mark - TSTreeNode
 
 @interface TSTreeNode ()
 
@@ -430,12 +429,20 @@
     return url;
 }
 
+- (NSString *)ts_description {
+    return self.description;
+}
+
 @end
 
 @implementation NSURL (TSURLPresentable)
 
 - (NSURL *)ts_url {
     return self;
+}
+
+- (NSString *)ts_description {
+    return self.description;
 }
 
 @end

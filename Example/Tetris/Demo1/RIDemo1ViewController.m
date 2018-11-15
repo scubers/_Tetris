@@ -21,9 +21,12 @@ TS_AUTOWIRED(RIDemo1ServicePrt, demo1Service)
 
 @end
 
+TS_EXPORT_ROUTE(RIDemo1ViewController, @"/demo1/demo1", lkj)
+
 @implementation RIDemo1ViewController
 
-TS_ROUTE(@"/demo1")
+//TS_ROUTE(@"/demo1")
+TS_ROUTE_MSG(@"/demo1", @"Just Route")
 
 - (void)viewDidLoad {
     [super viewDidLoad];

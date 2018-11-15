@@ -9,6 +9,7 @@
 #import "TSIntercepterManager.h"
 #import "TSStream.h"
 #import "TSTree.h"
+#import "TSLine.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -63,7 +64,8 @@ NS_SWIFT_NAME(Router)
 
 #pragma mark - View
 
-- (void)bindUrl:(id<TSURLPresentable>)urlString intentable:(Class<TSIntentable>)aClass;
+//- (void)bindUrl:(id<TSURLPresentable>)urlString intentable:(Class<TSIntentable>)aClass;
+- (void)bindLine:(TSLine *)line;
 
 - (TSStream<TSRouteResult *> *)prepare:(TSIntent *)intent source:(nullable id<TSViewControllable>)source complete:(void (^ _Nullable)(void))complete;
 

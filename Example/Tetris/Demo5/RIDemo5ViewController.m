@@ -30,7 +30,7 @@ TS_INTERCEPTER(TSIntercepterPriorityNormal)
 @end
 
 
-TS_EXPORT_ROUTE(RIDemo5ViewController, @"/interceptered/demo5", 100);
+TS_EXPORT_ROUTE(RIDemo5ViewController, @"/interceptered/demo5", sldkj);
 
 @interface RIDemo5ViewController ()
 

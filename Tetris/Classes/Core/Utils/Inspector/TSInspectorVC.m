@@ -11,10 +11,12 @@
 #import "TSPresentDismissDisplayer.h"
 #import "TSInspectorButton.h"
 #import "TSInspector.h"
+#import "TSInspectorCell.h"
 
 @interface TSInspectComponent : NSObject
 @property (nonatomic, strong) NSString *key;
-@property (nonatomic, strong) id value;
+@property (nonatomic, strong) NSString *value;
+@property (nonatomic, strong) NSString *desc;
 @end
 @implementation TSInspectComponent
 @end
@@ -57,7 +59,9 @@
     [tree enumerateEndNode:^(TSNodePath * _Nonnull path) {
         TSInspectComponent *comp = [TSInspectComponent new];
         comp.key = [[path.path componentsJoinedByString:@"/"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        comp.value = [path.value description];
+        TSLine *line = ((TSLine *)path.value);
+        comp.value = NSStringFromClass(line.intentableClass);
+        comp.desc = line.desc;
         [_datas addObject:comp];
     }];
     
@@ -68,18 +72,19 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"xx"];
+    TSInspectorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"xx"];
     
     TSInspectComponent *comp = [self components][indexPath.row];
     
-    cell.textLabel.text = comp.key;
-    cell.detailTextLabel.text = [comp.value description];
+    cell.urlLabel.text = comp.key;
+    cell.classLabel.text = comp.value;
+    cell.descLabel.text = comp.desc;
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60;
+    return 90;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -116,6 +121,7 @@
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        [_tableView registerClass:[TSInspectorCell class] forCellReuseIdentifier:@"xx"];
     }
     return _tableView;
 }
