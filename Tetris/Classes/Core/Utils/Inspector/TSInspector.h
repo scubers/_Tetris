@@ -9,9 +9,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class TSIntent;
+
+@protocol TSInspectorHandler
+
+- (void)ts_handleIntent:(TSIntent *)intent;
+
+@end
+
+#define _TSInspector [TSInspector shared]
+
 @interface TSInspector : NSObject
 
-+ (void)setEnabled:(BOOL)enabled;
++ (instancetype)shared;
+
+@property (nonatomic, assign) BOOL enabled;
+
+@property (nonatomic, strong) id<TSInspectorHandler> handler;
 
 @end
 

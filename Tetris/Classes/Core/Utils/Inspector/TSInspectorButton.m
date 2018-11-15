@@ -25,11 +25,13 @@ static TSInspectorButton *__singletonInstance;
 
 + (instancetype)create {
     TSInspectorButton *btn = [TSInspectorButton buttonWithType:UIButtonTypeCustom];
-    [btn setTitle:@"Inspect" forState:UIControlStateNormal];
+    [btn setTitle:@"Tetris" forState:UIControlStateNormal];
     btn.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];
     btn.frame = CGRectMake(0, 100, 60, 60);
     btn.clipsToBounds = YES;
     btn.layer.cornerRadius = 30;
+    btn.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    btn.layer.borderWidth = 1.5;
     return btn;
 }
 

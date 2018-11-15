@@ -11,7 +11,7 @@
 #import "Tetris_Example-Swift.h"
 
 
-@interface TSAppDelegate () <TSCreatorListener>
+@interface TSAppDelegate () <TSCreatorListener, TSInspectorHandler>
 
 @property (nonatomic, strong) UIWindow *window;
 
@@ -23,6 +23,10 @@
 
 - (void)ts_didCreateObject:(id<TSCreatable>)object {
     NSLog(@"create: [%@]", object);
+}
+
+- (void)ts_handleIntent:(TSIntent *)intent {
+    [self.window.rootViewController ts_start:intent];
 }
 
 @synthesize window = _window;
@@ -69,7 +73,7 @@
       }]
      subscribeNext:^(TSRouteResult *  _Nullable obj) {
          self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:obj.viewControllable.ts_viewController];
-         [TSInspector setEnabled:YES];
+         [_TSInspector setEnabled:YES];
      }];
 
 
@@ -91,7 +95,8 @@
 
     [self.window makeKeyAndVisible];
     
-    [TSInspector setEnabled:YES];
+    [_TSInspector setEnabled:YES];
+    _TSInspector.handler = self;
     
     return YES;
 }

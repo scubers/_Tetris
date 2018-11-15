@@ -8,7 +8,9 @@
 #import "TSInspectorVC.h"
 #import "UIViewController+TSRouter.h"
 #import "TSPushPopDisplayer.h"
+#import "TSPresentDismissDisplayer.h"
 #import "TSInspectorButton.h"
+#import "TSInspector.h"
 
 @interface TSInspectComponent : NSObject
 @property (nonatomic, strong) NSString *key;
@@ -119,7 +121,15 @@
 }
 
 - (void)startUrl:(NSString *)url {
-    [self ts_start:[TSIntent pushPopIntentByUrl:url]];
+    id<TSInspectorHandler> handler = _TSInspector.handler;
+    TSIntent *intent = [TSIntent presentDismissByUrl:url];
+    if (handler) {
+        [self ts_finishDisplay:YES complete:^{
+            [handler ts_handleIntent:intent];
+        }];
+    } else {
+        [self ts_start:intent];
+    }
 }
 
 - (void)presentInputWithDefault:(NSString *)string {
