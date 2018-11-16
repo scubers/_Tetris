@@ -13,12 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(Creatable)
 @protocol TSCreatable
 
-- (instancetype)init;
-+ (instancetype)alloc NS_SWIFT_UNAVAILABLE("unavaliable");
-
++ (instancetype)ts_create;
 
 @optional
-
 
 - (void)ts_didCreate;
 

@@ -31,7 +31,7 @@ static TSCreator *__creator;
 }
 
 - (id<TSCreatable>)createByClass:(Class<TSCreatable>)aClass {
-    id<TSCreatable> object = [[aClass alloc] init];
+    id<TSCreatable> object = [aClass ts_create];
     if ([((id)object) respondsToSelector:@selector(ts_didCreate)]) {
         [object ts_didCreate];
     }
@@ -44,7 +44,7 @@ static TSCreator *__creator;
 }
 
 - (id<TSIntentable>)createIntentableByClass:(Class<TSIntentable>)aClass intent:(TSIntent *)intent {
-    id<TSIntentable> object = [[aClass alloc] initWithIntent:intent];
+    id<TSIntentable> object = [aClass ts_createWithIntent:intent];
     if ([((id)object) respondsToSelector:@selector(ts_didCreate)]) {
         [object ts_didCreate];
     }
@@ -75,6 +75,11 @@ static TSCreator *__creator;
 #pragma mark - NSObject Creatable Support
 
 @implementation NSObject (Creatable)
+
++ (instancetype)ts_create {
+    return [[self alloc] init];
+}
+
 @end
 
 #pragma mark - NSObject Autowire

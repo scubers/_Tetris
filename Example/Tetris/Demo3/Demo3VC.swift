@@ -9,7 +9,7 @@
 import UIKit
 
 class Demo3Inter: IntercepterAdapter, Component {
-    required init() {
+    required override init() {
         super.init()
         priority = TSIntercepterPriorityNormal
     }

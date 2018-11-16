@@ -16,6 +16,10 @@
 
 @implementation TSIntercepterAdapter
 
++ (instancetype)ts_create {
+    return [[self alloc] init];
+}
+
 - (instancetype)init {
     if (self = [super init]) {
         _priority = TSIntercepterPriorityNormal;

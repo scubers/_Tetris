@@ -18,6 +18,15 @@
     return self;
 }
 
++ (instancetype)ts_create {
+    return [[self alloc] init];
+}
+
++ (instancetype)ts_createWithIntent:(TSIntent *)intent {
+    UIViewController *vc = [[self alloc] init];
+    vc.ts_sourceIntent = intent;
+    return vc;
+}
 
 - (void)setTs_sourceIntent:(TSIntent *)ts_sourceIntent {
     objc_setAssociatedObject(self, _cmd, ts_sourceIntent, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
