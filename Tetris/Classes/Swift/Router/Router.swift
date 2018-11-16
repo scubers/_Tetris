@@ -71,7 +71,7 @@ public typealias RouteActionable = (Component & RouteActioner & URLRoutable)
 public extension Component where Self : RouteActioner, Self : URLRoutable {
     public static func tetrisStart() {
         TSTetris.shared().router.bindUrl(self.routeURLs.first!.to_tsUrl(),
-                                         toRouteAction: self.ts_create())
+                                         toRouteAction: self.init())
     }
 }
 

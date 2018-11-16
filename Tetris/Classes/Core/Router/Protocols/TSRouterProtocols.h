@@ -31,7 +31,8 @@ NS_SWIFT_NAME(Intentable)
 
 @property (nonatomic, strong, nullable) TSIntent *ts_sourceIntent;
 
-+ (instancetype)ts_createWithIntent:(TSIntent *)intent;
+//+ (instancetype)ts_createWithIntent:(TSIntent *)intent;
+- (instancetype)initWithIntent:(TSIntent *)intent;
 
 @optional
 

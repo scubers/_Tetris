@@ -16,6 +16,10 @@ class Demo1VC: BaseVC, Routable {
         return [LineDesc("/swift/demo1", desc: "SwiftJustRoute")]
     }
     
+    required convenience init(intent: Intent) {
+        self.init()
+    }
+    
     override class func ts_selfIntercepter() -> Intercepter? {
         return FinalIntercepter {
             print("----- demo1 vc self intercepter -----")
@@ -24,3 +28,10 @@ class Demo1VC: BaseVC, Routable {
     }
 
 }
+
+class OOO: NSObject {
+    required convenience init(value: Int) {
+        self.init()
+    }
+}
+

@@ -11,16 +11,16 @@ import UIKit
 // /demo17/native_map/:class_name
 class Demo17Station: NSObject, Intentable, Routable {
     
-    static var routeURLs: [URLPresentable] {
-        return [LineDesc("/demo17/native_map/:className", desc: "Native Map. params: className")]
-    }
-
     required override init() {
         super.init()
     }
     
-    class func ts_create(with intent: Intent) -> Self {
-        return self.init()
+    static var routeURLs: [URLPresentable] {
+        return [LineDesc("/demo17/native_map/:className", desc: "Native Map. params: className")]
+    }
+
+    required convenience init(intent: Intent) {
+        self.init()
     }
     
     var ts_sourceIntent: Intent? {

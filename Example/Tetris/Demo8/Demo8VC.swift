@@ -12,6 +12,10 @@ class Demo8Action: NSObject, RouteActionable {
     static var routeURLs: [URLPresentable] {
         return ["/swift/action/demo8"]
     }
+    
+    required override init() {
+        super.init()
+    }
 
     func getStreamBy(_ component: TreeUrlComponent) -> TSStream<AnyObject> {
         return TSStream.create({ (r) -> TSCanceller? in

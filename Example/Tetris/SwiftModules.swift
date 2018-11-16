@@ -12,6 +12,10 @@ import RxSwift
 
 class SwiftModules1: NSObject, Modularable {
     
+    required override init() {
+        super.init()
+    }
+    
     var priority: ModulePriority = TSModulePriorityNormal + 2000
     
     func tetrisModuleInit(_ context: ModuleContext) {
@@ -30,6 +34,9 @@ class SwiftModules1: NSObject, Modularable {
 }
 
 class SwiftModules2: NSObject, Modularable {
+    required override init() {
+        super.init()
+    }
     var priority: ModulePriority = TSModulePriorityHigh  + 20000
     func tetrisModuleInit(_ context: ModuleContext) {
         print("\(type(of: self)) \(#function)")
@@ -38,6 +45,9 @@ class SwiftModules2: NSObject, Modularable {
 }
 
 class SwiftModules3: NSObject, Modularable {
+    required override init() {
+        super.init()
+    }
     var priority: ModulePriority = TSModulePriorityLow + 20000
     func tetrisModuleInit(_ context: ModuleContext) {
         print("\(type(of: self)) \(#function)")
@@ -45,6 +55,9 @@ class SwiftModules3: NSObject, Modularable {
 }
 
 class SwiftModules4: NSObject, Modularable {
+    required override init() {
+        super.init()
+    }
     var priority: ModulePriority = TSModulePriorityNormal  + 20000
     func tetrisModuleInit(_ context: ModuleContext) {
         print("\(type(of: self)) \(#function)")
@@ -60,6 +73,9 @@ public protocol TestProtocolA {
 
 
 class Services : NSObject, IServiceable, Component, TestProtocolA {
+    required override init() {
+        super.init()
+    }
     
     static var interface: Protocol? = TestProtocolA.self
     
@@ -78,6 +94,10 @@ class Services : NSObject, IServiceable, Component, TestProtocolA {
 
 
 class MyAction: NSObject, RouteActionable {
+    
+    required override init() {
+        super.init()
+    }
     
     class var routeURLs: [URLPresentable] {
         return ["/swift/actionDemo?"]

@@ -34,8 +34,8 @@ NS_SWIFT_NAME(Creator)
 
 #pragma mark - NSObject Creatable Support
 
-@interface NSObject (Creatable) <TSCreatable>
-@end
+//@interface NSObject (Creatable) <TSCreatable>
+//@end
 
 #pragma mark - NSObject Autowire
 

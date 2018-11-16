@@ -31,7 +31,7 @@ static TSCreator *__creator;
 }
 
 - (id<TSCreatable>)createByClass:(Class<TSCreatable>)aClass {
-    id<TSCreatable> object = [aClass ts_create];
+    id<TSCreatable> object = [[aClass alloc] init];
     if ([((id)object) respondsToSelector:@selector(ts_didCreate)]) {
         [object ts_didCreate];
     }
@@ -44,7 +44,7 @@ static TSCreator *__creator;
 }
 
 - (id<TSIntentable>)createIntentableByClass:(Class<TSIntentable>)aClass intent:(TSIntent *)intent {
-    id<TSIntentable> object = [aClass ts_createWithIntent:intent];
+    id<TSIntentable> object = [[aClass alloc] initWithIntent:intent];
     if ([((id)object) respondsToSelector:@selector(ts_didCreate)]) {
         [object ts_didCreate];
     }

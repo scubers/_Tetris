@@ -10,14 +10,14 @@ import UIKit
 import Tetris
 
 class BaseVC: UIViewController {
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Swift-\(NSStringFromClass(type(of: self)))"
         navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "back", style: .plain, target: self, action: #selector(BaseVC.back))
         view.backgroundColor = UIColor.lightGray
     }
-
+    
     @objc func back() {
         ts_finishDisplay()
     }
