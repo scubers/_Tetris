@@ -89,7 +89,7 @@
 - (void)ts_setNeedDisplay {
     [self ts_setNeedDisplay:YES];
 }
-
+/*
 - (void)ts_sendResult:(id)stream {
     [[self ts_getIntentable].ts_sourceIntent.onResult post:stream];
 }
@@ -109,5 +109,5 @@
 - (void)ts_sendDict:(NSDictionary *)dict {
     [[self ts_getIntentable].ts_sourceIntent.onDictStream post:dict];
 }
-
+*/
 @end

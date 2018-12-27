@@ -10,6 +10,7 @@
 #import "TSRouterProtocols.h"
 #import "TSIntentDisplayerProtocol.h"
 #import "TSStream.h"
+#import "TSResult.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,8 +46,6 @@ NS_SWIFT_NAME(Intent)
 /// subscript
 - (void)setObject:(id)obj forKeyedSubscript:(id<NSCopying>)key;
 
-
-
 /**
  get string parameter
  */
@@ -56,17 +55,6 @@ NS_SWIFT_NAME(Intent)
  get number parameter
  */
 - (nullable NSNumber *)getNumber:(NSString *)key;
-
-
-- (TSDrivenStream *)resultByKey:(id<NSCopying>)key NS_SWIFT_NAME(result(by:));
-- (void)sendResult:(nullable id)result byKey:(id<NSCopying>)key NS_SWIFT_NAME(send(result:by:));
-
-@property (nonatomic, strong, readonly) TSDrivenStream *onResult;
-@property (nonatomic, strong, readonly) TSDrivenStream *onDestroy;
-
-@property (nonatomic, strong, readonly) TSDrivenStream<NSNumber *> *onNumberStream;
-@property (nonatomic, strong, readonly) TSDrivenStream<NSString *> *onStringStream;
-@property (nonatomic, strong, readonly) TSDrivenStream<NSDictionary *> *onDictStream;
 
 
 - (void)addParam:(id)object forKey:(NSString *)key;
@@ -99,6 +87,31 @@ NS_SWIFT_NAME(Intent)
 + (instancetype)intentWithClass:(Class<TSIntentable>)aClass;
 + (instancetype)intentWithDisplayer:(id<TSIntentDisplayerProtocol>)displayer;
 + (instancetype)intentWithFactory:(TSIntentableFactoryBlock)factory;
+
+@end
+
+
+@interface TSIntent (TSResult)
+
+- (TSStream<TSResult *> *)resultWithKey:(NSString *)key;
+
+- (TSStream<TSResult *> *)onDestroy;
+
+- (void)sendNumber:(NSNumber *)number source:(id)sender;
+- (TSStream<TSResult<NSNumber *> *> *)onNumber;
+
+- (void)sendString:(NSString *)string source:(id)sender;
+- (TSStream<TSResult<NSString *> *> *)onString;
+
+- (void)sendDict:(NSDictionary *)dict source:(id)sender;
+- (TSStream<TSResult<NSDictionary *> *> *)onDict;
+
+- (void)sendSuccess;
+- (TSStream<TSResult *> *)onSuccess;
+
+- (void)sendCancel;
+- (TSStream<TSResult *> *)onCancel;
+
 
 @end
 

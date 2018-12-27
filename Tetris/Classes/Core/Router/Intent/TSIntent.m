@@ -80,26 +80,6 @@
     return driven;
 }
 
-- (TSDrivenStream *)onResult {
-    return [self resultByKey:[NSString stringWithFormat:@"OnResultStream.%@", self]];
-}
-
-- (TSDrivenStream *)onDestroy {
-    return [self resultByKey:[NSString stringWithFormat:@"OnDestroyStream.%@", self]];
-}
-
-- (TSDrivenStream<NSNumber *> *)onNumberStream {
-    return [self resultByKey:[NSString stringWithFormat:@"OnNumberStream.%@", self]];
-}
-
-- (TSDrivenStream<NSString *> *)onStringStream {
-    return [self resultByKey:[NSString stringWithFormat:@"OnStringStream.%@", self]];
-}
-
-- (TSDrivenStream<NSDictionary *> *)onDictStream {
-    return [self resultByKey:[NSString stringWithFormat:@"OnDictStream.%@", self]];
-}
-
 - (void)addParam:(id)object forKey:(NSString *)key {
     if (!object || !key) {
         return;
@@ -119,7 +99,11 @@
 }
 
 - (void)dealloc {
-    [self.onDestroy post:self];
+    [self sendResult:self source:self for:[self destroyKey]];
+}
+
+- (NSString *)destroyKey {
+    return [NSString stringWithFormat:@"onDestroy.%@", self];
 }
 
 @end
@@ -177,3 +161,67 @@
 
 @end
 
+
+#pragma mark - TSResult
+
+@implementation TSIntent (TSResult)
+
+- (TSStream<TSResult *> *)resultWithKey:(NSString *)key {
+    TSDrivenStream *driven = _streams[key];
+    if (!driven) {
+        driven = [TSDrivenStream stream];
+        _streams[key] = driven;
+    }
+    return driven;
+}
+
+- (void)sendResult:(id)result source:(id)source for:(NSString *)key {
+    [_streams[key] post:[[TSResult alloc] initWithSource:source value:result]];
+}
+
+
+- (TSStream<TSResult *> *)onDestroy {
+    return [self resultWithKey:[self destroyKey]];
+}
+
+- (void)sendNumber:(NSNumber *)number source:(id)sender {
+    [self sendResult:number source:sender for:[self numberKey]];
+}
+- (TSStream<TSResult<NSNumber *> *> *)onNumber {
+    return [self resultWithKey:[self numberKey]];
+}
+
+- (void)sendString:(NSString *)string source:(id)sender {
+    [self sendResult:string source:sender for:[self stringKey]];
+}
+- (TSStream<TSResult<NSString *> *> *)onString {
+    return [self resultWithKey:[self stringKey]];
+}
+
+- (void)sendDict:(NSDictionary *)dict source:(id)sender {
+    [self sendResult:dict source:sender for:[self dictKey]];
+}
+- (TSStream<TSResult<NSDictionary *> *> *)onDict {
+    return [self resultWithKey:[self dictKey]];
+}
+
+#pragma mark - keys
+
+- (NSString *)resultKey {
+    return [NSString stringWithFormat:@"onResult.%@", self];
+}
+
+- (NSString *)numberKey {
+    return [NSString stringWithFormat:@"onNumber.%@", self];
+}
+
+- (NSString *)stringKey {
+    return [NSString stringWithFormat:@"onString.%@", self];
+}
+
+- (NSString *)dictKey {
+    return [NSString stringWithFormat:@"onDict.%@", self];
+}
+
+
+@end
