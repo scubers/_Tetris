@@ -7,6 +7,12 @@
 
 #import "TSInspector.h"
 #import "TSInspectorButton.h"
+#import "TSTetris.h"
+#import "TSPresentDismissDisplayer.h"
+#import "TSInspectorVC.h"
+#import "UIViewController+TSRouter.h"
+
+
 @interface TSInspectorBubbleVC : UIViewController
 @end
 @implementation TSInspectorBubbleVC
@@ -18,11 +24,16 @@
     btn.frame = rect;
     self.view.frame = rect;
     [self.view addSubview:btn];
+    [btn addTarget:self action:@selector(touch:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)touch:(id)sender {
+    [[[TSInspector shared] bubbleIntercepter] ts_didClickBubble];
 }
 
 @end
 
-@interface TSInspector ()
+@interface TSInspector () <TSInspectorBubbleIntercepter>
 @property (nonatomic, strong) UIWindow *window;
 @end
 
@@ -35,6 +46,17 @@ static TSInspector *__shared;
         __shared = [TSInspector new];
     });
     return __shared;
+}
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _bubbleIntercepter = self;
+    }
+    return self;
+}
+
+- (void)ts_didClickBubble {
+    [self presentInspector];
 }
 
 - (void)setEnabled:(BOOL)enabled {
@@ -69,6 +91,23 @@ static TSInspector *__shared;
     }
 }
 
+- (void)presentInspector {
+    TSIntent *intent = [TSIntent presentDismissByClass:[TSInspectorVC class]];
+    [[self getTopViewController] ts_start:intent];
+}
+
+- (UIViewController *)getTop:(UIViewController *)vc {
+    if (vc.presentedViewController) {
+        return [self getTop:vc.presentedViewController];
+    }
+    return vc;
+}
+
+- (UIViewController *)getTopViewController {
+    UIViewController *vc = [UIApplication sharedApplication].delegate.window.rootViewController;
+    return [self getTop:vc];
+}
+
 
 - (UIWindow *)window {
     if (!_window) {
@@ -82,4 +121,5 @@ static TSInspector *__shared;
     }
     return _window;
 }
+
 @end

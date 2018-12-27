@@ -12,9 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 @class TSIntent;
 
 @protocol TSInspectorHandler
-
 - (void)ts_handleIntent:(TSIntent *)intent;
+@end
 
+@protocol TSInspectorBubbleIntercepter <NSObject>
+- (void)ts_didClickBubble;
 @end
 
 #define _TSInspector [TSInspector shared]
@@ -25,7 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL enabled;
 
-@property (nonatomic, strong) id<TSInspectorHandler> handler;
+@property (nonatomic, weak  ) id<TSInspectorHandler> handler;
+@property (nonatomic, weak  ) id<TSInspectorBubbleIntercepter> bubbleIntercepter;
+
+- (void)presentInspector;
+
+- (UIViewController *)getTopViewController;
 
 @end
 

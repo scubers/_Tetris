@@ -11,7 +11,7 @@
 #import "Tetris_Example-Swift.h"
 
 
-@interface TSAppDelegate () <TSCreatorListener, TSInspectorHandler>
+@interface TSAppDelegate () <TSCreatorListener, TSInspectorHandler, TSInspectorBubbleIntercepter>
 
 @property (nonatomic, strong) UIWindow *window;
 
@@ -31,6 +31,18 @@
     [self.window.rootViewController ts_start:intent];
 }
 
+- (void)ts_didClickBubble {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Inspector" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Routers" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[TSInspector shared] presentInspector];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    
+    [[[TSInspector shared] getTopViewController] presentViewController:alert animated:YES completion:nil];
+}
+
 @synthesize window = _window;
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -45,8 +57,7 @@
     return [super application:application willFinishLaunchingWithOptions:launchOptions];
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [super application:application didFinishLaunchingWithOptions:launchOptions];
 
     TSDrivenStream *stream = [TSDrivenStream stream];
@@ -95,6 +106,7 @@
     [self.window makeKeyAndVisible];
     
     _TSInspector.handler = self;
+    _TSInspector.bubbleIntercepter = self;
     [_TSInspector setEnabled:YES];
     
     return YES;

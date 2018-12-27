@@ -6,10 +6,6 @@
 //
 
 #import "TSInspectorButton.h"
-#import "TSTetris.h"
-#import "TSPresentDismissDisplayer.h"
-#import "TSInspectorVC.h"
-#import "UIViewController+TSRouter.h"
 
 @implementation TSInspectorButton
 
@@ -25,26 +21,5 @@
     return btn;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        [self addTarget:self action:@selector(touch:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return self;
-}
-
-- (void)touch:(id)sender {
-    TSIntent *intent = [TSIntent presentDismissByClass:[TSInspectorVC class]];
-    UIViewController *vc = [UIApplication sharedApplication].delegate.window.rootViewController;
-    [[self getTop:vc] ts_start:intent complete:^{
-        [self.superview bringSubviewToFront:self];
-    }];
-}
-
-- (UIViewController *)getTop:(UIViewController *)vc {
-    if (vc.presentedViewController) {
-        return [self getTop:vc.presentedViewController];
-    }
-    return vc;
-}
 
 @end
