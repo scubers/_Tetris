@@ -17,6 +17,8 @@
 
 @property (nonatomic, assign) BOOL isSwiftDemo;
 
+@property (nonatomic, strong) UIWindow *testWindow;
+
 @end
 
 @implementation TSAppDelegate
@@ -33,8 +35,6 @@
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[TSCreator shared] addListener:self];
-    
-    
     
     [_Tetris enableServiceAutowired];
     [_Tetris enableViewControllableServiceAutowired];
@@ -73,7 +73,6 @@
       }]
      subscribeNext:^(TSRouteResult *  _Nullable obj) {
          self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:obj.viewControllable.ts_viewController];
-         [_TSInspector setEnabled:YES];
      }];
 
 
@@ -95,8 +94,8 @@
 
     [self.window makeKeyAndVisible];
     
-    [_TSInspector setEnabled:YES];
     _TSInspector.handler = self;
+    [_TSInspector setEnabled:YES];
     
     return YES;
 }
