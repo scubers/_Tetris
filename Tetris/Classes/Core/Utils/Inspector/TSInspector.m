@@ -63,8 +63,10 @@ static TSInspector *__shared;
     _enabled = enabled;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (enabled) {
+            UIWindow *origin = [UIApplication sharedApplication].keyWindow;
             [self.window makeKeyAndVisible];
             [self.window resignKeyWindow];
+            [origin makeKeyAndVisible];
         } else {
             [self.window resignKeyWindow];
             self.window = nil;
