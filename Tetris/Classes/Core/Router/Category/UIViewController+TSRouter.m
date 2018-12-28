@@ -89,6 +89,31 @@
 - (void)ts_setNeedDisplay {
     [self ts_setNeedDisplay:YES];
 }
+
+- (void)ts_sendResult:(id)object forKey:(NSString *)key {
+    [[self ts_getIntentable].ts_sourceIntent sendResult:object source:self for:key];
+}
+
+- (void)ts_sendNumber:(NSNumber *)number {
+    [[self ts_getIntentable].ts_sourceIntent sendNumber:number source:self];
+}
+
+- (void)ts_sendString:(NSString *)string {
+    [[self ts_getIntentable].ts_sourceIntent sendString:string source:self];
+}
+
+- (void)ts_sendDict:(NSDictionary *)dict {
+    [[self ts_getIntentable].ts_sourceIntent sendDict:dict source:self];
+}
+
+- (void)ts_sendSuccess {
+    [[self ts_getIntentable].ts_sourceIntent sendSuccessWithSource:self];
+}
+
+- (void)ts_sendCancel {
+    [[self ts_getIntentable].ts_sourceIntent sendCancelWithSource:self];
+}
+
 /*
 - (void)ts_sendResult:(id)stream {
     [[self ts_getIntentable].ts_sourceIntent.onResult post:stream];

@@ -98,13 +98,25 @@
     return _formatter;
 }
 
-- (void)dealloc {
-    [self sendResult:self source:self for:[self destroyKey]];
+- (void)sendResult:(id)result source:(id)source for:(NSString *)key {
+    [_streams[key] post:[[TSResult alloc] initWithSource:source value:result]];
 }
 
-- (NSString *)destroyKey {
-    return [NSString stringWithFormat:@"onDestroy.%@", self];
+- (TSStream<TSResult *> *)resultWithKey:(NSString *)key {
+    TSDrivenStream *driven = _streams[key];
+    if (!driven) {
+        driven = [TSDrivenStream stream];
+        _streams[key] = driven;
+    }
+    return driven;
 }
+
+
+
+- (void)dealloc {
+    [self sendResult:self source:self for:@"__onDestroy__"];
+}
+
 
 @end
 
@@ -166,62 +178,47 @@
 
 @implementation TSIntent (TSResult)
 
-- (TSStream<TSResult *> *)resultWithKey:(NSString *)key {
-    TSDrivenStream *driven = _streams[key];
-    if (!driven) {
-        driven = [TSDrivenStream stream];
-        _streams[key] = driven;
-    }
-    return driven;
+- (NSString *)keyWithSelector:(SEL)selector {
+    return [NSString stringWithFormat:@"__%@__", NSStringFromSelector(selector)];
 }
-
-- (void)sendResult:(id)result source:(id)source for:(NSString *)key {
-    [_streams[key] post:[[TSResult alloc] initWithSource:source value:result]];
-}
-
 
 - (TSStream<TSResult *> *)onDestroy {
-    return [self resultWithKey:[self destroyKey]];
+    return [self resultWithKey:@"__onDestroy__"];
 }
 
 - (void)sendNumber:(NSNumber *)number source:(id)sender {
-    [self sendResult:number source:sender for:[self numberKey]];
+    [self sendResult:number source:sender for:[self keyWithSelector:@selector(onNumber)]];
 }
 - (TSStream<TSResult<NSNumber *> *> *)onNumber {
-    return [self resultWithKey:[self numberKey]];
+    return [self resultWithKey:[self keyWithSelector:@selector(onNumber)]];
 }
 
 - (void)sendString:(NSString *)string source:(id)sender {
-    [self sendResult:string source:sender for:[self stringKey]];
+    [self sendResult:string source:sender for:[self keyWithSelector:@selector(onString)]];
 }
 - (TSStream<TSResult<NSString *> *> *)onString {
-    return [self resultWithKey:[self stringKey]];
+    return [self resultWithKey:[self keyWithSelector:@selector(onString)]];
 }
 
 - (void)sendDict:(NSDictionary *)dict source:(id)sender {
-    [self sendResult:dict source:sender for:[self dictKey]];
+    [self sendResult:dict source:sender for:[self keyWithSelector:@selector(onDict)]];
 }
 - (TSStream<TSResult<NSDictionary *> *> *)onDict {
-    return [self resultWithKey:[self dictKey]];
+    return [self resultWithKey:[self keyWithSelector:@selector(onDict)]];
 }
 
-#pragma mark - keys
-
-- (NSString *)resultKey {
-    return [NSString stringWithFormat:@"onResult.%@", self];
+- (void)sendSuccessWithSource:(id)sender {
+    [self sendResult:self source:sender for:[self keyWithSelector:@selector(onSuccess)]];
+}
+- (TSStream<TSResult *> *)onSuccess {
+    return [self resultByKey:[self keyWithSelector:@selector(onSuccess)]];
 }
 
-- (NSString *)numberKey {
-    return [NSString stringWithFormat:@"onNumber.%@", self];
+- (void)sendCancelWithSource:(id)sender {
+    [self sendResult:self source:sender for:[self keyWithSelector:@selector(onCancel)]];
 }
-
-- (NSString *)stringKey {
-    return [NSString stringWithFormat:@"onString.%@", self];
+- (TSStream<TSResult *> *)onCancel {
+    return [self resultByKey:[self keyWithSelector:@selector(onCancel)]];
 }
-
-- (NSString *)dictKey {
-    return [NSString stringWithFormat:@"onDict.%@", self];
-}
-
 
 @end

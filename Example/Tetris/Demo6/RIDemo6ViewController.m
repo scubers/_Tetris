@@ -28,7 +28,7 @@ TS_INTERCEPTER(TSIntercepterPriorityNormal)
 
     TSIntent *intent = [TSIntent pushPopIntentByUrl:@"/login/demo6"];
     intent.displayer = [TSPresentDismissDisplayer new];
-    [intent.onResult subscribeNext:^(id  _Nullable obj) {
+    [intent.onDict subscribeNext:^(TSResult<NSDictionary *> * _Nullable obj) {
         [judger.intent.extraParameters addEntriesFromDictionary:@{@"userId" : @"userId"}];
         [judger restart];
     }];
@@ -72,7 +72,7 @@ TS_ROUTE(@"/demo6")
 
 - (void)login:(id)sender {
     [self ts_finishDisplay:YES complete:^{
-        [self ts_sendResult:nil];
+        [self ts_sendDict:@{}];
     }];
 }
 

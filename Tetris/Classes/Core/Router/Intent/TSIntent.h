@@ -61,6 +61,10 @@ NS_SWIFT_NAME(Intent)
 - (void)addParameters:(nullable NSDictionary *)parameters;
 
 
+- (TSStream<TSResult *> *)resultWithKey:(NSString *)key;
+- (void)sendResult:(id)result source:(id)source for:(NSString *)key;
+
+
 @end
 
 #pragma mark - Creations
@@ -93,24 +97,22 @@ NS_SWIFT_NAME(Intent)
 
 @interface TSIntent (TSResult)
 
-- (TSStream<TSResult *> *)resultWithKey:(NSString *)key;
-
-- (TSStream<TSResult *> *)onDestroy;
+@property (readonly) TSStream<TSResult *> *onDestroy;
 
 - (void)sendNumber:(NSNumber *)number source:(id)sender;
-- (TSStream<TSResult<NSNumber *> *> *)onNumber;
+@property (readonly) TSStream<TSResult<NSNumber *> *> *onNumber;
 
 - (void)sendString:(NSString *)string source:(id)sender;
-- (TSStream<TSResult<NSString *> *> *)onString;
+@property (readonly) TSStream<TSResult<NSString *> *> *onString;
 
 - (void)sendDict:(NSDictionary *)dict source:(id)sender;
-- (TSStream<TSResult<NSDictionary *> *> *)onDict;
+@property (readonly) TSStream<TSResult<NSDictionary *> *> *onDict;
 
-- (void)sendSuccess;
-- (TSStream<TSResult *> *)onSuccess;
+- (void)sendSuccessWithSource:(id)sender;
+@property (readonly) TSStream<TSResult *> *onSuccess;
 
-- (void)sendCancel;
-- (TSStream<TSResult *> *)onCancel;
+- (void)sendCancelWithSource:(id)sender;
+@property (readonly) TSStream<TSResult *> *onCancel;
 
 
 @end

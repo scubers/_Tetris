@@ -69,7 +69,7 @@ extension MenuVC : UITableViewDelegate, UITableViewDataSource {
             .onNext { _ in print("---- intent destroy ----") }
             .subscribe()
         
-        intent?.onResult
+        intent?.onDict
             .onNext { print($0 as Any) }
             .subscribe()
         

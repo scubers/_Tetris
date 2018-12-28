@@ -23,7 +23,7 @@ class Demo6Inter : IntercepterAdapter, Component {
         let intent = Intent.pushPop(byUrl: "/login/demo6")
         intent.displayer = judger.intent().displayer
         intent
-            .onResult
+            .onDict
             .subscribeNext({_ in
                 judger.intent().extraParameters.addEntries(from: ["userId" : "userId"])
                 judger.restart()
