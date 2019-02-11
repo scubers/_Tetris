@@ -12,7 +12,6 @@ import UIKit
 class Demo1VC: BaseVC, Routable {
     
     class var routeURLs: [URLPresentable] {
-        //        return ["/swift/demo1"]
         return [LineDesc("/swift/demo1", desc: "SwiftJustRoute")]
     }
     
@@ -26,6 +25,14 @@ class Demo1VC: BaseVC, Routable {
             $0.doContinue()
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print(self.parent as Any)
+        if let parent = self.parent, let vm = TSViewModelFactory.shared.createViewModel(DemoViewModel.self, lifeController: parent) as? DemoViewModel {
+            vm.demo()
+        }
+    }
 
 }
 
@@ -35,3 +42,13 @@ class OOO: NSObject {
     }
 }
 
+
+class DemoViewModel: NSObject, ViewModelable {
+    required override init() {
+        super.init()
+    }
+    
+    func demo() {
+        print("view model function exectuted: \(self)")
+    }
+}

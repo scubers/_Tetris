@@ -23,7 +23,7 @@ NS_SWIFT_NAME(Creator)
 
 + (instancetype)shared;
 
-- (nullable id<TSCreatable>)createByClass:(Class<TSCreatable>)aClass;
+- (nullable __kindof id<TSCreatable>)createByClass:(Class<TSCreatable>)aClass;
 
 - (nullable id<TSIntentable>)createIntentableByClass:(Class<TSIntentable>)aClass intent:(TSIntent *)intent;
 
