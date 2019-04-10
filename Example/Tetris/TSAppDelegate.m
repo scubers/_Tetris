@@ -52,7 +52,7 @@
     [_Tetris enableViewControllableServiceAutowired];
     [_Tetris enableViewControllableInjection];
     
-    [TetrisSwiftStarter enableCache];
+//    [TetrisSwiftStarter enableCache];
     [TetrisSwiftStarter start];
     return [super application:application willFinishLaunchingWithOptions:launchOptions];
 }

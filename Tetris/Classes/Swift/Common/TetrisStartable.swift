@@ -42,7 +42,7 @@ public class TetrisSwiftStarter : NSObject {
     
     
     static var onlyAction: Void = {
-        let classes = starAwake()
+        let classes = startAwake()
         do {
             let data = try JSONEncoder().encode(classes)
             let path = getDefaultPath()
@@ -80,7 +80,7 @@ public class TetrisSwiftStarter : NSObject {
         return false
     }
     
-    class func starAwake() -> [String] {
+    class func startAwake() -> [String] {
         
         var classes = [String]()
 //        TSUtils.enumerateClasses { (anyClass, idx) in

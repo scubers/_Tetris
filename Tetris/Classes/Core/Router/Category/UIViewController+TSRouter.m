@@ -7,6 +7,7 @@
 
 #import "UIViewController+TSRouter.h"
 #import "TSLogger.h"
+#import "_TSDefaultFinishDisplayer.h"
 #import <objc/runtime.h>
 
 @implementation UIViewController (TSRouter)
@@ -51,16 +52,14 @@
 
 - (id<TSIntentable>)ts_getIntentable {
     if (![self conformsToProtocol:@protocol(TSIntentable)]) {
-        TSLog(@"Doesn't conforms to protocol <%@>", NSStringFromProtocol(@protocol(TSIntentable)));
+        TSLog(@"[%@] didn't conforms to protocol <%@>", NSStringFromClass(self.class), NSStringFromProtocol(@protocol(TSIntentable)));
         return nil;
     }
     return (id<TSIntentable>)self;
 }
 
 - (id<TSIntentDisplayerProtocol>)ts_getDisplayer {
-
     id<TSIntentable> intentable = [self ts_getIntentable];
-
     if (!intentable.ts_sourceIntent.displayer) {
         TSLog(@"Displayer is nil");
         return nil;
@@ -69,7 +68,12 @@
 }
 
 - (void)ts_finishDisplay:(BOOL)animated complete:(void (^)(void))complete {
-    [[self ts_getDisplayer] ts_finishDisplayViewController:self animated:animated completion:complete];
+    id<TSIntentDisplayerProtocol> displayer = [self ts_getDisplayer];
+    if (!displayer) {
+        displayer = [_TSDefaultFinishDisplayer new];
+        TSLog(@"Displayer is nil, will finish by [_TSDefaultFinishDisplayer]");
+    }
+    [displayer ts_finishDisplayViewController:self animated:animated completion:complete];
 }
 
 - (void)ts_finishDisplay:(BOOL)animated {

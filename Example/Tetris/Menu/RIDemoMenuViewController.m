@@ -70,6 +70,7 @@ TS_ROUTE(@"/menu")
       @{@"15. Path parameter" : [TSIntent pushPopIntentByUrl:@"/demo15/100/keyword30/666/suffix"]},
       @{@"16. Test Factory" : [TSIntent pushPopIntentByUrl:@"/demo16"]},
       @{@"17. Native map" : [TSIntent pushPopIntentByUrl:[NSString stringWithFormat:@"/demo17/native_map/%@", NSStringFromClass(Demo17VC.class)]]},
+      @{@"18. Default finish displayer" : [TSIntent presentDismissByUrl:@"/demo18"]},
       ];
     
     
