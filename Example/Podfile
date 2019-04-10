@@ -4,6 +4,7 @@ install! 'cocoapods', :deterministic_uuids => false
 target 'Tetris_Example' do
   pod 'Tetris/Rx', :path => '../'
 #  pod 'ReactiveObjC'
+  pod 'RxSwift', '~> 4.4.2', :inhibit_warnings => true
 
   target 'Tetris_Tests' do
     inherit! :search_paths

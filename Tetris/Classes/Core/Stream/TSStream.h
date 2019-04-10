@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TSStream<__covariant T> : NSObject
 
-typedef TSStream *(^TSBindStreamBlock)(T _Nullable value, BOOL *stop);
+typedef TSStream * _Nonnull (^TSBindStreamBlock)(T _Nullable value, BOOL *stop);
 
 + (instancetype)create:(TSCanceller * _Nullable (^)(id<TSReceivable> receiver))block;
 

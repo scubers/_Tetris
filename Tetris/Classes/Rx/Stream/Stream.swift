@@ -16,7 +16,7 @@ extension TSCanceller : Disposable {
 
 public extension Observable {
 
-    public class func by<Value>(stream: TSStream<Value>) -> Observable<Value> {
+    class func by<Value>(stream: TSStream<Value>) -> Observable<Value> {
         return Observable<Value>.create({ (o) -> Disposable in
             
             let cancel = stream.subscribeNext({ (value) in
@@ -33,7 +33,7 @@ public extension Observable {
 }
 
 public extension Observable where Element : AnyObject {
-    public func toStream() -> TSStream<Element> {
+    func toStream() -> TSStream<Element> {
         return TSStream<Element>.create({ (r) -> TSCanceller? in
             let dispose = self.subscribe(onNext: { (e) in
                 r.post(e)

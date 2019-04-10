@@ -53,7 +53,7 @@ public struct LineDesc: URLPresentable {
 public typealias Routable = (Component & URLRoutable)
 
 public extension Component where Self : URLRoutable, Self : Intentable {
-    public static func tetrisStart() {
+    static func tetrisStart() {
         self.routeURLs.forEach { (url) in
             TSTetris.shared().router.bindLine(Line(url: url.to_tsUrl(), desc: url.ts_description(), class: Self.self))
         }
@@ -61,7 +61,7 @@ public extension Component where Self : URLRoutable, Self : Intentable {
 }
 
 public extension Component where Self : Intercepter {
-    public static func tetrisStart() {
+    static func tetrisStart() {
         TSTetris.shared().router.intercepterMgr.add(self)
     }
 }
@@ -69,7 +69,7 @@ public extension Component where Self : Intercepter {
 public typealias RouteActionable = (Component & RouteActioner & URLRoutable)
 
 public extension Component where Self : RouteActioner, Self : URLRoutable {
-    public static func tetrisStart() {
+    static func tetrisStart() {
         TSTetris.shared().router.bindUrl(self.routeURLs.first!.to_tsUrl(),
                                          toRouteAction: self.init())
     }

@@ -12,7 +12,7 @@ public protocol IServiceable : Serviceable {
 
 // MARK: - Extent Component for Iserviceable
 public extension Component where Self : IServiceable {
-    public static func tetrisStart() {
+    static func tetrisStart() {
         if let pr = self.interface {
             TSTetris.shared().server.bindService(by: pr, class: Self.self, singleton: self.singleton)
         } else if let name = self.name {

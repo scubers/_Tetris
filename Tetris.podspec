@@ -44,7 +44,8 @@ TODO: Add long description of the pod here.
   s.subspec 'Rx' do |rx|
       rx.source_files = 'Tetris/Classes/Rx/**/*'
       rx.dependency 'Tetris/Swift'
-      rx.dependency 'RxSwift', '~> 4.3.1'
+      rx.dependency 'RxSwift'
+      puts "please specify RxSwift version in your own podfile."
   end
 
   s.default_subspec = 'Core'
