@@ -16,6 +16,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(InterceptToken)
+@protocol TSInterceptToken
+- (NSString *)ts_stringToken;
+@end
+
+NS_SWIFT_NAME(InterceptRule)
+@protocol TSInterceptRule
+- (BOOL)ts_checkIntent:(TSIntent *)intent token:(id<TSInterceptToken>)token;
+@end
+
 NS_SWIFT_NAME(IntercepterJudger)
 @protocol TSIntercepterJudger
 

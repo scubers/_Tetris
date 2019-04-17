@@ -11,15 +11,19 @@
 #import "TSIntentDisplayerProtocol.h"
 #import "TSStream.h"
 #import "TSResult.h"
+#import "TSIntercepter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 
-typedef id<TSIntentable> _Nullable (^TSIntentableFactoryBlock)(void);
 
 
 NS_SWIFT_NAME(Intent)
 @interface TSIntent : NSObject <NSCopying>
+
+typedef id<TSIntentable> _Nullable (^TSIntentableFactoryBlock)(void);
+typedef void (^TSIntentableDidCreateBlock)(id<TSIntentable> intentable);
+typedef id<TSInterceptToken> _Nullable (^TSInterceptTokenBlock)(void);
 
 @property (nonatomic, strong, nullable) Class<TSIntentable> intentClass;
 
@@ -35,6 +39,9 @@ NS_SWIFT_NAME(Intent)
 
 @property (nonatomic, strong, nullable) id<TSIntentDisplayerProtocol> displayer;
 
+@property (nonatomic, copy  , nullable) TSIntentableDidCreateBlock didCreate;
+
+@property (nonatomic, copy  , nullable) TSInterceptTokenBlock tokenBlock;
 
 /**
  designated initializer

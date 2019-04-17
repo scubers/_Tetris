@@ -6,6 +6,7 @@
 //
 
 #import "TSIntent.h"
+#import "TSInterceptTokens.h"
 
 @interface TSIntent ()
 
@@ -111,12 +112,9 @@
     return driven;
 }
 
-
-
 - (void)dealloc {
     [self sendResult:self source:self for:@"__onDestroy__"];
 }
-
 
 @end
 

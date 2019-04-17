@@ -269,6 +269,10 @@
         }
     }
 
+    if (intent.didCreate) {
+        intent.didCreate(intentable);
+    }
+
     return intentable;
 }
 
