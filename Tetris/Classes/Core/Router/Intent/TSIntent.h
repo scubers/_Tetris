@@ -12,6 +12,8 @@
 #import "TSStream.h"
 #import "TSResult.h"
 #import "TSIntercepter.h"
+#import "TSIntentableBuilder.h"
+#import "TSUtils.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,9 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(Intent)
 @interface TSIntent : NSObject <NSCopying>
 
-typedef id<TSIntentable> _Nullable (^TSIntentableFactoryBlock)(void);
 typedef void (^TSIntentableDidCreateBlock)(id<TSIntentable> intentable);
-typedef id<TSInterceptToken> _Nullable (^TSInterceptTokenBlock)(void);
 
 @property (nonatomic, strong, nullable) Class<TSIntentable> intentClass;
 
@@ -31,7 +31,7 @@ typedef id<TSInterceptToken> _Nullable (^TSInterceptTokenBlock)(void);
 
 @property (nonatomic, assign) BOOL skip; // skip the intercepters or not
 
-@property (nonatomic, copy  , nullable) TSIntentableFactoryBlock factory;
+@property (nonatomic, strong, nullable) TSIntentableBuilder *builder;
 
 @property (nonatomic, strong, nullable) TSTreeUrlComponent *urlComponent;
 
@@ -41,7 +41,8 @@ typedef id<TSInterceptToken> _Nullable (^TSInterceptTokenBlock)(void);
 
 @property (nonatomic, copy  , nullable) TSIntentableDidCreateBlock didCreate;
 
-@property (nonatomic, copy  , nullable) TSInterceptTokenBlock tokenBlock;
+
+- (BOOL)isCreatable;
 
 /**
  designated initializer
@@ -81,18 +82,19 @@ typedef id<TSInterceptToken> _Nullable (^TSInterceptTokenBlock)(void);
 - (instancetype)initWithUrl:(NSString *)urlString;
 - (instancetype)initWithClass:(Class<TSIntentable>)aClass;
 - (instancetype)initWithDisplayer:(id<TSIntentDisplayerProtocol>)displayer;
-- (instancetype)initWithFactory:(TSIntentableFactoryBlock)factory;
+- (instancetype)initWithFactory:(TSIntentableFactoryBlock)factory TS_DEPRECATED("use -[initWithBuilder:]");
+- (instancetype)initWithBuilder:(TSIntentableBuilder *)builder;
 
 - (instancetype)initWithUrl:(nullable NSString *)urlString
                 intentClass:(nullable Class<TSIntentable>)intentClass
                   displayer:(nullable id<TSIntentDisplayerProtocol>)displayer
-                    factory:(nullable TSIntentableFactoryBlock)factory;
+                    builder:(nullable TSIntentableBuilder *)builder;
 
 
 + (instancetype)intentWithUrl:(nullable NSString *)urlString
                   intentClass:(nullable Class<TSIntentable>)intentClass
                     displayer:(nullable id<TSIntentDisplayerProtocol>)displayer
-                      factory:(nullable TSIntentableFactoryBlock)factory;
+                      builder:(nullable TSIntentableBuilder *)builder;
 
 + (instancetype)intentWithUrl:(NSString *)urlString;
 + (instancetype)intentWithClass:(Class<TSIntentable>)aClass;

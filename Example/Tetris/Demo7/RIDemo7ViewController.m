@@ -15,7 +15,7 @@
 TS_INTERCEPTER(TSIntercepterPriorityMinimum)
 
 - (void)ts_judgeIntent:(id<TSIntercepterJudger>)adjudgement {
-    if (!adjudgement.intent.intentClass) {
+    if (!adjudgement.intent.isCreatable) {
         NSLog(@"Demo7 Intercepter, onlost+++");
         [adjudgement doSwitch:[TSIntent presentDismissByUrl:@"/demo7"]];
     } else {

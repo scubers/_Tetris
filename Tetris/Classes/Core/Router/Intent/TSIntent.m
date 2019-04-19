@@ -6,7 +6,6 @@
 //
 
 #import "TSIntent.h"
-#import "TSInterceptTokens.h"
 
 @interface TSIntent ()
 
@@ -21,7 +20,7 @@
     TSIntent *intent = [TSIntent intentWithUrl:self.urlString
                                    intentClass:self.intentClass
                                      displayer:self.displayer
-                                       factory:self.factory];
+                                       builder:self.builder];
     intent->_extraParameters = self.extraParameters.mutableCopy;
     intent.urlComponent = self.urlComponent;
     return intent;
@@ -112,6 +111,10 @@
     return driven;
 }
 
+- (BOOL)isCreatable {
+    return _intentClass != nil || _builder.creation != nil;
+}
+
 - (void)dealloc {
     [self sendResult:self source:self for:@"__onDestroy__"];
 }
@@ -122,35 +125,40 @@
 
 @implementation TSIntent (Creations)
 
-+ (instancetype)intentWithUrl:(NSString *)urlString intentClass:(Class<TSIntentable>)intentClass displayer:(id<TSIntentDisplayerProtocol>)displayer factory:(nullable TSIntentableFactoryBlock)factory {
-    return [[self alloc] initWithUrl:urlString intentClass:intentClass displayer:displayer factory:factory];
++ (instancetype)intentWithUrl:(NSString *)urlString intentClass:(Class<TSIntentable>)intentClass displayer:(id<TSIntentDisplayerProtocol>)displayer builder:(nullable TSIntentableBuilder *)builder {
+    return [[self alloc] initWithUrl:urlString intentClass:intentClass displayer:displayer builder:builder];
 }
 
-- (instancetype)initWithUrl:(NSString *)urlString intentClass:(Class<TSIntentable>)intentClass displayer:(nullable id<TSIntentDisplayerProtocol>)displayer factory:(nullable TSIntentableFactoryBlock)factory {
+- (instancetype)initWithUrl:(NSString *)urlString intentClass:(Class<TSIntentable>)intentClass displayer:(nullable id<TSIntentDisplayerProtocol>)displayer builder:(nullable TSIntentableBuilder *)builder {
     if (self = [self init]) {
         _urlString = urlString;
         _intentClass = intentClass;
         _displayer = displayer;
-        _factory = [factory copy];
+        _builder = builder;
         _streams = [NSMutableDictionary dictionaryWithCapacity:0];
     }
     return self;
 }
 
 - (instancetype)initWithUrl:(NSString *)urlString {
-    return [self initWithUrl:urlString intentClass:nil displayer:nil factory:nil];
+    return [self initWithUrl:urlString intentClass:nil displayer:nil builder:nil];
 }
 
 - (instancetype)initWithClass:(Class<TSIntentable>)aClass {
-    return [self initWithUrl:nil intentClass:aClass displayer:nil factory:nil];
+    return [self initWithUrl:nil intentClass:aClass displayer:nil builder:nil];
 }
 
 - (instancetype)initWithDisplayer:(id<TSIntentDisplayerProtocol>)displayer {
-    return [self initWithUrl:nil intentClass:nil displayer:displayer factory:nil];
+    return [self initWithUrl:nil intentClass:nil displayer:displayer builder:nil];
+}
+
+- (instancetype)initWithBuilder:(TSIntentableBuilder *)builder {
+    return [self initWithUrl:nil intentClass:nil displayer:nil builder:builder];
 }
 
 - (instancetype)initWithFactory:(TSIntentableFactoryBlock)factory {
-    return [self initWithUrl:nil intentClass:nil displayer:nil factory:factory];
+    TSIntentableBuilder *builder = [[TSIntentableBuilder alloc] initWithId:nil creation:factory];
+    return [self initWithUrl:nil intentClass:nil displayer:nil builder:builder];
 }
 
 + (instancetype)intentWithUrl:(NSString *)urlString {
@@ -166,7 +174,8 @@
 }
 
 + (instancetype)intentWithFactory:(TSIntentableFactoryBlock)factory {
-    return [[self alloc] initWithFactory:factory];
+    TSIntentableBuilder *builder = [[TSIntentableBuilder alloc] initWithId:nil creation:factory];
+    return [[self alloc] initWithBuilder:builder];
 }
 
 @end

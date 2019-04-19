@@ -176,14 +176,8 @@
           completion:(void (^)(void))completion
               finish:(void(^)(TSRouteResult *result))finish {
     
-    if (intent.factory != nil) {
-        id<TSIntentable> object = [self generateInstanceForIntent:intent];
-        finish([self startViewTransition:intent source:source target:object complete:completion]);
-        return;
-    }
-
-    // fix intent
-    if (intent.intentClass == nil) {
+    // 当前intent不能构造target的时候，需要查询树
+    if (!intent.isCreatable && intent.urlString.length > 0) {
         TSTreeUrlComponent *comp = [_viewTree findByURL:intent.urlString];
         intent.urlComponent = comp;
         intent.intentClass = ((TSLine *)(comp.value)).intentableClass;
@@ -208,7 +202,7 @@
             case TSIntercepterResultStatusPass:
             {
                 
-                id<TSViewControllable> target = [self generateInstanceForIntent:result.intent];
+                id<TSViewControllable> target = [self generateInstanceFromIntent:result.intent];
                 
                 if (target) {
                     // 找到配置
@@ -252,12 +246,12 @@
     return ret;
 }
 
-- (id<TSIntentable>)generateInstanceForIntent:(TSIntent *)intent {
+- (id<TSIntentable>)generateInstanceFromIntent:(TSIntent *)intent {
     
     id<TSIntentable> intentable;
     
-    if (intent.factory) {
-        intentable = intent.factory();
+    if (intent.builder) {
+        intentable = intent.builder.creation();
     } else if (intent.intentClass) {
         intentable = [[TSCreator shared] createIntentableByClass:intent.intentClass intent:intent];
     }

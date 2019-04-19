@@ -27,7 +27,7 @@ class Demo16VC: BaseVC, Routable {
 
     @objc func click() {
         let intent = Intent.pushPop(byUrl: "")
-        intent.factory = { [weak self] in
+        intent.builder = IntentableBuilder(id: "builderId") { [weak self] in
             let vc = BaseVC()
             vc.view.backgroundColor = UIColor.darkGray
             print("catch self \(String(describing: self))")

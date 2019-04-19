@@ -55,11 +55,11 @@
 @implementation TSIntent (PushPopInit)
 
 + (instancetype)pushPopIntentByUrl:(NSString *)url {
-    return [[self alloc] initWithUrl:url intentClass:nil displayer:[TSPushPopDisplayer new] factory:nil];
+    return [[self alloc] initWithUrl:url intentClass:nil displayer:[TSPushPopDisplayer new] builder:nil];
 }
 
 + (instancetype)pushPopIntentByClass:(Class<TSIntentable>)aClass {
-    return [[self alloc] initWithUrl:nil intentClass:aClass displayer:[TSPushPopDisplayer new] factory:nil];
+    return [[self alloc] initWithUrl:nil intentClass:aClass displayer:[TSPushPopDisplayer new] builder:nil];
 }
 
 @end

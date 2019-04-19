@@ -126,7 +126,10 @@
 TS_INTERCEPTER(TSIntercepterPriorityMax)
 
 - (void)ts_judgeIntent:(id<TSIntercepterJudger>)judger {
-    NSLog(@"URL Routing: [%@]", judger.intent.urlString);
+    NSLog(@"URL Routing: [url: %@, class: %@, builderId: %@]",
+          judger.intent.urlString,
+          NSStringFromClass(judger.intent.intentClass),
+          judger.intent.builder.builderId);
     [judger doContinue];
 }
 
