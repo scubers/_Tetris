@@ -229,3 +229,16 @@
 }
 
 @end
+
+
+@implementation TSIntent (Deprecated)
+
+- (void)setFactory:(TSIntentableFactoryBlock)factory {
+    _builder = [[TSIntentableBuilder alloc] initWithId:nil creation:factory];
+}
+
+- (TSIntentableFactoryBlock)factory {
+    return _builder.creation;
+}
+
+@end

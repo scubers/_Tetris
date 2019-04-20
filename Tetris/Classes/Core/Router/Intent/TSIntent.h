@@ -126,4 +126,10 @@ typedef void (^TSIntentableDidCreateBlock)(id<TSIntentable> intentable);
 
 @end
 
+@interface TSIntent (Deprecated)
+
+@property (nonatomic, copy, nullable) TSIntentableFactoryBlock factory TS_DEPRECATED("use builder");
+
+@end
+
 NS_ASSUME_NONNULL_END
