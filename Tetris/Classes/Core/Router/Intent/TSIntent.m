@@ -119,6 +119,14 @@
     [self sendResult:self source:self for:@"__onDestroy__"];
 }
 
+- (void)setFactory:(TSIntentableFactoryBlock)factory {
+    _builder = [[TSIntentableBuilder alloc] initWithId:nil creation:factory];
+}
+
+- (TSIntentableFactoryBlock)factory {
+    return _builder.creation;
+}
+
 @end
 
 #pragma mark - Creations
@@ -226,19 +234,6 @@
 }
 - (TSStream<TSResult *> *)onCancel {
     return [self resultByKey:[self keyWithSelector:@selector(onCancel)]];
-}
-
-@end
-
-
-@implementation TSIntent (Deprecated)
-
-- (void)setFactory:(TSIntentableFactoryBlock)factory {
-    _builder = [[TSIntentableBuilder alloc] initWithId:nil creation:factory];
-}
-
-- (TSIntentableFactoryBlock)factory {
-    return _builder.creation;
 }
 
 @end

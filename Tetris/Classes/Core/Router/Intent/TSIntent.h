@@ -32,6 +32,7 @@ typedef void (^TSIntentableDidCreateBlock)(id<TSIntentable> intentable);
 @property (nonatomic, assign) BOOL skip; // skip the intercepters or not
 
 @property (nonatomic, strong, nullable) TSIntentableBuilder *builder;
+@property (nonatomic, copy  , nullable) TSIntentableFactoryBlock factory;
 
 @property (nonatomic, strong, nullable) TSTreeUrlComponent *urlComponent;
 
@@ -82,7 +83,7 @@ typedef void (^TSIntentableDidCreateBlock)(id<TSIntentable> intentable);
 - (instancetype)initWithUrl:(NSString *)urlString;
 - (instancetype)initWithClass:(Class<TSIntentable>)aClass;
 - (instancetype)initWithDisplayer:(id<TSIntentDisplayerProtocol>)displayer;
-- (instancetype)initWithFactory:(TSIntentableFactoryBlock)factory TS_DEPRECATED("use -[initWithBuilder:]");
+- (instancetype)initWithFactory:(TSIntentableFactoryBlock)factory;
 - (instancetype)initWithBuilder:(TSIntentableBuilder *)builder;
 
 - (instancetype)initWithUrl:(nullable NSString *)urlString
@@ -123,12 +124,6 @@ typedef void (^TSIntentableDidCreateBlock)(id<TSIntentable> intentable);
 - (void)sendCancelWithSource:(id)sender;
 @property (readonly) TSStream<TSResult *> *onCancel;
 
-
-@end
-
-@interface TSIntent (Deprecated)
-
-@property (nonatomic, copy, nullable) TSIntentableFactoryBlock factory TS_DEPRECATED("use builder");
 
 @end
 
