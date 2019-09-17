@@ -24,4 +24,11 @@ NS_SWIFT_NAME(ViewModelLifeController)
 
 @end
 
+NS_SWIFT_NAME(Destroyable)
+@protocol TSDestroyable
+- (instancetype)init;
++ (instancetype)alloc NS_SWIFT_UNAVAILABLE("user init");
+- (void)onDestroy:(void (^)(void))onDestroy;
+@end
+
 #endif /* TSViewModelable_h */

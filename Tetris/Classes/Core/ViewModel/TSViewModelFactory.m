@@ -129,7 +129,7 @@ static TSViewModelFactory *_sharedFactory;
 }
 @end
 
-@implementation UIViewController (TSViewModelLifeController)
+@implementation NSObject (TSViewModelLifeController)
 
 - (NSString *)lifeIdentifier {
     return [NSString stringWithFormat:@"%@<%p>", NSStringFromClass(self.class), self];
@@ -138,6 +138,12 @@ static TSViewModelFactory *_sharedFactory;
 - (void)onLifeEnding:(void (^)(void))ending {
     [[[self _getTSHanger] stream] subscribeNext:^(id  _Nullable obj) {
        !ending ?: ending();
+    }];
+}
+
+- (void)onDestroy:(void (^)(void))onDestroy {
+    [[[self _getTSHanger] stream] subscribeNext:^(id  _Nullable obj) {
+        !onDestroy ?: onDestroy();
     }];
 }
 

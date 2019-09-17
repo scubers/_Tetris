@@ -8,6 +8,11 @@
 
 import UIKit
 
+class BSingleService: NSObject {
+    func method() {
+        print("\(self)")
+    }
+}
 
 class Demo1VC: BaseVC, Routable {
     
@@ -32,6 +37,20 @@ class Demo1VC: BaseVC, Routable {
         if let parent = self.parent, let vm = TSViewModelFactory.shared.createViewModel(DemoViewModel.self, lifeController: parent) as? DemoViewModel {
             vm.demo()
         }
+        
+        let s1 = WeakSingleton.create(by: BSingleService.self)
+        let s2 = WeakSingleton.create(by: BSingleService.self)
+        
+        s1.method()
+        s2.method()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            s2.method()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                WeakSingleton.create(by: BSingleService.self).method()
+            }
+        }
+        
     }
 
 }

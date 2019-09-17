@@ -37,3 +37,9 @@ public func getService<T>(_ aProtocol: Protocol) -> T? {
 public func getService<T>(by name: String) -> T? {
     return TSTetris.shared().server.service(byName: name) as? T
 }
+
+extension WeakSingleton {
+    public static func create<T: Destroyable>(by type: T.Type) -> T {
+        return WeakSingleton.shared().create(withType: type) as! T
+    }
+}

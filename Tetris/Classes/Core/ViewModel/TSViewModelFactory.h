@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UIViewController
 
-@interface UIViewController (TSViewModelLifeController) <TSViewModelLifeController>
+@interface NSObject (TSViewModelLifeController) <TSViewModelLifeController, TSDestroyable>
 
 @end
 

@@ -7,6 +7,15 @@
 //
 
 #import "RIDemo1ViewController.h"
+
+@interface ASingleService : NSObject
+@end
+@implementation ASingleService
+- (void)method {
+    NSLog(@"%@", self);
+}
+@end
+
 @import Tetris;
 
 @protocol RIDemo1ServicePrt <NSObject>
@@ -32,6 +41,18 @@ TS_ROUTE_MSG(@"/demo1", @"Just Route")
     [super viewDidLoad];
     self.navigationItem.title = @"Just Route";
     [_demo1Service demo1Method];
+    
+    ASingleService *s1 = TS_CREATE_WEAK_SINGLETON(ASingleService);
+    ASingleService *s2 = TS_CREATE_WEAK_SINGLETON(ASingleService);
+    
+    [s1 method];
+    [s2 method];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [TS_CREATE_SINGLETON(ASingleService) method];
+        [s2 method];
+    });
+    
 }
 
 + (id<TSIntercepter>)ts_selfIntercepter {

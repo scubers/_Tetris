@@ -12,6 +12,8 @@
 @property (nonatomic, strong) NSNumberFormatter *formatter;
 @property (nonatomic, strong) NSMutableDictionary<id<NSCopying>, TSDrivenStream *> *streams;
 
+
+
 @end
 
 @implementation TSIntent
