@@ -9,6 +9,11 @@
 import UIKit
 
 class BSingleService: NSObject {
+    
+    required init(aa: Int) {
+        super.init()
+    }
+    
     func method() {
         print("\(self)")
     }

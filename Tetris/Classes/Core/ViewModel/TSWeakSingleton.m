@@ -41,7 +41,7 @@ static TSWeakSingleton *__instance;
     return __instance;
 }
 
-- (id<TSDestroyable>)createWithType:(Class<TSDestroyable>)aClass {
+- (id<TSDestroyable>)createWithType:(Class)aClass {
     NSString *identifier = [self getIdentifier:aClass];
     __block id<TSDestroyable> obj;
     [self queueExecute:^{
