@@ -19,6 +19,24 @@ class BSingleService: NSObject {
     }
 }
 
+protocol SwiftService {
+    func swiftMethod()
+}
+
+final class SwiftServiceImpl: NSObject, IServiceable, Component, SwiftService {
+    
+    func swiftMethod() {
+        print("lskdjf")
+    }
+    
+    static var interface: SwiftService.Protocol? = Interface.self
+    
+    static var name: String?
+    
+    static var singleton: Bool = true
+    
+}
+
 class Demo1VC: BaseVC, Routable {
     
     class var routeURLs: [URLPresentable] {
@@ -43,19 +61,8 @@ class Demo1VC: BaseVC, Routable {
             vm.demo()
         }
         
-        let s1 = WeakSingleton.create(by: BSingleService.self)
-        let s2 = WeakSingleton.create(by: BSingleService.self)
-        
-        s1.method()
-        s2.method()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            s2.method()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                WeakSingleton.create(by: BSingleService.self).method()
-            }
-        }
-        
+        let service = TSTetris.getService(by: SwiftService.self)
+        service?.swiftMethod()
     }
 
 }

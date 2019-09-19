@@ -73,11 +73,14 @@ public protocol TestProtocolA {
 
 
 class Services : NSObject, IServiceable, Component, TestProtocolA {
+    
+    typealias Interface = TestProtocolA
+    
+    static var interface: TestProtocolA.Protocol? = TestProtocolA.self
+    
     required override init() {
         super.init()
     }
-    
-    static var interface: Protocol? = TestProtocolA.self
     
     static var name: String?
     

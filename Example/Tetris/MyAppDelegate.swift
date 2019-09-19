@@ -55,7 +55,7 @@ class MyAppDelegate: TSBaseApplicationDelegate {
             
         })
         
-        let service: TestProtocolA? = Tetris.getService(TestProtocolA.self)
+        let service: TestProtocolA? = TSTetris.getService(by: TestProtocolA.self)
         service?.methodA()
         
         window?.makeKeyAndVisible()

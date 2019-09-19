@@ -4,28 +4,30 @@
 /// Extent Serviceable in swift that provide some
 /// meta info to bind a service
 public protocol IServiceable : Serviceable {
-    static var interface : Protocol? {get}
-    static var name : String? {get}
-    static var singleton: Bool {get}
+    associatedtype Interface
+    static var interface: Interface.Type? { get }
+    static var name: String? { get }
+    static var singleton: Bool { get }
 }
-
 
 // MARK: - Extent Component for Iserviceable
 public extension Component where Self : IServiceable {
     static func tetrisStart() {
-        if let pr = self.interface {
-            TSTetris.shared().server.bindService(by: pr, class: Self.self, singleton: self.singleton)
+        if let interface = self.interface {
+            TSTetris.shared().server.bindService(byName: "\(interface)", class: Self.self, singleton: self.singleton)
         } else if let name = self.name {
             TSTetris.shared().server.bindService(byName: name, class: Self.self, singleton: self.singleton)
         }
     }
 }
 
+public typealias ServiceComponent = IServiceable & Component
 
 /// Global get service method
 ///
 /// - Parameter aProtocol: protocol
 /// - Returns: instance
+@available(*, deprecated, message: "use TSTetris.getOCService(by type:)")
 public func getService<T>(_ aProtocol: Protocol) -> T? {
     return TSTetris.shared().server.service(byProtoocl: aProtocol) as? T
 }
@@ -34,6 +36,7 @@ public func getService<T>(_ aProtocol: Protocol) -> T? {
 ///
 /// - Parameter name: name
 /// - Returns: instance
+@available(*, deprecated, message: "use TSTetris.getService(by name:)")
 public func getService<T>(by name: String) -> T? {
     return TSTetris.shared().server.service(byName: name) as? T
 }
@@ -41,5 +44,15 @@ public func getService<T>(by name: String) -> T? {
 extension WeakSingleton {
     public static func create<T: Destroyable>(by type: T.Type) -> T {
         return WeakSingleton.shared().create(withType: type) as! T
+    }
+}
+
+extension TSTetris {
+    public static func getService<T>(by name: String) -> T? {
+        return TSTetris.shared().server.service(byName: name) as? T
+    }
+    
+    public static func getService<T>(by type: T.Type) -> T? {
+        return TSTetris.shared().server.service(byName: "\(type)") as? T
     }
 }
