@@ -100,7 +100,7 @@
     if ([name containsString:@"."]) {
         return [name componentsSeparatedByString:@"."].lastObject;
     }
-    return name
+    return name;
 }
 
 @end
