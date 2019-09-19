@@ -70,13 +70,14 @@
                 , "Class:[%@] should conforms to protocol: [%@]"
                 , NSStringFromClass(aClass)
                 , NSStringFromProtocol(@protocol(TSServiceable)));
-    NSString *path = [NSString stringWithFormat:@"/%@", serviceName];
+    NSString *path = [NSString stringWithFormat:@"/%@", [self prepareName:serviceName]];
     TSService *serviceObject = [TSService serviceWithClass:aClass];
     serviceObject.singleton = singleton;
     [_tree buildWithURL:path value:serviceObject];
 }
 
 - (id<TSServiceable>)serviceByName:(NSString *)name {
+    name = [self prepareName:name];
     id<TSServiceable> service;
     NSString *path = [NSString stringWithFormat:@"/%@", name];
     TSTreeUrlComponent *comp = [self.tree findByURL:path];
@@ -92,6 +93,14 @@
 
 - (id<TSServiceable>)serviceByProtoocl:(Protocol *)aProtocol {
     return [self serviceByName:NSStringFromProtocol(aProtocol)];
+}
+
+- (NSString *)prepareName:(NSString *)name {
+    // 为了与swift，oc兼容，忽略swift的名称空间
+    if ([name containsString:@"."]) {
+        return [name componentsSeparatedByString:@"."].lastObject;
+    }
+    return name
 }
 
 @end
