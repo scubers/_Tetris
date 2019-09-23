@@ -23,30 +23,6 @@ public extension Component where Self : IServiceable {
 
 public typealias ServiceComponent = IServiceable & Component
 
-/// Global get service method
-///
-/// - Parameter aProtocol: protocol
-/// - Returns: instance
-@available(*, deprecated, message: "use TSTetris.getOCService(by type:)")
-public func getService<T>(_ aProtocol: Protocol) -> T? {
-    return TSTetris.shared().server.service(byProtoocl: aProtocol) as? T
-}
-
-/// Global get service method
-///
-/// - Parameter name: name
-/// - Returns: instance
-@available(*, deprecated, message: "use TSTetris.getService(by name:)")
-public func getService<T>(by name: String) -> T? {
-    return TSTetris.shared().server.service(byName: name) as? T
-}
-
-extension WeakSingleton {
-    public static func create<T: Destroyable>(by type: T.Type) -> T {
-        return WeakSingleton.shared().create(withType: type) as! T
-    }
-}
-
 extension TSTetris {
     public static func getService<T>(by name: String) -> T? {
         return TSTetris.shared().server.service(byName: name) as? T
@@ -54,5 +30,18 @@ extension TSTetris {
     
     public static func getService<T>(by type: T.Type) -> T? {
         return TSTetris.shared().server.service(byName: "\(type)") as? T
+    }
+}
+
+extension WeakSingleton {
+    public static func create<T: Destroyable>(by type: T.Type) -> T {
+        return WeakSingleton.shared().create(withType: type) as! T
+    }
+    
+    public static func create<T: Destroyable>(by type: T.Type, from lifeCycle: Destroyable?) -> T {
+        if let lc = lifeCycle {
+            return WeakSingleton.shared().create(withType: type, lifeCycle: lc) as! T
+        }
+        return create(by: type)
     }
 }

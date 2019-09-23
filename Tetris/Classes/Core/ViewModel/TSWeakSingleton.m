@@ -16,6 +16,7 @@
 @interface TSWeakSingleton ()
 {
     NSMutableDictionary<NSString *, _TSWeakHolder *> *_instances;
+    NSMutableDictionary<NSString *, _TSWeakHolder *> *_multipleInstances;
     NSOperationQueue *_queue;
 }
 
@@ -26,6 +27,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         _instances = [NSMutableDictionary dictionary];
+        _multipleInstances = [NSMutableDictionary dictionary];
         _queue = [[NSOperationQueue alloc] init];
         _queue.name = [NSString stringWithFormat:@"com.tetris.singleton.%@", self];
     }
@@ -68,8 +70,42 @@ static TSWeakSingleton *__instance;
     return obj;
 }
 
+- (id<TSDestroyable>)createWithType:(Class)aClass lifeCycle:(id<TSDestroyable>)lifeCycle {
+    NSString *identifier = [self getLifeCycleIdentifier:lifeCycle withClass:aClass];
+    __block id<TSDestroyable> obj;
+    [self queueExecute:^{
+        obj = _multipleInstances[identifier].instance;
+        
+        if (obj == nil) {
+            obj = [[aClass alloc] init];
+            _TSWeakHolder *holder = [_TSWeakHolder new];
+            holder.instance = obj;
+            
+            _multipleInstances[identifier] = holder;
+            NSString *serviceName = [NSString stringWithFormat:@"%@", obj];
+            
+            [lifeCycle onDestroy:^{
+                NSLog(@"Service LifeCycle overed: [%@] destroyed!!", serviceName);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self queueExecute:^{
+                        _TSWeakHolder *oldHolder = _instances[identifier];
+                        if (oldHolder == holder) {
+                            [_instances removeObjectForKey:identifier];
+                        }
+                    }];
+                });
+            }];
+        }
+    }];
+    return obj;
+}
+
 - (NSString *)getIdentifier:(Class)aClass {
     return NSStringFromClass(aClass);
+}
+
+- (NSString *)getLifeCycleIdentifier:(id<TSDestroyable>)lifeCycle withClass:(Class<TSDestroyable>)aClass {
+    return [NSString stringWithFormat:@"%@_%p", [self getIdentifier:aClass], lifeCycle];
 }
 
 - (void)queueExecute:(void (^)(void))block {

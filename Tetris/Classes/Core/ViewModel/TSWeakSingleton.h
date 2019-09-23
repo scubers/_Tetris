@@ -17,6 +17,8 @@ NS_SWIFT_NAME(WeakSingleton)
 
 - (id<TSDestroyable>)createWithType:(Class<TSDestroyable>)aClass;
 
+- (id<TSDestroyable>)createWithType:(Class<TSDestroyable>)aClass lifeCycle:(id<TSDestroyable>)lifeCycle;
+
 + (TSWeakSingleton *)shared;
 
 @end
