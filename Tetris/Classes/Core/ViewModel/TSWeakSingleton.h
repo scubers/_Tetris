@@ -25,7 +25,7 @@ NS_SWIFT_NAME(WeakSingleton)
 
 #pragma mark - NSObject Destroyable
 
-@interface NSObject (TSViewModelLifeController) <TSDestroyable>
+@interface NSObject (TSDestroyable) <TSDestroyable>
 @end
 
 NS_ASSUME_NONNULL_END

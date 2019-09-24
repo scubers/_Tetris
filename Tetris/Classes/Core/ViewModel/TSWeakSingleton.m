@@ -135,7 +135,7 @@ static TSWeakSingleton *__instance;
 }
 @end
 
-@implementation NSObject (TSViewModelLifeController)
+@implementation NSObject (TSDestroyable)
 
 - (void)onDestroy:(void (^)(void))onDestroy {
     [[[self _getTSHanger] stream] subscribeNext:^(id  _Nullable obj) {
