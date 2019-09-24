@@ -32,16 +32,21 @@ extension String : URLPresentable {
 }
 
 public struct LineDesc: URLPresentable {
-    public let url: String
+    public let url: TSURLPresentable
     public let desc: String
     
     public init(_ line: String, desc: String = "") {
+        url = line.to_tsUrl()
+        self.desc = desc
+    }
+    
+    public init(_ line: TSURLPresentable, desc: String = "") {
         url = line
         self.desc = desc
     }
     
     public func to_tsUrl() -> TSURLPresentable {
-        return url.to_tsUrl()
+        return url
     }
     
     public func ts_description() -> String {
@@ -77,44 +82,45 @@ public extension Component where Self : RouteActioner, Self : URLRoutable {
 
 // MARK: - public methods
 
-
-/// Convenience method start a intent with VC
-///
-/// - Parameters:
-///   - intent: intent
-///   - source: ViewController
-public func start(intent: Intent, source: UIViewController) {
-    TSTetris.shared().router.prepare(intent, source: source, complete: nil)
-}
-
-
-/// Convenience method prepare a intent
-///
-/// - Parameters:
-///   - intent: intent
-///   - source: source
-///   - complete: callback
-/// - Returns: TSStream<RouteResult>
-public func prepare(intent: Intent, source: UIViewController? = nil, complete: (()->Void)? = nil) -> TSStream<RouteResult> {
-    return TSTetris.shared().router.prepare(intent, source: source, complete: complete)
-}
+extension TSTetris {
+    /// Convenience method start a intent with VC
+    ///
+    /// - Parameters:
+    ///   - intent: intent
+    ///   - source: ViewController
+    public static func start(intent: Intent, source: UIViewController) {
+        _ = TSTetris.shared().router.prepare(intent, source: source, complete: nil).subscribe()
+    }
 
 
-/// Convenience method to bind an action to url
-///
-/// - Parameters:
-///   - url: url
-///   - action: action
-public func bind(url: URLPresentable, to action: @escaping (TreeUrlComponent) -> TSStream<AnyObject>) {
-    TSTetris.shared().router.bindUrl(url.to_tsUrl(), toAction: action)
-}
+    /// Convenience method prepare a intent
+    ///
+    /// - Parameters:
+    ///   - intent: intent
+    ///   - source: source
+    ///   - complete: callback
+    /// - Returns: TSStream<RouteResult>
+    public static func prepare(intent: Intent, source: UIViewController? = nil, complete: (() -> Void)? = nil) -> TSStream<RouteResult> {
+        return TSTetris.shared().router.prepare(intent, source: source, complete: complete)
+    }
 
 
-/// Convenience method to execute an action with url
-///
-/// - Parameter url: url
-/// - Parameter params: params
-/// - Returns: TSStream
-public func action(url: URLPresentable, params: [AnyHashable: Any]? = nil) -> TSStream<AnyObject>? {
-    return TSTetris.shared().router.action(byUrl: url.to_tsUrl(), params: params)
+    /// Convenience method to bind an action to url
+    ///
+    /// - Parameters:
+    ///   - url: url
+    ///   - action: action
+    public static func bind(url: URLPresentable, to action: @escaping (TreeUrlComponent) -> TSStream<AnyObject>) {
+        TSTetris.shared().router.bindUrl(url.to_tsUrl(), toAction: action)
+    }
+
+
+    /// Convenience method to execute an action with url
+    ///
+    /// - Parameter url: url
+    /// - Parameter params: params
+    /// - Returns: TSStream
+    public static func action(url: URLPresentable, params: [AnyHashable: Any]? = nil) -> TSStream<AnyObject>? {
+        return TSTetris.shared().router.action(byUrl: url.to_tsUrl(), params: params)
+    }
 }

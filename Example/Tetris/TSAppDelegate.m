@@ -83,9 +83,9 @@
       }]
      subscribeNext:^(TSRouteResult *  _Nullable obj) {
          UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:obj.viewControllable.ts_viewController];
-         [nav onLifeEnding:^{
-             
-         }];
+        [nav onDestroy:^{
+            
+        }];
          self.window.rootViewController = nav;
      }];
 
@@ -133,4 +133,5 @@ TS_INTERCEPTER(TSIntercepterPriorityMax)
 }
 
 @end
+
 

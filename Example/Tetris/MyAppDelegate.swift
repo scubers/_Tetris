@@ -31,9 +31,9 @@ class MyAppDelegate: TSBaseApplicationDelegate {
             p
             .flatMap({isSwift -> Observable<RouteResult> in
                 if isSwift {
-                    return Observable<RouteResult>.by(stream: Tetris.prepare(intent: Intent.pushPop(byUrl: "/swift/menu")))
+                    return Observable<RouteResult>.by(stream: TSTetris.prepare(intent: Intent.pushPop(byUrl: "/swift/menu")))
                 }
-                return Observable<RouteResult>.by(stream: Tetris.prepare(intent: Intent.pushPop(byUrl: "/menu")))
+                return Observable<RouteResult>.by(stream: TSTetris.prepare(intent: Intent.pushPop(byUrl: "/menu")))
             })
             .subscribe({ event in
                 switch event {

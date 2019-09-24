@@ -6,6 +6,8 @@
 //
 
 #import "TSWeakSingleton.h"
+#import <objc/runtime.h>
+#import "TSStream.h"
 
 @interface _TSWeakHolder : NSObject
 @property (nonatomic, weak) id<TSDestroyable> instance;
@@ -110,6 +112,44 @@ static TSWeakSingleton *__instance;
 
 - (void)queueExecute:(void (^)(void))block {
     [_queue addOperations:@[[NSBlockOperation blockOperationWithBlock:block]] waitUntilFinished:YES];
+}
+
+@end
+
+
+#pragma mark - NSObject 
+@interface _TSHanger : NSObject
+@property (nonatomic, strong) TSDrivenStream *stream;
+@end
+@implementation _TSHanger
+- (instancetype)init {
+    if (self = [super init]) {
+        _stream = [TSDrivenStream new];
+    }
+    return self;
+}
+- (void)dealloc {
+    [_stream post:self];
+    [_stream close];
+    _stream = nil;
+}
+@end
+
+@implementation NSObject (TSViewModelLifeController)
+
+- (void)onDestroy:(void (^)(void))onDestroy {
+    [[[self _getTSHanger] stream] subscribeNext:^(id  _Nullable obj) {
+        !onDestroy ?: onDestroy();
+    }];
+}
+
+- (_TSHanger *)_getTSHanger {
+    _TSHanger *hanger = objc_getAssociatedObject(self, _cmd);
+    if (!hanger) {
+        hanger = [_TSHanger new];
+        objc_setAssociatedObject(self, _cmd, hanger, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return hanger;
 }
 
 @end

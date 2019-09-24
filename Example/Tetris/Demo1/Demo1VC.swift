@@ -57,9 +57,6 @@ class Demo1VC: BaseVC, Routable {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(self.parent as Any)
-        if let parent = self.parent, let vm = TSViewModelFactory.shared.createViewModel(DemoViewModel.self, lifeController: parent) as? DemoViewModel {
-            vm.demo()
-        }
         
         let service = TSTetris.getService(by: SwiftService.self)
         service?.swiftMethod()
@@ -70,16 +67,5 @@ class Demo1VC: BaseVC, Routable {
 class OOO: NSObject {
     required convenience init(value: Int) {
         self.init()
-    }
-}
-
-
-class DemoViewModel: NSObject, ViewModelable {
-    required override init() {
-        super.init()
-    }
-    
-    func demo() {
-        print("view model function exectuted: \(self)")
     }
 }
