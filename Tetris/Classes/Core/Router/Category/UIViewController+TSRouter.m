@@ -12,6 +12,8 @@
 
 @implementation UIViewController (TSRouter)
 
+#pragma mark - 初始化
+
 - (instancetype)initWithIntent:(TSIntent *)intent {
     if (self = [self init]) {
         self.ts_sourceIntent = intent;
@@ -31,9 +33,12 @@
     return self;
 }
 
+#pragma mark - 跳转
+
 - (TSStream<TSRouteResult *> *)ts_prepare:(TSIntent *)intent complete:(void (^ _Nullable)(void))complete {
     return [_Tetris.router prepare:intent source:self complete:complete];
 }
+
 - (TSStream<TSRouteResult *> *)ts_prepare:(TSIntent *)intent {
     return [self ts_prepare:intent complete:nil];
 }
@@ -67,6 +72,46 @@
     return intentable.ts_sourceIntent.displayer;
 }
 
+- (void)ts_transitionUrl:(NSString *)url viewController:(UIViewController *)vc aClass:(Class<TSIntentable>)aClass displayer:(id<TSIntentDisplayerProtocol>)displayer {
+    TSIntent *intent = [[TSIntent alloc] init];
+    if (url.length) {
+        intent.urlString = url;
+    } else if (vc != nil) {
+        __weak typeof(vc) wvc = vc;
+        intent.builder = [[TSIntentableBuilder alloc] initWithId:nil creation:^id<TSIntentable> _Nullable{
+            return wvc;
+        }];
+    } else if (aClass) {
+        intent.intentClass = aClass;
+    }
+    if (displayer) {
+        intent.displayer = displayer;
+    }
+    [self ts_start:intent];
+}
+
+- (void)ts_pushViewController:(UIViewController *)vc {
+    [self ts_transitionUrl:nil viewController:vc aClass:nil displayer:[TSPushPopDisplayer new]];
+}
+- (void)ts_pushUrl:(NSString *)url {
+    [self ts_transitionUrl:url viewController:nil aClass:nil displayer:[TSPushPopDisplayer new]];
+}
+- (void)ts_pushClass:(Class<TSIntentable>)aClass {
+    [self ts_transitionUrl:nil viewController:nil aClass:aClass displayer:[TSPushPopDisplayer new]];
+}
+
+- (void)ts_presentViewController:(UIViewController *)vc {
+    [self ts_transitionUrl:nil viewController:vc aClass:nil displayer:[TSPresentDismissDisplayer new]];
+}
+- (void)ts_presentUrl:(NSString *)url {
+    [self ts_transitionUrl:url viewController:nil aClass:nil displayer:[TSPresentDismissDisplayer new]];
+}
+- (void)ts_presentClass:(Class<TSIntentable>)aClass {
+    [self ts_transitionUrl:nil viewController:nil aClass:aClass displayer:[TSPresentDismissDisplayer new]];
+}
+
+#pragma mark - Finish
+
 - (void)ts_finishDisplay:(BOOL)animated complete:(void (^)(void))complete {
     id<TSIntentDisplayerProtocol> displayer = [self ts_getDisplayer];
     if (!displayer) {
@@ -87,12 +132,16 @@
 - (void)ts_setNeedDisplay:(BOOL)animated complete:(void (^)(void))complete {
     [[self ts_getDisplayer] ts_setNeedDisplay:self animated:animated completion:complete];
 }
+
 - (void)ts_setNeedDisplay:(BOOL)animated {
     [self ts_setNeedDisplay:animated complete:nil];
 }
+
 - (void)ts_setNeedDisplay {
     [self ts_setNeedDisplay:YES];
 }
+
+#pragma mark - Result
 
 - (void)ts_sendResult:(id)object forKey:(NSString *)key {
     [[self ts_getIntentable].ts_sourceIntent sendResult:object source:self for:key];
@@ -118,25 +167,4 @@
     [[self ts_getIntentable].ts_sourceIntent sendCancelWithSource:self];
 }
 
-/*
-- (void)ts_sendResult:(id)stream {
-    [[self ts_getIntentable].ts_sourceIntent.onResult post:stream];
-}
-
-- (void)ts_sendResult:(id)result byKey:(id<NSCopying>)key {
-    [[self ts_getIntentable].ts_sourceIntent sendResult:result byKey:key];
-}
-
-- (void)ts_sendNumber:(NSNumber *)number {
-    [[self ts_getIntentable].ts_sourceIntent.onNumberStream post:number];
-}
-
-- (void)ts_sendString:(NSString *)string {
-    [[self ts_getIntentable].ts_sourceIntent.onStringStream post:string];
-}
-
-- (void)ts_sendDict:(NSDictionary *)dict {
-    [[self ts_getIntentable].ts_sourceIntent.onDictStream post:dict];
-}
-*/
 @end

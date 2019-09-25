@@ -18,11 +18,17 @@
     if (self) {
 
         [self setDisplayAction:^(UIViewController *fromVC, UIViewController *target, BOOL animated, void (^completion)(void)) {
-            if (!fromVC.navigationController) {
+            UINavigationController *nav = nil;
+            if ([fromVC isKindOfClass:[UINavigationController class]]) {
+                nav = fromVC;
+            } else {
+                nav = fromVC.navigationController;
+            }
+            if (nav == nil) {
                 NSLog(@"TSPushPopDisplayer display [vc: %@] error, because source vc doesn't in a navigation hierarchy", fromVC);
                 return;
             }
-            [fromVC.navigationController ts_pushViewController:target animated:animated completion:completion];
+            [nav ts_pushViewController:target animated:animated completion:completion];
         }];
 
         [self setFinishAction:^(UIViewController *vc, BOOL animated, void (^completion)(void)) {

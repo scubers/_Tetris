@@ -13,12 +13,22 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (TSRouter) <TSIntentable>
-
+#pragma mark - 跳转
 - (TSStream<TSRouteResult *> *)ts_prepare:(TSIntent *)intent;
 - (TSStream<TSRouteResult *> *)ts_prepare:(TSIntent *)intent complete:(void (^ _Nullable)(void))complete;
 
 - (void)ts_start:(TSIntent *)intent;
 - (void)ts_start:(TSIntent *)intent complete:(void (^ _Nullable)(void))complete;
+
+- (void)ts_pushViewController:(UIViewController *)vc;
+- (void)ts_pushUrl:(NSString *)url;
+- (void)ts_pushClass:(Class<TSIntentable>)aClass;
+
+- (void)ts_presentViewController:(UIViewController *)vc;
+- (void)ts_presentUrl:(NSString *)url;
+- (void)ts_presentClass:(Class<TSIntentable>)aClass;
+
+#pragma mark - Finish
 
 - (void)ts_finishDisplay;
 - (void)ts_finishDisplay:(BOOL)animated;
@@ -27,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)ts_setNeedDisplay;
 - (void)ts_setNeedDisplay:(BOOL)animated;
 - (void)ts_setNeedDisplay:(BOOL)animated complete:(void (^ _Nullable)(void))complete;
+
+#pragma mark - Result
 
 - (void)ts_sendResult:(id)object forKey:(NSString *)key;
 - (void)ts_sendNumber:(NSNumber *)number;
