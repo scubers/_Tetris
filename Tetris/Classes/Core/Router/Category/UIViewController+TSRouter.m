@@ -72,7 +72,7 @@
     return intentable.ts_sourceIntent.displayer;
 }
 
-- (void)ts_transitionUrl:(NSString *)url viewController:(UIViewController *)vc aClass:(Class<TSIntentable>)aClass displayer:(id<TSIntentDisplayerProtocol>)displayer {
+- (void)ts_transitionUrl:(NSString *)url viewController:(UIViewController *)vc aClass:(Class<TSIntentable>)aClass builder:(id<TSIntentable> (^)(void))builder displayer:(id<TSIntentDisplayerProtocol>)displayer {
     TSIntent *intent = [[TSIntent alloc] init];
     if (url.length) {
         intent.urlString = url;
@@ -81,6 +81,8 @@
         intent.builder = [[TSIntentableBuilder alloc] initWithId:nil creation:^id<TSIntentable> _Nullable{
             return wvc;
         }];
+    } else if (builder) {
+        intent.builder = [[TSIntentableBuilder alloc] initWithId:nil creation:builder];
     } else if (aClass) {
         intent.intentClass = aClass;
     }
@@ -91,23 +93,29 @@
 }
 
 - (void)ts_pushViewController:(UIViewController *)vc {
-    [self ts_transitionUrl:nil viewController:vc aClass:nil displayer:[TSPushPopDisplayer new]];
+    [self ts_transitionUrl:nil viewController:vc aClass:nil builder:nil displayer:[TSPushPopDisplayer new]];
+}
+- (void)ts_pushBuilder:(id<TSIntentable>  _Nonnull (^)(void))builder {
+    [self ts_transitionUrl:nil viewController:[builder() ts_viewController] aClass:nil builder:nil displayer:[TSPushPopDisplayer new]];
 }
 - (void)ts_pushUrl:(NSString *)url {
-    [self ts_transitionUrl:url viewController:nil aClass:nil displayer:[TSPushPopDisplayer new]];
+    [self ts_transitionUrl:url viewController:nil aClass:nil builder:nil displayer:[TSPushPopDisplayer new]];
 }
 - (void)ts_pushClass:(Class<TSIntentable>)aClass {
-    [self ts_transitionUrl:nil viewController:nil aClass:aClass displayer:[TSPushPopDisplayer new]];
+    [self ts_transitionUrl:nil viewController:nil aClass:aClass builder:nil displayer:[TSPushPopDisplayer new]];
 }
 
 - (void)ts_presentViewController:(UIViewController *)vc {
-    [self ts_transitionUrl:nil viewController:vc aClass:nil displayer:[TSPresentDismissDisplayer new]];
+    [self ts_transitionUrl:nil viewController:vc aClass:nil builder:nil displayer:[TSPresentDismissDisplayer new]];
+}
+- (void)ts_presentBuilder:(id<TSIntentable>  _Nonnull (^)(void))builder {
+    [self ts_transitionUrl:nil viewController:nil aClass:nil builder:builder displayer:[TSPresentDismissDisplayer new]];
 }
 - (void)ts_presentUrl:(NSString *)url {
-    [self ts_transitionUrl:url viewController:nil aClass:nil displayer:[TSPresentDismissDisplayer new]];
+    [self ts_transitionUrl:url viewController:nil aClass:nil builder:nil displayer:[TSPresentDismissDisplayer new]];
 }
 - (void)ts_presentClass:(Class<TSIntentable>)aClass {
-    [self ts_transitionUrl:nil viewController:nil aClass:aClass displayer:[TSPresentDismissDisplayer new]];
+    [self ts_transitionUrl:nil viewController:nil aClass:aClass builder:nil displayer:[TSPresentDismissDisplayer new]];
 }
 
 #pragma mark - Finish

@@ -21,10 +21,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)ts_start:(TSIntent *)intent complete:(void (^ _Nullable)(void))complete;
 
 - (void)ts_pushViewController:(UIViewController *)vc;
+- (void)ts_pushBuilder:(nullable id<TSIntentable> (^)(void))builder;
 - (void)ts_pushUrl:(NSString *)url;
 - (void)ts_pushClass:(Class<TSIntentable>)aClass;
 
 - (void)ts_presentViewController:(UIViewController *)vc;
+- (void)ts_presentBuilder:(nullable id<TSIntentable> (^)(void))builder;
 - (void)ts_presentUrl:(NSString *)url;
 - (void)ts_presentClass:(Class<TSIntentable>)aClass;
 
