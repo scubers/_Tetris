@@ -61,11 +61,34 @@ class Demo1VC: BaseVC, Routable {
         let service = TSTetris.getService(by: SwiftService.self)
         service?.swiftMethod()
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let intent = SpecIntent<TSParams, TSParams> {
+            return SpecVC()
+        }
+        intent.specType = TSParams.self
+        intent.input(TSParams("1", number: 2, integer: 3))
+        intent.displayer = PushPopDisplayer()
+        intent.onSpec.subscribeNext { (ret) in
+            print(ret?.value)
+        }
+        ts_start(intent)
+    }
 
 }
 
-class OOO: NSObject {
-    required convenience init(value: Int) {
-        self.init()
+class SpecVC: BaseVC, SpecIntentable {
+    
+    typealias ParameterType = TSParams
+    typealias SpecType = TSParams
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let param = ts_getSpecParameter()
+        print(param)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        ts_sendSpec(TSParams("11", number: NSNumber(value: 22), integer: 33))
     }
 }

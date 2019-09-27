@@ -12,8 +12,6 @@
 @property (nonatomic, strong) NSNumberFormatter *formatter;
 @property (nonatomic, strong) NSMutableDictionary<id<NSCopying>, TSDrivenStream *> *streams;
 
-
-
 @end
 
 @implementation TSIntent
@@ -236,6 +234,52 @@
 }
 - (TSStream<TSResult *> *)onCancel {
     return [self resultByKey:[self keyWithSelector:@selector(onCancel)]];
+}
+
+@end
+
+#pragma mark - TSSpecIntent
+
+@implementation TSSpecIntent
+
+- (instancetype)init {
+    return [self initWithSpecType:[NSDictionary class]];
+}
+
+- (instancetype)initWithSpecType:(Class<TSIntentSerializable>)aClass {
+    if (self = [super init]) {
+        _specType = aClass;
+    }
+    return self;
+}
+
+- (void)input:(id<TSIntentSerializable>)value {
+    [self addParameters:[value ts_toDict]];
+}
+
+- (void)sendSpec:(id<TSIntentSerializable>)value source:(id)sender {
+    [self sendDict:value.ts_toDict source:sender];
+}
+
+- (TSStream *)onSpec {
+    NSAssert(_specType != nil, @"should set spec type before use spec");
+    return [self.onDict map:^id _Nullable(TSResult<NSDictionary *> * _Nullable obj) {
+        Class aClass = _specType;
+        id<TSIntentSerializable> value = [[aClass alloc] initFromDict:obj.value ?: @{}];
+        return [[TSResult alloc] initWithSource:obj.source value:value];
+    }];
+}
+
+@end
+
+@implementation NSDictionary (TSIntentSerializable)
+
+- (NSDictionary<NSString *,id> *)ts_toDict {
+    return [self copy];
+}
+
+- (instancetype)initFromDict:(NSDictionary<NSString *,id> *)dict {
+    return [self initWithDictionary:dict];
 }
 
 @end

@@ -17,6 +17,7 @@
 @end
 
 @import Tetris;
+#import "TSParams.h"
 
 @protocol RIDemo1ServicePrt <NSObject>
 
@@ -53,6 +54,8 @@ TS_ROUTE_MSG(@"/demo1", @"Just Route")
         [s2 method];
     });
     
+    TSSpecIntent<TSParams *, TSParams *> *intent = [TSSpecIntent new];
+    [intent input:[TSParams params:@"1" number:@2 integer:3]];
 }
 
 + (id<TSIntercepter>)ts_selfIntercepter {

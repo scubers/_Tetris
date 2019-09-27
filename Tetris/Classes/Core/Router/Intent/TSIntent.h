@@ -71,7 +71,7 @@ typedef void (^TSIntentableDidCreateBlock)(id<TSIntentable> intentable);
 
 
 - (TSStream<TSResult *> *)resultWithKey:(NSString *)key;
-- (void)sendResult:(id)result source:(id)source for:(NSString *)key;
+- (void)sendResult:(id)result source:(nullable id)source for:(NSString *)key;
 
 
 @end
@@ -104,6 +104,7 @@ typedef void (^TSIntentableDidCreateBlock)(id<TSIntentable> intentable);
 
 @end
 
+#pragma mark - Result
 
 @interface TSIntent (TSResult)
 
@@ -124,6 +125,32 @@ typedef void (^TSIntentableDidCreateBlock)(id<TSIntentable> intentable);
 - (void)sendCancelWithSource:(id)sender;
 @property (readonly) TSStream<TSResult *> *onCancel;
 
+@end
+
+#pragma mark - TSSpecIntent
+
+NS_SWIFT_NAME(IntentSerializable)
+@protocol TSIntentSerializable
+- (NSDictionary<NSString *, id> *)ts_toDict;
+- (instancetype)initFromDict:(NSDictionary<NSString *, id> *)dict;
+@end
+
+NS_SWIFT_NAME(SpecIntent)
+@interface TSSpecIntent<Parameter: id<TSIntentSerializable>, Spec: id<TSIntentSerializable>> : TSIntent
+
+@property (nonatomic, strong) Class<TSIntentSerializable> specType;
+
+- (void)input:(Parameter)value;
+
+- (void)sendSpec:(Spec)value source:(id)sender;
+
+@property (readonly) TSStream<TSResult<Spec> *> *onSpec;
+
+- (instancetype)initWithSpecType:(Class<TSIntentSerializable>)aClass NS_DESIGNATED_INITIALIZER;
+
+@end
+
+@interface NSDictionary (TSIntentSerializable) <TSIntentSerializable>
 
 @end
 

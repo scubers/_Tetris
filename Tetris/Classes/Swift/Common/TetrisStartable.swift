@@ -102,7 +102,7 @@ public class TetrisSwiftStarter : NSObject {
                 type.tetrisStart()
             }
         }
-        types.deallocate(capacity: typeCount)
+        types.deallocate()
         print("total count: \(typeCount)")
         print("class count: \(classes.count)")
         return classes
