@@ -58,9 +58,16 @@ class Demo1VC: BaseVC, Routable {
             $0.doContinue()
         }
     }
+    override class func ts_create(with intent: Intent) -> Intentable {
+        return Self.init(id: "")
+    }
     
-    override func didCreate(with intent: Intent) {
-        
+    required init(id: String) {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
     }
     
     override func ts_kvoInjector() -> NSObject? {

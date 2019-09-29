@@ -10,6 +10,11 @@ import UIKit
 // /user/info/100
 // /demo17/native_map/:class_name
 class Demo17Station: NSObject, Intentable, Routable {
+    
+    static func ts_create(with intent: Intent) -> Intentable {
+        return Self()
+    }
+    
     func didCreate(with intent: Intent) {
         if let name = self.ts_sourceIntent?.getString("className")
             , let classType =  NSClassFromString(name) as? UIViewController.Type {

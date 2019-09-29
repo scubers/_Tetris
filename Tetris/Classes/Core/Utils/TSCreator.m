@@ -44,12 +44,8 @@ static TSCreator *__creator;
 }
 
 - (id<TSIntentable>)createIntentableByClass:(Class<TSIntentable>)aClass intent:(TSIntent *)intent {
-    id<TSIntentable> object = [[aClass alloc] init];
+    id<TSIntentable> object = [aClass ts_createWithIntent:intent];
     [object didCreateWithIntent:intent];
-    if ([((id)object) respondsToSelector:@selector(ts_didCreate)]) {
-        [object ts_didCreate];
-    }
-    
     [_listeners enumerateObjectsUsingBlock:^(id<TSCreatorListener>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj ts_didCreateObject:object];
     }];

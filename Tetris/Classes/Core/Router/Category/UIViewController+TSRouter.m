@@ -14,9 +14,8 @@
 
 #pragma mark - 初始化
 
-- (void)xxxWithIntent:(TSIntent *)intent {
-//    UIViewController *vc = [self initWithNibName:nil bundle:nil];
-//    vc.ts_sourceIntent = intent;
++ (instancetype)ts_createWithIntent:(TSIntent *)intent {
+    return [[self alloc] initWithNibName:nil bundle:nil];
 }
 
 - (NSObject *)ts_kvoInjector {

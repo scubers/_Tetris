@@ -36,6 +36,8 @@ NS_SWIFT_NAME(Intentable)
 
 - (void)didCreateWithIntent:(TSIntent *)intent;
 
++ (id<TSIntentable>)ts_createWithIntent:(TSIntent *)intent;
+
 + (nullable id<TSIntercepter>)ts_selfIntercepter;
 
 @end
