@@ -44,7 +44,8 @@ static TSCreator *__creator;
 }
 
 - (id<TSIntentable>)createIntentableByClass:(Class<TSIntentable>)aClass intent:(TSIntent *)intent {
-    id<TSIntentable> object = [[aClass alloc] initWithIntent:intent];
+    id<TSIntentable> object = [[aClass alloc] init];
+    [object didCreateWithIntent:intent];
     if ([((id)object) respondsToSelector:@selector(ts_didCreate)]) {
         [object ts_didCreate];
     }

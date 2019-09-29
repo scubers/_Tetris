@@ -19,22 +19,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(ViewControllable)
 @protocol TSViewControllable
-
 - (UIViewController *)ts_viewController;
+@end
 
+NS_SWIFT_NAME(KVOInjectable)
+@protocol TSKVOInjectable
+- (nullable NSObject *)ts_kvoInjector;
 @end
 
 #pragma mark - TSIntentable
 
 NS_SWIFT_NAME(Intentable)
-@protocol TSIntentable <TSCreatable, TSViewControllable, NSObject>
+@protocol TSIntentable <TSCreatable, TSViewControllable, TSKVOInjectable>
 
 @property (nonatomic, strong, nullable) TSIntent *ts_sourceIntent;
 
-//+ (instancetype)ts_createWithIntent:(TSIntent *)intent;
-- (instancetype)initWithIntent:(TSIntent *)intent;
-
-@optional
+- (void)didCreateWithIntent:(TSIntent *)intent;
 
 + (nullable id<TSIntercepter>)ts_selfIntercepter;
 

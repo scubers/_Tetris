@@ -10,6 +10,16 @@ import UIKit
 // /user/info/100
 // /demo17/native_map/:class_name
 class Demo17Station: NSObject, Intentable, Routable {
+    func didCreate(with intent: Intent) {
+        if let name = self.ts_sourceIntent?.getString("className")
+            , let classType =  NSClassFromString(name) as? UIViewController.Type {
+            target = classType.init()
+        }
+    }
+    
+    func ts_kvoInjector() -> NSObject? {
+        return self
+    }
     
     required override init() {
         super.init()
@@ -19,16 +29,9 @@ class Demo17Station: NSObject, Intentable, Routable {
         return [LineDesc("/demo17/native_map/:className", desc: "Native Map. params: className")]
     }
 
-    required convenience init(intent: Intent) {
-        self.init()
-    }
-    
     var ts_sourceIntent: Intent? {
         didSet {
-            if let name = self.ts_sourceIntent?.getString("className")
-                , let classType =  NSClassFromString(name) as? UIViewController.Type {
-                target = classType.init()
-            }
+
         }
     }
     

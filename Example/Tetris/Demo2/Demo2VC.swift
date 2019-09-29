@@ -17,8 +17,7 @@ class Demo2VC: BaseVC, Routable {
     var name: String?
     var number: NSNumber?
     
-    convenience required init(intent: Intent) {
-        self.init()
+    override func didCreate(with intent: Intent) {
         name = intent.getString("name")
         number = intent.getNumber("number")
     }

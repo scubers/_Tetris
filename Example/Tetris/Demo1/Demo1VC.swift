@@ -37,14 +37,19 @@ final class SwiftServiceImpl: NSObject, IServiceable, Component, SwiftService {
     
 }
 
+class SSSSS: NSObject {
+    override init() {
+        super.init()
+    }
+    deinit {
+        print("")
+    }
+}
+
 class Demo1VC: BaseVC, Routable {
     
     class var routeURLs: [URLPresentable] {
         return [LineDesc("/swift/demo1", desc: "SwiftJustRoute")]
-    }
-    
-    required convenience init(intent: Intent) {
-        self.init()
     }
     
     override class func ts_selfIntercepter() -> Intercepter? {
@@ -54,12 +59,25 @@ class Demo1VC: BaseVC, Routable {
         }
     }
     
+    override func didCreate(with intent: Intent) {
+        
+    }
+    
+    override func ts_kvoInjector() -> NSObject? {
+        return self
+    }
+    
+    private var weak = SSSSS()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(self.parent as Any)
         
         let service = TSTetris.getService(by: SwiftService.self)
         service?.swiftMethod()
+        
+        
+        print(weak)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -14,11 +14,21 @@
 
 #pragma mark - 初始化
 
-- (instancetype)initWithIntent:(TSIntent *)intent {
-    if (self = [self init]) {
-        self.ts_sourceIntent = intent;
-    }
+- (void)xxxWithIntent:(TSIntent *)intent {
+//    UIViewController *vc = [self initWithNibName:nil bundle:nil];
+//    vc.ts_sourceIntent = intent;
+}
+
+- (NSObject *)ts_kvoInjector {
     return self;
+}
+
++ (id<TSIntercepter>)ts_selfIntercepter {
+    return nil;
+}
+
+- (void)didCreateWithIntent:(TSIntent *)intent {
+    
 }
 
 - (void)setTs_sourceIntent:(TSIntent *)ts_sourceIntent {

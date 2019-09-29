@@ -258,8 +258,9 @@
     
     if (intentable) {
         [(id<TSIntentable>)intentable setTs_sourceIntent:intent];
-        if (_viewControllableParamInject && [intentable isKindOfClass:[NSObject class]]) {
-            [((NSObject *)intentable) ts_autowireTSTypesWithDict:intent.extraParameters];
+        NSObject *injector = [intentable ts_kvoInjector];
+        if (_viewControllableParamInject && injector != nil) {
+            [injector ts_autowireTSTypesWithDict:intent.extraParameters];
         }
     }
 

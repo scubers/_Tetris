@@ -187,8 +187,10 @@
     }
 
     // self intercepter
-    if (intent.intentClass && [intent.intentClass respondsToSelector:@selector(ts_selfIntercepter)]) {
-        [intercepters addObject:[intent.intentClass ts_selfIntercepter]];
+//    if (intent.intentClass && [intent.intentClass respondsToSelector:@selector(ts_selfIntercepter)]) {
+    id<TSIntercepter> selfIntercepter = [intent.intentClass ts_selfIntercepter];
+    if (selfIntercepter != nil) {
+        [intercepters addObject:selfIntercepter];
     }
 
     // final intercepter
