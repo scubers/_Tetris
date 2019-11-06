@@ -78,13 +78,9 @@ class Demo1VC: BaseVC, Routable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(self.parent as Any)
         
-        let service = TSTetris.getService(by: SwiftService.self)
-        service?.swiftMethod()
-        
-        
-        print(weak)
+        BroadCast.shared.post(OCNotice())
+        BroadCast.shared.post(SwiftNotice())
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

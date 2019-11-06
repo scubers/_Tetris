@@ -9,7 +9,8 @@
 #import "TSAppDelegate.h"
 #import <Tetris/Tetris-umbrella.h>
 #import "Tetris_Example-Swift.h"
-
+#import "OCNotice.h"
+@import Tetris;
 
 @interface TSAppDelegate () <TSCreatorListener, TSInspectorHandler, TSInspectorBubbleIntercepter>
 
@@ -53,6 +54,14 @@
     [_Tetris enableViewControllableInjection];
     
     [TetrisSwiftStarter start];
+    
+    [[TSBroadCast shared] registeWithNotice:[OCNotice class] listener:self handler:^(id<TSNoticable> _Nonnull notice) {
+        NSLog(@"oc receive: %@", notice);
+    }];
+    [[TSBroadCast shared] registeWithNotice:[SwiftNotice class] listener:self handler:^(id<TSNoticable> _Nonnull notice) {
+        NSLog(@"oc receive: %@", notice);
+    }];
+    
     return [super application:application willFinishLaunchingWithOptions:launchOptions];
 }
 

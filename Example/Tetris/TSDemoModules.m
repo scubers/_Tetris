@@ -7,6 +7,8 @@
 //
 
 #import "TSDemoModules.h"
+#import "OCNotice.h"
+#import "Tetris_Example-Swift.h"
 @import Tetris;
 
 @protocol TSServiceA <NSObject>

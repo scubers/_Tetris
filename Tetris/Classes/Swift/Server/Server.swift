@@ -31,6 +31,20 @@ extension TSTetris {
     public static func getService<T>(by type: T.Type) -> T? {
         return TSTetris.shared().server.service(byName: "\(type)") as? T
     }
+    
+    public static func registe<T: Noticable>(_ notice: T.Type, listener: LifeEndable, handler: @escaping (T) -> Void) {
+        BroadCast.shared.registe(notice: notice, listener: listener) { (info) in
+            if let notice = info as? T {
+                handler(notice)
+            } else {
+                TSLogger.logMsg("Cannot convert \(info) to \(notice)")
+            }
+        }
+    }
+    
+    public static func post<T: Noticable>(_ notice: T) {
+        BroadCast.shared.post(notice)
+    }
 }
 
 extension WeakSingleton {

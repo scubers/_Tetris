@@ -7,6 +7,7 @@
 //
 
 #import "RIDemo1ViewController.h"
+#import "Tetris_Example-Swift.h"
 
 @interface ASingleService : NSObject
 @end
@@ -18,6 +19,7 @@
 
 @import Tetris;
 #import "TSParams.h"
+#import "OCNotice.h"
 
 @protocol RIDemo1ServicePrt <NSObject>
 
@@ -56,6 +58,9 @@ TS_ROUTE_MSG(@"/demo1", @"Just Route")
     
     TSSpecIntent<TSParams *, TSParams *> *intent = [TSSpecIntent new];
     [intent input:[TSParams params:@"1" number:@2 integer:3]];
+    
+    [[TSBroadCast shared] post:[OCNotice new]];
+    [[TSBroadCast shared] post:[SwiftNotice new]];
 }
 
 + (id<TSIntercepter>)ts_selfIntercepter {
