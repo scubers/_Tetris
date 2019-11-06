@@ -33,7 +33,7 @@ extension TSTetris {
     }
     
     public static func registe<T: Noticable>(_ notice: T.Type, listener: LifeEndable, handler: @escaping (T) -> Void) {
-        BroadCast.shared.registe(notice: notice, listener: listener) { (info) in
+        BroadCast.shared.registe(for: notice, listener: listener) { (info) in
             if let notice = info as? T {
                 handler(notice)
             } else {

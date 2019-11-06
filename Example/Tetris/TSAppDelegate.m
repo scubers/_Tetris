@@ -55,10 +55,10 @@
     
     [TetrisSwiftStarter start];
     
-    [[TSBroadCast shared] registeWithNotice:[OCNotice class] listener:self handler:^(id<TSNoticable> _Nonnull notice) {
+    [[TSBroadCast shared] registeFor:[OCNotice class] listener:self handler:^(id<TSNoticable> _Nonnull notice) {
         NSLog(@"oc receive: %@", notice);
     }];
-    [[TSBroadCast shared] registeWithNotice:[SwiftNotice class] listener:self handler:^(id<TSNoticable> _Nonnull notice) {
+    [[TSBroadCast shared] registeFor:[SwiftNotice class] listener:self handler:^(id<TSNoticable> _Nonnull notice) {
         NSLog(@"oc receive: %@", notice);
     }];
     

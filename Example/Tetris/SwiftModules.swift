@@ -21,10 +21,10 @@ class SwiftModules1: NSObject, Modularable {
     func tetrisModuleInit(_ context: ModuleContext) {
         print("\(type(of: self)) \(#function)")
         
-        BroadCast.shared.registe(notice: OCNotice.self, listener: self) { (notice) in
+        BroadCast.shared.registe(for: OCNotice.self, listener: self) { (notice) in
             print("swift receive: \(notice)")
         }
-        BroadCast.shared.registe(notice: SwiftNotice.self, listener: self) { (notice) in
+        BroadCast.shared.registe(for: SwiftNotice.self, listener: self) { (notice) in
             print("swift receive: \(notice)")
         }
         

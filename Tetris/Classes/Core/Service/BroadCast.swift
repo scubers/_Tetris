@@ -21,8 +21,8 @@ public class BroadCast: NSObject {
     @objc public static let shared = BroadCast()
     private static let broadCastKey = "broadCastKey"
     
-    @objc public func registe(notice: Noticable.Type, listener: LifeEndable, handler: @escaping (Noticable) -> Void) {
-        let name = NSNotification.Name(getNoticeName(type: notice))
+    @objc public func registe(for noticeType: Noticable.Type, listener: LifeEndable, handler: @escaping (Noticable) -> Void) {
+        let name = NSNotification.Name(getNoticeName(type: noticeType))
         let obj = NotificationCenter.default.addObserver(forName: name, object: self, queue: .main) { (n) in
             if let info = n.userInfo?[BroadCast.broadCastKey] as? Noticable {
                 handler(info)
