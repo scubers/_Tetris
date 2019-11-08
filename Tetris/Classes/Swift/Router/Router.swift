@@ -88,8 +88,11 @@ extension TSTetris {
     /// - Parameters:
     ///   - intent: intent
     ///   - source: ViewController
-    public static func start(intent: Intent, source: UIViewController) {
-        _ = TSTetris.shared().router.prepare(intent, source: source, complete: nil).subscribe()
+    public static func start(intent: Intent, source: UIViewController, displayer: ViewDisplayer? = nil, complete: (() -> Void)? = nil) {
+        if let displayer = displayer {
+            intent.displayer = displayer
+        }
+        _ = prepare(intent: intent, source: source, complete: complete).subscribe()
     }
 
 

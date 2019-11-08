@@ -15,7 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(PresentDismissDisplayer)
 @interface TSPresentDismissDisplayer : TSDisplayerAdapter
 
-@property (nonatomic, strong) Class navigationViewControllerClass;
+@property (nonatomic, strong, nullable) Class navigationViewControllerClass;
+@property (nonatomic, assign) UIModalPresentationStyle presentStyle;
+@property (nonatomic, assign) UIModalTransitionStyle transitionStyle;
+
+- (instancetype)initWithNav:(nullable Class)navClass;
+- (instancetype)initWithNav:(nullable Class)navClass presentStyle:(UIModalPresentationStyle)present;
+- (instancetype)initWithNav:(nullable Class)navClass presentStyle:(UIModalPresentationStyle)present transitionStyle:(UIModalTransitionStyle)transitionStyle NS_DESIGNATED_INITIALIZER;
 
 @end
 

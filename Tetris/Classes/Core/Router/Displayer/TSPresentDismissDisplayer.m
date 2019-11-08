@@ -17,19 +17,32 @@
 
 @implementation TSPresentDismissDisplayer
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        _navigationViewControllerClass = [UINavigationController class];
+- (instancetype)init {
+    return [self initWithNav:[UINavigationController class]];
+}
+
+- (instancetype)initWithNav:(Class)navClass {
+    return [self initWithNav:navClass presentStyle:UIModalPresentationFullScreen];
+}
+
+- (instancetype)initWithNav:(Class)navClass presentStyle:(UIModalPresentationStyle)present {
+    return [self initWithNav:navClass presentStyle:present transitionStyle:UIModalTransitionStyleCoverVertical];
+}
+
+- (instancetype)initWithNav:(Class)navClass presentStyle:(UIModalPresentationStyle)present transitionStyle:(UIModalTransitionStyle)transitionStyle {
+    if (self = [super init]) {
+        _navigationViewControllerClass = navClass;
+        _presentStyle = present;
+        _transitionStyle = transitionStyle;
     }
     return self;
 }
 
 - (void)ts_displayFromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC animated:(BOOL)animated completion:(void (^)(void))completion {
-    if (![toVC isKindOfClass:[UINavigationController class]]) {
+    if (![toVC isKindOfClass:[UINavigationController class]] && _navigationViewControllerClass != nil) {
         toVC = [[_navigationViewControllerClass alloc] initWithRootViewController:toVC];
     }
+    toVC.modalPresentationStyle = _presentStyle;
     [fromVC presentViewController:toVC animated:animated completion:^{
         if (completion) {
             completion();
