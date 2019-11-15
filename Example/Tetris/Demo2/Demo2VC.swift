@@ -20,7 +20,25 @@ class Demo2VC: BaseVC, Routable {
     override func didCreate(with intent: Intent) {
         name = intent.getString("name")
         number = intent.getNumber("number")
+        IntentParamInjector.inject(intent: intent, to: self)
     }
+    
+    struct Param: IntentParameter {
+        var name: String?
+        var number: Int = 0
+        static func from(intent: Intent?) -> Self {
+            return Param(name: intent?.getString("name"),
+                         number: intent?.getNumber("number")?.intValue ?? 0)
+        }
+    }
+    
+    @TSInjectParam()
+    var param: Param
+    
+    @TSInjected(key: "name")
+    var myName: String?
+    @TSInjected(key: "number")
+    var myNumber: Int
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,11 +46,15 @@ class Demo2VC: BaseVC, Routable {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        print("""
+        myName: \(myName)
+        myNumber: \(myNumber)
+        """)
         alert(msg: """
             fragment: \(String(describing: ts_sourceIntent?.urlComponent?.fragment))
             params: \(String(describing: ts_sourceIntent?.urlComponent?.params))
-            name: \(String(describing: name))
-            number: \(String(describing: number))
+            name: \(String(describing: param?.name))
+            number: \(String(describing: param?.number))
             """)
     }
 

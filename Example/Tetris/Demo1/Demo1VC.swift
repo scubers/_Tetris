@@ -52,6 +52,9 @@ class Demo1VC: BaseVC, Routable {
         return [LineDesc("/swift/demo1", desc: "SwiftJustRoute")]
     }
     
+    @TSDependency<UITableViewDelegate>()
+    var service
+    
     override class func ts_selfIntercepter() -> Intercepter? {
         return FinalIntercepter {
             print("----- demo1 vc self intercepter -----")
