@@ -11,6 +11,7 @@
 #import "TSLogger.h"
 #import "TSCreator.h"
 #import "TSTypesAutowire.h"
+#import <Tetris/Tetris-Swift.h>
 
 #pragma mark - _TSRouteAction
 
@@ -261,6 +262,9 @@
         NSObject *injector = [intentable ts_kvoInjector];
         if (_viewControllableParamInject && injector != nil) {
             [injector ts_autowireTSTypesWithDict:intent.extraParameters];
+        }
+        if (_viewControllableParamInject) {
+            [IntentParamInjector injectWithIntent:intent to:intentable];
         }
     }
 

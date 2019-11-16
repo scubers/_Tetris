@@ -16,7 +16,7 @@ protocol SetIntentable {
     func setIntent(_ intent: Intent?)
 }
 
-@propertyWrapper public class TSInjectParam<InjectType: IntentParameter>: SetIntentable {
+@propertyWrapper public class InjectedObject<InjectType: IntentParameter>: SetIntentable {
     
     public func setIntent(_ intent: Intent?) {
         self.intent = intent
@@ -31,7 +31,7 @@ protocol SetIntentable {
     public var projectedValue: InjectType?
 }
 
-@propertyWrapper public class TSInjected<Value>: SetIntentable {
+@propertyWrapper public class Injected<Value>: SetIntentable {
     func setIntent(_ intent: Intent?) {
         self.intent = intent
     }
@@ -67,8 +67,8 @@ protocol SetIntentable {
     }
 }
 
-public struct IntentParamInjector {
-    public static func inject(intent: Intent?, to object: Any) {
+@objc public class IntentParamInjector: NSObject {
+    @objc public static func inject(intent: Intent?, to object: Any) {
         Mirror(reflecting: object).children.forEach { (m) in
             if let v = m.value as? SetIntentable {
                 v.setIntent(intent)

@@ -14,15 +14,6 @@ class Demo2VC: BaseVC, Routable {
         return ["/swift/demo2/demo2"]
     }
 
-    var name: String?
-    var number: NSNumber?
-    
-    override func didCreate(with intent: Intent) {
-        name = intent.getString("name")
-        number = intent.getNumber("number")
-        IntentParamInjector.inject(intent: intent, to: self)
-    }
-    
     struct Param: IntentParameter {
         var name: String?
         var number: Int = 0
@@ -32,12 +23,12 @@ class Demo2VC: BaseVC, Routable {
         }
     }
     
-    @TSInjectParam()
+    @InjectedObject()
     var param: Param
     
-    @TSInjected(key: "name")
+    @Injected(key: "name")
     var myName: String?
-    @TSInjected(key: "number")
+    @Injected(key: "number")
     var myNumber: Int
 
     override func viewDidLoad() {
