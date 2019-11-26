@@ -12,10 +12,6 @@ public protocol IntentParameter {
     static func from(intent: Intent?) -> Self
 }
 
-protocol SetIntentable {
-    func setIntent(_ intent: Intent?)
-}
-
 @propertyWrapper public class InjectedObject<InjectType: IntentParameter>: SetIntentable {
     
     public func setIntent(_ intent: Intent?) {
@@ -63,16 +59,6 @@ protocol SetIntentable {
             return intent?.getNumber(key)?.floatValue as? Value
         } else {
             return nil
-        }
-    }
-}
-
-@objc public class IntentParamInjector: NSObject {
-    @objc public static func inject(intent: Intent?, to object: Any) {
-        Mirror(reflecting: object).children.forEach { (m) in
-            if let v = m.value as? SetIntentable {
-                v.setIntent(intent)
-            }
         }
     }
 }
