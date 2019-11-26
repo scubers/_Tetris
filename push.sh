@@ -35,8 +35,8 @@ echo $pod_spec_name
 # 修改版本号
 sed -i "" "s/s.version *= *[\"\'][^\"]*[\"\']/s.version=\"$version\"/g" $pod_spec_name.podspec
 
-git commit $pod_spec_name.podspec -m "修改版本号：${}"
-git tag -m "update podspec" $thisTag
+git commit $pod_spec_name.podspec -m "修改版本号：${version}"
+git tag -m "update podspec" $version
 git push --tags
 
 # pod repo push PrivatePods --sources=$sources
