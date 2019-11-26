@@ -96,3 +96,16 @@ extension NSObject: LifeEndable {
         }
     }
 }
+
+
+/// 广播频道
+@objc(TSChannel) public class Channel: NSObject {
+    
+    @objc public func post(notice: Noticable) {
+        BroadCast.shared.post(notice)
+    }
+    
+    @objc public func listen(type: Noticable.Type, _ action: @escaping (Noticable) -> Void) {
+        BroadCast.shared.registe(for: type, listener: self, handler: action)
+    }
+}

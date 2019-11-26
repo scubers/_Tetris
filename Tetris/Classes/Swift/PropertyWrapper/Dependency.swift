@@ -20,19 +20,3 @@
     }()
     public var wrappedValue: ValueType? { _value }
 }
-
-/// weak singleton
-@propertyWrapper public class SingletonStub<ValueType: Destroyable> {
-    
-    public init(_ holder: Destroyable?) {
-        self.holder = holder
-    }
-    private var holder: Destroyable?
-    private lazy var _value: ValueType = {
-        if let holder = self.holder {
-            return WeakSingleton.create(by: ValueType.self, from: holder)
-        }
-        return WeakSingleton.create(by: ValueType.self)
-    }()
-    public var wrappedValue: ValueType? { _value }
-}

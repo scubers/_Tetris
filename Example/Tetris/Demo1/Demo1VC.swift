@@ -46,14 +46,24 @@ class SSSSS: NSObject {
     }
 }
 
+class BB: Noticable {
+    
+}
+
 class Demo1VC: BaseVC, Routable {
     
     class var routeURLs: [URLPresentable] {
         return [LineDesc("/swift/demo1", desc: "SwiftJustRoute")]
     }
     
-    @Dependency<UITableViewDelegate>()
-    var service
+    @Dependency()
+    var service: UITableViewDelegate?
+    
+    @WeakStub()
+    var sss: SSSSS
+    
+    @Listener<BB>()
+    var bb
     
     override class func ts_selfIntercepter() -> Intercepter? {
         return FinalIntercepter {
@@ -81,7 +91,6 @@ class Demo1VC: BaseVC, Routable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         BroadCast.shared.post(OCNotice())
         BroadCast.shared.post(SwiftNotice())
     }
