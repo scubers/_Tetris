@@ -20,5 +20,5 @@ import Foundation
         }
         return WeakSingleton.create(by: ValueType.self)
     }()
-    public var wrappedValue: ValueType? { _value }
+    public var wrappedValue: ValueType { _value }
 }
