@@ -22,7 +22,22 @@
 
 - (void)ts_setNeedDisplay:(UIViewController *)vc animated:(BOOL)animated completion:(void (^)(void))completion {
     [self dismissViewController:vc animated:animated completion:^{
-        [vc.navigationController ts_popToViewController:vc animated:animated completion:completion];
+        __block UIViewController *target;
+        if ([vc.navigationController.viewControllers containsObject:vc]) {
+            target = vc;
+        } else {
+            // 校验子vc
+            [vc.navigationController.viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj.childViewControllers containsObject:vc]) {
+                    target = obj;
+                }
+            }];
+        }
+        if (target != nil) {
+            [vc.navigationController ts_popToViewController:target animated:animated completion:completion];
+        } else {
+            [vc.navigationController ts_popToRootViewControllerAnimated:animated completion:completion];
+        }
     }];
 }
 
