@@ -28,9 +28,12 @@
         } else {
             // 校验子vc
             [vc.navigationController.viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([obj.childViewControllers containsObject:vc]) {
+                if ([self checkViewController:obj contains:vc]) {
                     target = obj;
                 }
+//                if ([obj.childViewControllers containsObject:vc]) {
+//                    target = obj;
+//                }
             }];
         }
         if (target != nil) {
@@ -39,6 +42,19 @@
             [vc.navigationController ts_popToRootViewControllerAnimated:animated completion:completion];
         }
     }];
+}
+
+- (BOOL)checkViewController:(UIViewController *)vc contains:(UIViewController *)target {
+    if ([vc isEqual:target]) {
+        return YES;
+    }
+    if (vc.childViewControllers.count == 0) {
+        return NO;
+    }
+    for (UIViewController *sub in vc.childViewControllers) {
+        return [self checkViewController:sub contains:target];
+    }
+    return NO;
 }
 
 - (void)dismissViewController:(UIViewController *)vc animated:(BOOL)animated completion:(void (^)(void))completion {

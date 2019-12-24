@@ -24,12 +24,12 @@ class Demo2VC: BaseVC, Routable {
     }
     
     @InjectedObject()
-    var param: Param
+    var param: Param?
     
     @Injected(key: "name")
     var myName: String?
     @Injected(key: "number")
-    var myNumber: Int
+    var myNumber: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
