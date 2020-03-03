@@ -7,7 +7,7 @@ diff=`git diff`
 
 # 列举tag
 echo "--------tag list--------"
-git tag -l --sort=taggerdate
+git tag -l --sort=taggerdate|tail -n 10
 echo "--------tag list--------"
 
 if [ ${#diff} != 0 ];
