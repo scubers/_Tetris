@@ -12,6 +12,8 @@
 
 @implementation TSBaseApplicationDelegate
 
+@synthesize window;
+
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     TSModuleContext *context = [TSModuleContext shared];
     context.launchOptions = launchOptions;

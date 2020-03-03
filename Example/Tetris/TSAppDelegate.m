@@ -44,8 +44,6 @@
     [[[TSInspector shared] getTopViewController] presentViewController:alert animated:YES completion:nil];
 }
 
-@synthesize window = _window;
-
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[TSCreator shared] addListener:self];
     
