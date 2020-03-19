@@ -31,15 +31,16 @@
                 if ([self checkViewController:obj contains:vc]) {
                     target = obj;
                 }
-//                if ([obj.childViewControllers containsObject:vc]) {
-//                    target = obj;
-//                }
             }];
         }
-        if (target != nil) {
-            [vc.navigationController ts_popToViewController:target animated:animated completion:completion];
+        if (vc.navigationController) {
+            if (target != nil) {
+                [vc.navigationController ts_popToViewController:target animated:animated completion:completion];
+            } else {
+                [vc.navigationController ts_popToRootViewControllerAnimated:animated completion:completion];
+            }
         } else {
-            [vc.navigationController ts_popToRootViewControllerAnimated:animated completion:completion];
+            completion();
         }
     }];
 }

@@ -11,7 +11,7 @@
 
 @interface TSPresentDismissDisplayer ()
 
-@property (nonatomic, strong) UIViewController *ts_sourceViewController;
+@property (nonatomic, weak) UIViewController *ts_sourceViewController;
 
 @end
 
@@ -47,13 +47,13 @@
         if (completion) {
             completion();
         }
-        _ts_sourceViewController = fromVC;
+        self.ts_sourceViewController = fromVC;
     }];
 }
 
 - (void)ts_finishDisplayViewController:(UIViewController *)vc animated:(BOOL)animated completion:(void (^)(void))completion {
 //    [vc dismissViewControllerAnimated:animated completion:completion];
-    [(_ts_sourceViewController ?: vc) dismissViewControllerAnimated:animated completion:^{
+    [(self.ts_sourceViewController ?: vc) dismissViewControllerAnimated:animated completion:^{
         if (completion) {
             completion();
         }
