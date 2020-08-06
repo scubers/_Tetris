@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Tetris'
-  s.version="0.6.7"
+  s.version="0.6.8"
   s.summary          = 'A short description of Tetris.'
 
 # This description is used to generate tags and improve search results.
