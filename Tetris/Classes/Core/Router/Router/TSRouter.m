@@ -179,6 +179,14 @@
     
     // 当前intent不能构造target的时候，需要查询树
     if (!intent.isCreatable && intent.urlString.length > 0) {
+        NSURL *URL = [NSURL URLWithString:intent.urlString];
+        if (URL == nil) { // 跑出错误，非法url
+            NSError *error = [NSError ts_errorWithCode:-123863 msg:[NSString stringWithFormat:@"invalid url:[%@]", intent.urlString]];
+            TSRouteResult *result = [TSRouteResult resultWithStatus:TSRouteResultStatusRejected viewControllable:nil intent:intent error:error];
+            finish(result);
+            return;
+        }
+        // 确保url 是正确的url
         TSTreeUrlComponent *comp = [_viewTree findByURL:intent.urlString];
         intent.urlComponent = comp;
         intent.intentClass = ((TSLine *)(comp.value)).intentableClass;

@@ -26,6 +26,7 @@ class MenuVC: BaseVC, Routable {
         ["7. Global mismatch" : Intent.pushPop(byUrl: "/swift/demo7/lkj/33/6lkjo")],
         ["8. Action" : Intent.pushPop(byUrl: "/swift/demo8")],
         ["9. Native map" : Intent.pushPop(byUrl: "/demo17/native_map/UIViewController")],
+        ["10. Invalid url: /a/b/c?abc={xx}" : Intent.pushPop(byUrl: "/a/b/c?abc={xx}")],
     ]
 
     override func viewDidLoad() {
