@@ -53,7 +53,9 @@
         return NO;
     }
     for (UIViewController *sub in vc.childViewControllers) {
-        return [self checkViewController:sub contains:target];
+        if ([self checkViewController:sub contains:target]) {
+            return YES;
+        }
     }
     return NO;
 }
