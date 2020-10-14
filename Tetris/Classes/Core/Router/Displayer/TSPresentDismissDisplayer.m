@@ -53,7 +53,8 @@
 
 - (void)ts_finishDisplayViewController:(UIViewController *)vc animated:(BOOL)animated completion:(void (^)(void))completion {
 //    [vc dismissViewControllerAnimated:animated completion:completion];
-    [(self.ts_sourceViewController ?: vc) dismissViewControllerAnimated:animated completion:^{
+//    [(self.ts_sourceViewController ?: vc) dismissViewControllerAnimated:animated completion:^{
+    [vc dismissViewControllerAnimated:animated completion:^{
         if (completion) {
             completion();
         }
